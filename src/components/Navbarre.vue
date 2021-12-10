@@ -2,7 +2,7 @@
   <div class="nav_container">
     <nav>
       <div class="logo">
-        <img src="../assets/img/logo_color.png" style="width:100px">
+        <img src="../assets/img/logo_without_title.png" style="width:100px">
       </div>
       <div class="admin_creation">
         <ul>

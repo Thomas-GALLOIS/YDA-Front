@@ -1,4 +1,5 @@
 <template>
+<Navbarre/>
   <div class="form_connexion">
     <form @submit.prevent="connectUser()">
       <div class="inside_form">
@@ -19,6 +20,7 @@
 </template>
 <script>
 import Footer from "../components/Footer.vue";
+import Navbarre from '../components/Navbarre.vue';
 export default {
   data() {
     return {
@@ -29,6 +31,7 @@ export default {
 
   components: {
     Footer: Footer,
+    Navbarre,
   },
 
   methods: {
