@@ -15,14 +15,20 @@
       </div>
     </form>
   </div>
+  <Footer></Footer>
 </template>
 <script>
+import Footer from "../components/Footer.vue";
 export default {
   data() {
     return {
       email: "",
       password: "",
     };
+  },
+
+  components: {
+    Footer: Footer,
   },
 
   methods: {
