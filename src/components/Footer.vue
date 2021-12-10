@@ -3,7 +3,7 @@
     <div class="footer-left">
       <img
         class="logo_footer"
-        src="../assets/logo_without_title.png"
+        src="../assets/img/logo_without_title.png"
         alt="your_daily_assistant_logo"
       />
     </div>
