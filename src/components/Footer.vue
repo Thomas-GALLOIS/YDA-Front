@@ -3,7 +3,7 @@
     <div class="footer-left">
       <img
         class="logo_footer"
-        src="../assets/logo_without_title.png"
+        src="../assets/img/logo_without_title.png"
         alt="your_daily_assistant_logo"
       />
     </div>
@@ -22,16 +22,24 @@
 
     <div class="footer-right">
       <div class="footer-icons">
-        <a href="https://www.facebook.com/yda.yourdailyassistant/"
+        <a
+          target="_blank"
+          href="https://www.facebook.com/yda.yourdailyassistant/"
           ><i class="fab fa-facebook-square"></i
         ></a>
-        <a href="https://www.instagram.com/yda.yourdailyassistant/"
+        <a
+          target="_blank"
+          href="https://www.instagram.com/yda.yourdailyassistant/"
           ><i class="fab fa-instagram"></i
         ></a>
-        <a href="https://www.linkedin.com/company/yourdailyassistant/"
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/company/yourdailyassistant/"
           ><i class="fab fa-linkedin-in"></i
         ></a>
-        <a href="https://www.youtube.com/channel/UCcjWFm7MIB4Jop42q3ym-6g/"
+        <a
+          target="_blank"
+          href="https://www.youtube.com/channel/UCcjWFm7MIB4Jop42q3ym-6g/"
           ><i class="fab fa-youtube"></i
         ></a>
       </div>
