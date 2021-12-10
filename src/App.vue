@@ -6,6 +6,7 @@
 body {
   margin: 0%;
   padding: 0%;
+  font-family: 'Trebuchet MS';
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
