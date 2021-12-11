@@ -1,5 +1,5 @@
 <template>
-<Navbarre/>
+  <Navbarre />
   <div class="form_connexion">
     <form @submit.prevent="connectUser()">
       <div class="inside_form">
@@ -20,7 +20,7 @@
 </template>
 <script>
 import Footer from "../components/Footer.vue";
-import Navbarre from '../components/Navbarre.vue';
+import Navbarre from "../components/Navbarre.vue";
 export default {
   data() {
     return {
@@ -90,15 +90,15 @@ label {
   color: #0f0f0f;
   background: #db9024;
   cursor: pointer;
-  border: 2px solid #0f0f0f;
+
   transition: background 1s;
   height: 40px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 #submit_btn:hover {
-  color: #db9024;
-  background: #0f0f0f;
-  border: 2px solid #db9024;
-  transition: background 1s;
+  color: #0f0f0f;
+  transition: box-shadow 1s;
+  box-shadow: inset 3px 3px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
 .img_container img {
