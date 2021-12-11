@@ -1,17 +1,19 @@
 <template>
   <Navbarre />
   <div class="form_connexion">
+    <!--FORM -->
     <form @submit.prevent="connectUser()">
       <div class="inside_form">
         <div class="img_container">
           <img src="../assets/img/logo_color.png" alt="" />
         </div>
+        <!--EMAIL -->
         <label for="username">Login</label>
         <input id="username" type="email" v-model="email" />
-
+        <!--PASSWORD -->
         <label for="password">Password</label>
         <input id="password" type="password" v-model="password" />
-
+        <!-- CONNECTION BOUTON -->
         <input id="submit_btn" type="submit" value="Connexion" />
       </div>
     </form>
@@ -35,9 +37,10 @@ export default {
   },
 
   methods: {
+    //Demande asynchronisée permettant la récupération des identifiants utilisateur via l'API
     async connectUser() {
       const url = "http://127.0.0.1:8000/api/connexion";
-
+      //Options de la requête API
       const options = {
         method: "POST",
         headers: {
@@ -49,14 +52,15 @@ export default {
           password: this.password,
         }),
       };
+      // création de la const de réponse qui va chercher les options de l'API
       const response = await fetch(url, options);
       console.log(response);
-
+      // Création de la const data qui nous permet la récupération des data stockées dans l'API
       const data = await response.json();
       console.log(data);
-
+      // Sauvegarde du token généré par l'API lors de la connection
       localStorage.setItem("@token", data.access_token);
-
+      //Si le status renvoyé par l'API est 200 alors on redirige vers la page utilisateur
       if (data.status_code == 200) {
         this.$router.push("/dashboard");
       }
