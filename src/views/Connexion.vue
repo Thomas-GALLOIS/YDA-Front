@@ -36,7 +36,7 @@ export default {
 
   methods: {
     async connectUser() {
-      const url = "localhost";
+      const url = "http://127.0.0.1:8000/api/connexion";
 
       const options = {
         method: "POST",
@@ -54,6 +54,12 @@ export default {
 
       const data = await response.json();
       console.log(data);
+
+      localStorage.setItem("@token", data.access_token);
+
+      if (data.status_code == 200) {
+        this.$router.push("/dashboard");
+      }
     },
   },
 };
