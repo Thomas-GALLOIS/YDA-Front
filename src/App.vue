@@ -6,10 +6,10 @@
 body {
   margin: 0%;
   padding: 0%;
-  font-family: 'Trebuchet MS';
+  font-family: "Trebuchet MS";
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Trebuchet MS, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
