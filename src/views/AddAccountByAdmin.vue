@@ -6,31 +6,66 @@
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
     <select @change="selectCategory($event)" name="add_account" id="add_account" >
+        <option value="admin">Choix</option>
         <option value="admin">Admin</option>
         <option value="manager">Manager</option>
         <option value="member">Member</option>
     </select>
-
+    <div class="form">
     <!-- formulaire création de nouveau compte -->
-    <form class="form_admin">
-        <div class="admin_form">
-            <label for="prenom">Prenom : </label>
-            <input type="text" id="lastName" v-model="inputPrenom" />
-            <!-- FIRST NAME -->
-            <label for="nom">Nom : </label>
-            <input type="text" id="firstName" v-model="inputNom" />
-            <!-- EMAIL -->
-            <label for="email">E-mail : </label>
-            <input type="text" id="email" v-model="inputEmail" />
-            <!-- PASSWORD -->
-            <label for="password">Password : </label>
-            <input type="password" id="password" v-model="inputPassword">
-        </div>
+    <form @submit.prevent="CreateAccountAdmin()" class="form_admin">
+        <div v-if="this.accountSelect == 'admin'">
+            <div class="first_name">
+                <label for="first_name">Prenom : </label>
+                <input type="text" id="first_name" v-model="inputFirstName" />
+            </div>
+           
+            <div class="last_name">
+                <label for="last_name">Nom : </label>
+                <input type="text" id="last_name" v-model="inputLastName" />
+            </div>
+           
+            <div class="email">
+                <label for="email">E-mail : </label>
+                <input type="text" id="email" v-model="inputEmail" />
+            </div>          
+        
+            <div class="password">
+                <label for="password">Password : </label>
+                <input type="password" id="password" v-model="inputPassword">
+            </div>
 
-        <div v-if="this.event == 'manager'">
-            <div class="telephone">
-                <label for="telephone">Téléphone : </label>
-                <input type="tel" id="telephone" v-model="inputTelephone">
+            <input class="add_account_button" type="submit" value="Valider">
+        </div>
+    </form>
+
+        <!-- formulaire de création de compte manager -->
+    <form class="manger_form">
+        <div v-if="this.accountSelect == 'manager'">
+            
+            <div class="first_name">
+                <label for="first_name">Prenom : </label>
+                <input type="text" id="first_name" v-model="inputFirstName" />
+            </div>
+           
+            <div class="last_name">
+                <label for="last_name">Nom : </label>
+                <input type="text" id="last_name" v-model="inputLastName" />
+            </div>
+           
+            <div class="email">
+                <label for="email">E-mail : </label>
+                <input type="text" id="email" v-model="inputEmail" />
+            </div>          
+        
+            <div class="password">
+                <label for="password">Password : </label>
+                <input type="password" id="password" v-model="inputPassword">
+            </div>
+
+            <div class="phone">
+                <label for="add_phone">Téléphone : </label>
+                <input type="tel" id="add_phone" v-model="inputPhone">
             </div>
             <div class="firm">
                 <label for="firm">Entreprise : </label>
@@ -38,13 +73,54 @@
                     <option value=""></option>
                 </select>
             </div>
+             <input class="add_account_button" type="submit" value="Valider">
         </div>
-
-
-
-
-          <input class="add_account_button" type="submit" value="Valider">
     </form>
+
+        <!-- formulaire de création de compte membre -->
+    <form class="member_form">
+        <div v-if="this.accountSelect == 'member'">
+            
+            <div class="first_name">
+                <label for="first_name">Prenom : </label>
+                <input type="text" id="first_name" v-model="inputFirstName" />
+            </div>
+           
+            <div class="last_name">
+                <label for="last_name">Nom : </label>
+                <input type="text" id="last_name" v-model="inputLastName" />
+            </div>
+           
+            <div class="email">
+                <label for="email">E-mail : </label>
+                <input type="text" id="email" v-model="inputEmail" />
+            </div>          
+        
+            <div class="password">
+                <label for="password">Password : </label>
+                <input type="password" id="password" v-model="inputPassword">
+            </div>
+             
+            <div class="phone">
+                <label for="add_phone">Téléphone : </label>
+                <input type="tel" id="add_phone" v-model="inputPhone">
+            </div>
+
+            <div class="comment">
+                <label for="add_comment">Commentaire</label>
+                <input type="text" name="add_comment" id="add_comment" v-model="inputComment">
+            </div>
+
+            <div class="firm">
+                <label for="add_firm">Entreprise : </label>
+                <select name="add_firm" id="add_firm">
+                    <option value=""></option>
+                </select>
+            </div>
+            <input class="add_account_button" type="submit" value="Valider">
+        </div>
+    </form>
+    </div>
 </template>
 
 
@@ -56,44 +132,79 @@ import Navbarre from "../components/Navbarre.vue";
 
 export default {
     name:"AddAccount",
+    // component
     components: {
         Navbarre: Navbarre,
     },
-
+    // data properties
     data() {
         return {
-            inputPrenom: "",
-            inputNom:"",
+            inputFirstName: "",
+            inputLastName:"",
             inputEmail: "",
             inputPassword: "",
-            inputTelephone: "",
-            event:"",
+            inputPhone: "",
+            inputComment: "",
+            accountSelect:"",
+            firmSelect:"",
+            success:""
             
         };
     },
-
+    // methodes
     methods: {
-        selectCategory(event) {
-
-            const toto = event.target.value;
-            this.event = toto;
-            
-            console.log(this.event);
-
-        }
         
-    }
-}
+        //Demande asynchronisée permettant l'inscription de l'utilisateur et l'envoi des données saisies au serveur API
+    async CreateAccountAdmin() {
+      const url = "localhost";
+      //Options de la requête API
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // Ne pas oublier de stringify
+        body: JSON.stringify({
+          firstname: this.inputFirstName,
+          lastname: this.inputLastName,
+          email: this.inputEmail,
+          password: this.inputPassword,
+        }),
+      };
+      // va chercher les options de l'API
+      const response = await fetch(url, options);
+      console.log(response);
+      // la récupération des data stockées dans l'API
+      const data = await response.json();
+      console.log(data);
+      //Récupération du booléan success généré par l'API afin d'indiqué à l'utilisateur qu'il a bien rempli tous les champs de saisis
+      this.success = data.success;
+        
+    },
+
+    selectCategory(event) {
+
+            this.accountSelect = event.target.value;
+    },
+    },
+};
 </script>
 
 <style>
-.form_admin {
+
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 500px;
+    width: 220px;
+    margin-left: 45%;
+    text-align: initial;
+    justify-content: space-evenly;
 }
 
-.form_admin input {
+.form input {
     width: 200px;
+    margin-bottom: 20px;
 }
 </style>
