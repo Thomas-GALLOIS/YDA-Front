@@ -6,28 +6,32 @@
         <h1>Ajouter un nouveau service</h1>
         <br />
         <label for="name">Nom</label>
-        <br />
+
         <input id="name" type="text" v-model="name" />
         <br />
         <br />
         <label for="description">Description</label>
-        <br />
+
         <textarea id="description" v-model="description"></textarea>
         <br />
         <br />
         <label for="image">Image</label>
-        <br />
-        <img :src="previewImage" class="uploading-image" />
+
         <input type="file" id="image" @change="uploadImage" />
+        <br />
+        <div class="img_container">
+          <img :src="previewImage" class="uploading-image" />
+        </div>
+
         <br />
         <br />
         <label for="email">Email</label>
-        <br />
+
         <input type="email" id="email" v-model="email" />
         <br />
         <br />
         <label for="telephone">Téléphone</label>
-        <br />
+
         <input type="tel" id="telephone" v-model="telephone" />
         <br />
         <br />
@@ -97,7 +101,59 @@ export default {
 };
 </script>
 <style scoped>
+.form_add_service {
+  width: 100%;
+}
+form {
+  margin: auto;
+}
+input,
+textarea {
+  width: 50%;
+  height: 30px;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+label {
+  text-align: left;
+  margin: auto;
+}
+#submit_btn {
+  width: 30%;
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  border: 2px solid #0f0f0f;
+  transition: background 1s;
+  height: 40px;
+}
+#submit_btn:hover {
+  color: #db9024;
+  background: #0f0f0f;
+  border: 2px solid #db9024;
+  transition: background 1s;
+}
+.inside_form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  border-radius: 20%;
+}
+.img_container img {
+  width: 100px;
+  margin: 0px;
+}
 .uploading-image {
-  width: 5%;
+  width: 10%;
 }
 </style>
