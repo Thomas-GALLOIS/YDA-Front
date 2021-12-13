@@ -1,23 +1,22 @@
 <template>
-  <table class="table table-hover product-table">
-    <router-link to="/catalogue/categories">Catalogue</router-link>
-    <router-link to="/catalogue/products">Catalogue products</router-link>
-
-    <thead>
-      <tr>
-        <th>Services</th>
-        <th>Description</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="product in products" track-by="id" :key="product.id">
-        <td>{{ product.name }}</td>
-        <td>{{ product.description }}</td>
-        <td>{{ product.price }}:-</td>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <div v-for="element in products" :key="element.id">
+      <div class="orange">
+        <h5>{{ element.categories }}</h5>
+        <h1>{{ element.name }}</h1>
+      </div>
+      <div class="toto">
+        <div class="general">
+          <p>Instagram:</p>
+          <p>Facebook:</p>
+        </div>
+        <div>
+          <h1>Concept</h1>
+          <p>{{ element.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -72,3 +71,24 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.orange {
+  background: linear-gradient(70deg, #db9024, white);
+  text-align: left;
+  gap: 200px;
+  width: 100%;
+}
+.general {
+  height: 700px;
+  width: 20%;
+  background: linear-gradient(150deg, #db9024, white);
+}
+
+.toto {
+  display: flex;
+}
+h1 {
+  margin: 0;
+}
+</style>
