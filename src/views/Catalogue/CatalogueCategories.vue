@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <tr v-for="type in types" track-by="id" :key="type.id">
-        <td>{{ type.categories }}</td>
+        <td>{{ type.categorie }}</td>
       </tr>
     </tbody>
   </table>
