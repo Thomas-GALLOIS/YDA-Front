@@ -140,10 +140,4 @@ li {
     opacity: 1;
   }
 }
-
-@media (min-width: 1300px) {
-  .nav_admin {
-    top: 9%;
-  }
-}
 </style>
