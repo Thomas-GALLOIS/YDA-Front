@@ -15,6 +15,18 @@
         <textarea id="description" v-model="description"></textarea>
         <br />
         <br />
+        <label for="categories">Categorie</label>
+        <select name="categories" id="categories">
+          <option value="papilles">Pour les papilles</option>
+          <option value="bien_etre">Pour le bien-être</option>
+          <option value="maison">Pour la maison</option>
+          <option value="quotidien">Pour le quotidien</option>
+          <option value="daily">Les idées Coffrets Your Daily</option>
+          <option value="assistantes">Les services de vos assistantes</option>
+          <option value="autres">Autres</option>
+        </select>
+        <br />
+        <br />
         <label for="image">Image</label>
 
         <input type="file" id="image" @change="uploadImage" />
@@ -102,6 +114,11 @@ export default {
 };
 </script>
 <style scoped>
+select {
+  width: 50%;
+  margin-left: 25%;
+  /* margin-right: 0%; */
+}
 .form_add_service {
   width: 100%;
 }
