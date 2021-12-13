@@ -18,7 +18,7 @@
             <router-link to="/">Liste Entreprise</router-link>
           </li>
           <li>
-            <router-link to="">Catalogue</router-link>
+            <router-link to="/catalogue/categories">Catalogue</router-link>
           </li>
           <li>
             <router-link to="">Agenda</router-link>
