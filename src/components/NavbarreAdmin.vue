@@ -4,34 +4,54 @@
       <div class="logo">
         <img src="../assets/img/logo_without_title.png" style="width: 158px" />
       </div>
+      <router-link to="/connexion" @click="clearLocalStorage">
+        <div class="fav_icon">
+          <p>Logout<i class="fas fa-power-off"></i></p>
+        </div>
+      </router-link>
     </div>
     <div class="nav_secondaire">
       <nav>
         <ul>
           <li>
-            <router-link to="/creation">Création de compte</router-link>
+            <router-link class="anim" to="/creation"
+              >Création de compte</router-link
+            >
           </li>
           <li>
-            <router-link to="/dashboard">Dashboard</router-link>
+            <router-link class="anim" to="/dashboard">Dashboard</router-link>
           </li>
           <li>
-            <router-link to="/">Liste Entreprise</router-link>
+            <router-link class="anim" to="/">Liste Entreprise</router-link>
           </li>
           <li>
-            <router-link to="/catalogue/categories">Catalogue</router-link>
+            <router-link class="anim" to="/catalogue/categories"
+              >Catalogue</router-link
+            >
           </li>
           <li>
-            <router-link to="">Agenda</router-link>
+            <router-link class="anim" to="">Agenda</router-link>
           </li>
           <li>
-            <router-link to="">Commandes</router-link>
+            <router-link class="anim" to="">Commandes</router-link>
           </li>
         </ul>
       </nav>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    clearLocalStorage() {
+      localStorage.clear("@token");
+    },
+  },
+};
+</script>
 <style scoped>
 body {
   margin: 0px;
@@ -39,19 +59,30 @@ body {
 .nav_primaire {
   background-color: #000000;
   height: 80px;
-  text-align: left;
+  display: flex;
 }
-
-.nav_secondaire {
-  background-color: #f39c11;
-  height: 80px;
+.fav_icon {
+  color: white;
   text-align: right;
+  position: absolute;
+  right: 5%;
+  top: 2%;
+  font-size: 20px;
+}
+.fav_icon p i {
+  margin-left: 8px;
 }
 
 .logo img {
   position: absolute;
   left: 3%;
   top: 0.15%;
+}
+
+.nav_secondaire {
+  background-color: #f39c11;
+  height: 80px;
+  text-align: right;
 }
 
 ul {
@@ -63,34 +94,34 @@ li {
   list-style: none;
   margin: 30px 15px;
 }
-a {
+.anim {
   content: "";
   text-decoration: none;
   color: #ffffff;
   margin: 3px 8px;
 }
 
-a::before {
+.anim::before {
   padding: 5px 0;
   margin: 0 8px;
   content: "";
   border-left: 2px solid transparent;
   color: #ffffff;
 }
-a::after {
+.anim::after {
   padding: 5px 0;
   margin: 0 8px;
   content: "";
   border-right: 2px solid transparent;
   color: #ffffff;
 }
-a:hover::before {
+.anim:hover::before {
   margin: 0 8px;
   content: "";
   animation: btn1 0.5s;
   animation-fill-mode: forwards;
 }
-a:hover::after {
+.anim:hover::after {
   margin: 0 8px;
   content: "";
   animation: btn1 0.5s;
@@ -111,6 +142,7 @@ a:hover::after {
     opacity: 1;
   }
 }
+
 @media (min-width: 1300px) {
   .nav_admin {
     top: 9%;
