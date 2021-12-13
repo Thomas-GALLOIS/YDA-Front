@@ -62,7 +62,7 @@ export default {
       localStorage.setItem("@token", data.access_token);
       //Si le status renvoyé par l'API est 200 alors on redirige vers la page utilisateur
       if (data.status_code == 200) {
-        this.$router.push("/dashboard");
+        this.$router.push({ name: "Dashboard" });
       }
     },
   },
