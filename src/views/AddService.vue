@@ -10,20 +10,23 @@
         <input id="name" type="text" v-model="name" />
         <br />
         <br />
-        <label for="description">Description</label>
-
-        <textarea id="description" v-model="description"></textarea>
+        <label for="description_1">Description</label>
+        <textarea id="description_1" v-model="description_1"></textarea>
         <br />
         <br />
+        <!--<label for="description_2">Description</label>
+        <textarea id="description_2" v-model="description_2"></textarea>
+        <br />
+        <br />-->
         <label for="categories">Categorie</label>
         <select name="categories" id="categories">
-          <option value="papilles">Pour les papilles</option>
-          <option value="bien_etre">Pour le bien-être</option>
-          <option value="maison">Pour la maison</option>
-          <option value="quotidien">Pour le quotidien</option>
-          <option value="daily">Les idées Coffrets Your Daily</option>
-          <option value="assistantes">Les services de vos assistantes</option>
-          <option value="autres">Autres</option>
+          <option value="1">Pour les papilles</option>
+          <option value="2">Pour le bien-être</option>
+          <option value="3">Pour la maison</option>
+          <option value="4">Pour le quotidien</option>
+          <option value="5">Les idées Coffrets Your Daily</option>
+          <option value="6">Les services de vos assistantes</option>
+          <option value="7">Autres</option>
         </select>
         <br />
         <br />
@@ -42,9 +45,9 @@
         <input type="email" id="email" v-model="email" />
         <br />
         <br />
-        <label for="telephone">Téléphone</label>
+        <label for="phone">Téléphone</label>
 
-        <input type="tel" id="telephone" v-model="telephone" />
+        <input type="tel" id="phone" v-model="phone" />
         <br />
         <br />
         <input
@@ -64,9 +67,10 @@ export default {
   data() {
     return {
       name: "",
-      description: "",
+      description_1: "",
       email: "",
-      telephone: "",
+      phone: "",
+      type_id: "",
       previewImage: null,
     };
   },
@@ -87,20 +91,22 @@ export default {
       };
     },
     async addService() {
-      const url = "localhost";
+      const url = "http://127.0.0.1:8000/api/services";
 
       const options = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer" + localStorage.getItem("@token"),
         },
 
         body: JSON.stringify({
           name: this.name,
-          description: this.description,
+          description_1: this.description_1,
           email: this.email,
-          telephone: this.telephone,
+          phone: this.phone,
           image: this.previewImage,
+          type_id: this.type_id,
         }),
       };
       const response = await fetch(url, options);
