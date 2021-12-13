@@ -96,6 +96,7 @@ export default {
 
       const data = await response.json();
       console.log(data);
+      this.$router.push({ name: "CatalogueServices" });
     },
   },
 };
