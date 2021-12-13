@@ -1,44 +1,67 @@
 <template>
   <div class="nav_admin">
-    <nav>
-      <ul>
-        <li>
-          <router-link to="/creation">Création de compte</router-link>
-        </li>
-        <li>
-          <router-link to="/dashboard">Dashboard</router-link>
-        </li>
-        <li>
-          <router-link to="/">Liste Entreprise</router-link>
-        </li>
-        <li>
-          <router-link to="">Catalogue</router-link>
-        </li>
-        <li>
-          <router-link to="">Agenda</router-link>
-        </li>
-        <li>
-          <router-link to="">Commandes</router-link>
-        </li>
-      </ul>
-    </nav>
+    <div class="nav_primaire">
+      <div class="logo">
+        <img src="../assets/img/logo_without_title.png" style="width: 158px" />
+      </div>
+    </div>
+    <div class="nav_secondaire">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/creation">Création de compte</router-link>
+          </li>
+          <li>
+            <router-link to="/dashboard">Dashboard</router-link>
+          </li>
+          <li>
+            <router-link to="/">Liste Entreprise</router-link>
+          </li>
+          <li>
+            <router-link to="">Catalogue</router-link>
+          </li>
+          <li>
+            <router-link to="">Agenda</router-link>
+          </li>
+          <li>
+            <router-link to="">Commandes</router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.nav_admin {
-  max-width: 100%;
-  position: absolute;
-  top: 16%;
-  left: 15%;
+body {
+  margin: 0px;
 }
+.nav_primaire {
+  background-color: #000000;
+  height: 80px;
+  text-align: left;
+}
+
+.nav_secondaire {
+  background-color: #f39c11;
+  height: 80px;
+  text-align: right;
+}
+
+.logo img {
+  position: absolute;
+  left: 3%;
+  top: 0.15%;
+}
+
 ul {
   display: flex;
   justify-content: flex-end;
+  margin: 0;
 }
 li {
   list-style: none;
-  margin: 0 15px;
+  margin: 30px 15px;
 }
 a {
   content: "";
