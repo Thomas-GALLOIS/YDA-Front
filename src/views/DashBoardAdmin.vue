@@ -14,7 +14,6 @@ export default {
   },
   components: {
     NavbarreAdmin: NavbarreAdmin,
-    
   },
 
 };
