@@ -2,9 +2,10 @@
 
     <!-- import de la barre de navigation -->
     <NavbarreAdmin/>
-
+<!-- bouton pour affichage des formulaires -->
+<button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
     <!-- formulaire création de nouveau compte -->
-<form @submit.prevent="CreateAccountAdmin">
+<form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
     <select @change="selectCategoryAccount($event)" name="role" id="add_account" >
@@ -15,7 +16,7 @@
         <option value="member">Member</option>
     </select>
     <div class="form">
-        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member' || this.accountSelect == 'firm'">
+        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
             
                 <div class="form_p1">
                     <div class="last_name">
@@ -23,67 +24,18 @@
                         <input type="text" id="last_name" name="lastname" v-model="inputLastName" />
                     </div>
 
-                    <div v-if="this.accountSelect != 'firm'" class="first_name">
+                    <div class="first_name">
                         <label for="first_name">Prenom : </label>
                         <input type="text" id="first_name" name="firstname" v-model="inputFirstName" />
                     </div>
                 </div>
-            
-           
-            
+                      
                 <div class="form_p1">
                     <div class="email">
                         <label for="email">E-mail : </label>
                         <input type="email" id="email" name="email" v-model="inputEmail" />
                     </div>
-                </div>          
-
-            
-        </div>
-
-        <!-- champs spécifiques compte entreprise -->
-        <div v-if="this.accountSelect == 'firm'">
-                
-                <div class="form_p1">
-                    <div class="adresse">
-                        <label for="adresse">Adresse :</label>
-                        <input type="text" name="adresse" id="adresse" v-model="inputAdresse">
-                    </div>
-
-                    <div class="phone">
-                        <label for="add_phone">Téléphone : </label>
-                        <input type="tel" id="add_phone" name="phone" v-model="inputPhone">
-                    </div>
-                </div>
-                
-                <div class="form_p1">
-                    <div class="siret">
-                        <label for="add_siret">Siret :</label>
-                        <input type="text" name="siret" id="add_siret" v-model="inputSiret">
-                    </div>
-
-                    <div class="Subscription">
-                        <label for="add_subscription">Abonnement :</label>
-                        <input type="text" name="subscription" id="add_subscription" v-model="inputSubscription">
-                    </div>
-                </div>
-
-                <div class="form_p1">
-                    <div class="logo">
-                        <label for="logo">Logo :</label>
-                        <img :src="logoPicture" alt="" />
-                        <input type="file" @change="downloadLogo" name="logo" id="logo" accept="/*" enctype="multipart/form-data" />
-                    </div>
-
-                    <div class="color">
-                        <label for="add_color">Couleur de l'entreprise : </label>
-                        <select name="color" id="add_color">
-                            <option value="color">bleu</option>
-                        </select>
-                    </div>
-                </div>
-
-                
+                </div>                     
         </div>
 
         <!-- champs communs comptes manager et member-->
@@ -125,6 +77,65 @@
 </form>
 
 
+<!-- formulaire compte entreprise -->
+<div>
+    <div class="form">
+    <form v-if="this.showFirmAccount == true" @submit.prevent="CreateAccountFirm">
+        
+        <div class="name">
+                <label for="name">Nom : </label>
+                <input type="text" id="last_name" name="name" v-model="inputLastName" />
+        </div>
+
+        <div class="form_p1">
+                    <div class="email">
+                        <label for="email">E-mail : </label>
+                        <input type="email" id="email" name="email" v-model="inputEmail" />
+                    </div>
+                </div>
+        
+        <div class="form_p1">
+            <div class="address">
+                <label for="adress">Adresse :</label>
+                <input type="text" name="address" id="address" v-model="inputAdresse">
+            </div>
+
+            <div class="phone">
+                <label for="add_phone">Téléphone : </label>
+                <input type="tel" id="add_phone" name="phone" v-model="inputPhone">
+            </div>
+        </div>
+        
+        <div class="form_p1">
+            <div class="siret">
+                <label for="add_siret">Siret :</label>
+                <input type="text" name="siret" id="add_siret" v-model="inputSiret">
+            </div>
+            <div class="Subscription">
+                <label for="add_subscription">Abonnement :</label>
+                <input type="text" name="subscription" id="add_subscription" v-model="inputSubscription">
+            </div>
+        </div>
+
+        <div class="form_p1">
+            <div class="logo">
+                <label for="logo">Logo :</label>
+                <img :src="logoPicture" alt="" />
+                <input type="file" @change="downloadLogo" name="logo" id="logo" accept="/*" enctype="multipart/form-data" />
+            </div>
+            <div class="color">
+                <label for="add_color">Couleur de l'entreprise : </label>
+                <select name="color" id="add_color">
+                    <option value="color">bleu</option>
+                </select>
+            </div>
+            <div>
+                <input class="add_account_button" type="submit" value="Valider">
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
 </template>
 
 
@@ -158,6 +169,8 @@ export default {
             firmSelect:"",
             logoPicture:"",
             avatarPicture: "",
+            showAccount: false,
+            showFirmAccount: false,
             
         };
     },
@@ -167,6 +180,26 @@ export default {
         //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
     async CreateAccountAdmin(e) {
       const url = "http://127.0.0.1:8000/api/inscription";
+      //Options de la requête API
+      const options = {
+        method: "POST",
+        headers: {
+        
+        Authorization: "Bearer " + localStorage.getItem("@token"),
+        },
+        body: new FormData(e.target),
+      };
+      // va chercher les options de l'API
+      const response = await fetch(url, options);
+      console.log(response);
+      // la récupération des data stockées dans l'API
+      const data = await response.json();
+      console.log(data); 
+    },
+
+         //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
+    async CreateAccountFirm(e) {
+      const url = "http://127.0.0.1:8000/api/firms";
       //Options de la requête API
       const options = {
         method: "POST",
@@ -195,6 +228,20 @@ export default {
 
             this.firmSelect = event.target.value;
             console.log(this.firmSelect);
+    },
+
+    showFormAccount() {
+        if (this.showAccount == false) {
+            this.showAccount = true;
+            this.showFirmAccount = false;
+        }
+    },
+
+    showFormFirm () {
+        if (this.showFirmAccount == false) {
+            this.showFirmAccount = true;
+            this.showAccount = false;
+        }
     },
     
     // Chargement des images
