@@ -1,17 +1,21 @@
 <template>
   <Navbarre />
   <div class="form_add_service">
-    <form @submit.prevent="addService()">
+    <form @submit.prevent="addService">
       <div class="inside_form">
         <h1>Ajouter un nouveau service</h1>
         <br />
         <label for="name">Nom</label>
 
-        <input id="name" type="text" v-model="name" />
+        <input id="name" type="text" v-model="name" name="name" />
         <br />
         <br />
         <label for="description_1">Description</label>
-        <textarea id="description_1" v-model="description_1"></textarea>
+        <textarea
+          id="description_1"
+          v-model="description_1"
+          name="description_1"
+        ></textarea>
         <br />
         <br />
         <!--<label for="description_2">Description</label>
@@ -19,7 +23,7 @@
         <br />
         <br />-->
         <label for="categories">Categorie</label>
-        <select name="categories" id="categories">
+        <select name="type_id" id="categories">
           <option value="1">Pour les papilles</option>
           <option value="2">Pour le bien-être</option>
           <option value="3">Pour la maison</option>
@@ -32,7 +36,7 @@
         <br />
         <label for="image">Image</label>
 
-        <input type="file" id="image" @change="uploadImage" />
+        <input type="file" id="image" @change="uploadImage" name="image" />
         <br />
         <div class="img_container">
           <img :src="previewImage" class="uploading-image" />
@@ -42,12 +46,12 @@
         <br />
         <label for="email">Email</label>
 
-        <input type="email" id="email" v-model="email" />
+        <input type="email" id="email" v-model="email" name="email" />
         <br />
         <br />
         <label for="phone">Téléphone</label>
 
-        <input type="tel" id="phone" v-model="phone" />
+        <input type="tel" id="phone" name="phone" v-model="phone" />
         <br />
         <br />
         <input
@@ -90,31 +94,21 @@ export default {
         console.log(this.previewImage);
       };
     },
-    async addService() {
+    async addService(e) {
       const url = "http://127.0.0.1:8000/api/services";
 
       const options = {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer" + localStorage.getItem("@token"),
+          Authorization: "Bearer " + localStorage.getItem("@token"),
         },
-
-        body: JSON.stringify({
-          name: this.name,
-          description_1: this.description_1,
-          email: this.email,
-          phone: this.phone,
-          image: this.previewImage,
-          type_id: this.type_id,
-        }),
+        body: new FormData(e.target),
       };
       const response = await fetch(url, options);
       console.log(response);
 
       const data = await response.json();
       console.log(data);
-      this.$router.push({ name: "CatalogueServices" });
     },
   },
 };
