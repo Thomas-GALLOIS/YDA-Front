@@ -6,7 +6,7 @@
 <script>
 
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
-import Footer from "../components/Footer.vue";
+
 export default {
   data() {
     return {
@@ -16,7 +16,7 @@ export default {
   },
   components: {
     NavbarreAdmin: NavbarreAdmin,
-    Footer: Footer,
+    
   },
   methods: {
     jesuis() {
