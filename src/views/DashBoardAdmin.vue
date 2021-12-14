@@ -1,10 +1,10 @@
 <template>
   <NavbarreAdmin />
 
+  <Footer></Footer>
 </template>
 
 <script>
-
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 import Footer from "../components/Footer.vue";
 export default {
