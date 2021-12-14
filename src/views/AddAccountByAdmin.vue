@@ -1,13 +1,14 @@
 <template>
 
     <!-- import de la barre de navigation -->
-    <navbarre></navbarre>
+    <NavbarreAdmin/>
 
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
-    <select @change="selectCategory($event)" name="add_account" id="add_account" >
+    <select @change="selectCategoryAccount($event)" name="role" id="add_account" >
         <option value="choix">Choix</option>
         <option value="admin">Admin</option>
+        <option value="firm">Entreprise</option>
         <option value="manager">Manager</option>
         <option value="member">Member</option>
     </select>
@@ -15,58 +16,107 @@
 
     <!-- formulaire création de nouveau compte -->
     <form @submit.prevent="CreateAccountAdmin()">
-        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
-            <div class="first_name">
-                <label for="first_name">Prenom : </label>
-                <input type="text" id="first_name" v-model="inputFirstName" />
-            </div>
-           
-            <div class="last_name">
-                <label for="last_name">Nom : </label>
-                <input type="text" id="last_name" v-model="inputLastName" />
-            </div>
-           
-            <div class="email">
-                <label for="email">E-mail : </label>
-                <input type="text" id="email" v-model="inputEmail" />
-            </div>          
-        
-            <div class="password">
-                <label for="password">Password : </label>
-                <input type="password" id="password" v-model="inputPassword">
-            </div>
+        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member' || this.accountSelect == 'firm'">
+            
+                <div class="form_p1">
+                    <div class="last_name">
+                        <label for="last_name">Nom : </label>
+                        <input type="text" id="last_name" name="lastname" v-model="inputLastName" />
+                    </div>
 
+                    <div v-if="this.accountSelect != 'firm'" class="first_name">
+                        <label for="first_name">Prenom : </label>
+                        <input type="text" id="first_name" name="firstname" v-model="inputFirstName" />
+                    </div>
+                </div>
+            
+           
+            
+                <div class="form_p2">
+                    <div class="email">
+                        <label for="email">E-mail : </label>
+                        <input type="text" id="email" name="email" v-model="inputEmail" />
+                    </div>          
+
+                    <div v-if="this.accountSelect != 'firm'" class="password">
+                        <label for="password">Password : </label>
+                        <input type="password" id="password" name="password" v-model="inputPassword">
+                    </div>
+                </div>
             
         </div>
-        <div v-if="this.accountSelect == 'manager'">
-                <div class="phone">
-                    <label for="add_phone">Téléphone : </label>
-                    <input type="tel" id="add_phone" v-model="inputPhone">
+
+        <!-- champs spécifiques compte entreprise -->
+        <div v-if="this.accountSelect == 'firm'">
+                
+                <div class="form_p3">
+                    <div class="adresse">
+                        <label for="adresse">Adresse :</label>
+                        <input type="text" name="adresse" id="adresse" v-model="inputAdresse">
+                    </div>
+
+                    <div class="phone">
+                        <label for="add_phone">Téléphone : </label>
+                        <input type="tel" id="add_phone" name="phone" v-model="inputPhone">
+                    </div>
+                </div>
+                
+                <div class="form_p4">
+                    <div class="logo">
+                        <label for="logo">Logo :</label>
+                        <img :src="logoPicture" alt="" />
+                        <input type="file" @change="downloadLogo" name="logo" id="logo" accept="/*" enctype="multipart/form-data" />
+                    </div>
+
+                    <div class="color">
+                        <label for="add_color">Couleur de l'entreprise : </label>
+                        <select name="color" id="add_color">
+                            <option value=""></option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="firm">
-                    <label for="add_firm">Entreprise : </label>
-                    <select name="add_firm" id="add_firm">
-                        <option value=""></option>
-                    </select>
+                <div class="form_p5">
+                    <div class="siret">
+                        <label for="add_siret">Siret :</label>
+                        <input type="text" name="siret" id="add_siret" v-model="inputSiret">
+                    </div>
+
+                    <div class="Subscription">
+                        <label for="add_subscription">Abonnement :</label>
+                        <input type="text" name="subscription" id="add_subscription" v-model="inputSubscription">
+                    </div>
                 </div>
         </div>
 
-        <div v-if="this.accountSelect == 'member'">
-                <div class="phone">
-                    <label for="add_phone">Téléphone : </label>
-                    <input type="tel" id="add_phone" v-model="inputPhone">
-                </div>
+        <!-- champs communs comptes manager et member-->
+        <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
+                <div class="form_p6">
+                    <div class="phone">
+                        <label for="add_phone">Téléphone : </label>
+                        <input type="tel" id="add_phone" v-model="inputPhone">
+                    </div>
 
-                <div class="firm">
-                    <label for="add_firm">Entreprise : </label>
-                    <select name="add_firm" id="add_firm">
-                        <option value=""></option>
-                    </select>
+                    <div class="firm">
+                        <label for="add_firm">Entreprise : </label>
+                        <select @change="selectFirm($event)" name="add_firm" id="add_firm">
+                            <option value="test">test</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </div>
                 </div>
+        </div>
+
+        <!-- champs spécifiques compte membre -->
+        <div v-if="this.accountSelect == 'member'">
                 <div class="comment">
                     <label for="add_comment">Commentaire</label>
                     <input type="text" name="add_comment" id="add_comment" v-model="inputComment">
+                </div>
+                <div class="avatar">
+                    <label for="avatar">Avatar :</label>
+                    <img :src="avatarPicture" alt="" />
+                    <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
                 </div>
         </div>
         <div v-if="accountSelect && this.accountSelect != 'choix'">
@@ -82,26 +132,32 @@
 
 <script>
 
-import Navbarre from "../components/Navbarre.vue";
+
+import NavbarreAdminVue from '../components/NavbarreAdmin.vue';
 
 export default {
     name:"AddAccount",
     // component
     components: {
-        Navbarre: Navbarre,
+        NavbarreAdmin: NavbarreAdminVue,
     },
     // data properties
     data() {
         return {
+            
             inputFirstName: "",
             inputLastName:"",
             inputEmail: "",
             inputPassword: "",
+            inputAdresse:"",
             inputPhone: "",
             inputComment: "",
+            inputSiret:"",
+            inputSubscription:"",
             accountSelect:"",
             firmSelect:"",
-            avatar: "",
+            logoPicture:"",
+            avatarPicture: "",
             
         };
     },
@@ -125,7 +181,10 @@ export default {
           password: this.inputPassword,
           phone: this.inputPhone,
           comments: this.inputComment,
-          avatar: this.avatar,
+          
+          role: this.accountSelect,
+          logo: this.logoPicture,
+          avatar: this.avatarPicture,
         }),
       };
       // va chercher les options de l'API
@@ -138,11 +197,41 @@ export default {
         
     },
 
-    selectCategory(event) {
+    // Récupération de la valeur des selects 
+    selectCategoryAccount(event) {
 
             this.accountSelect = event.target.value;
+
+    },
+    
+    selectFirm(event) {
+
+            this.firmSelect = event.target.value;
+            console.log(this.firmSelect);
+    },
+    
+    // Chargement des images
+    downloadLogo(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.logoPicture = e.target.result;
+        console.log(this.logoPicture);
+      };
+    },
+
+    downloadAvatar(e) {
+        const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.avatarPicture = e.target.result;
+        console.log(this.avatarPicture);
+    }
     },
     },
+   
 };
 </script>
 

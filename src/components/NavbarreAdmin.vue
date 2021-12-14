@@ -9,6 +9,7 @@
       <nav>
         <ul>
           <li>
+
             <router-link to="/creation">Création de compte</router-link>
           </li>
           <li>
@@ -31,6 +32,26 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  
+ 
+  data() {
+    return {
+      
+    }
+  },
+
+  methods: {
+    showForm() {
+      this.show = 'true';
+    }
+  }
+
+
+}
+</script>
 
 <style scoped>
 body {

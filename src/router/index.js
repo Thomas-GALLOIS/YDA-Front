@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Connexion from "../views/Connexion.vue";
-import AddService from "../views/AddService.vue"
+import AddService from "../views/AddService.vue";
 import DashBoard from "../views/DashBoardAdmin.vue";
-import AddAccount from "../views/AddAccountByAdmin.vue";
+import AddAccountByAdmin from "../views/AddAccountByAdmin.vue";
 
 const routes = [
   {
@@ -30,15 +30,17 @@ const routes = [
     name: "addService",
     component: AddService,
   },
+
   {
     path: "/dashboard",
     name: "Dashboard",
     component: DashBoard,
   },
+
   {
     path: "/creation",
-    name: "AddAccount",
-    component: AddAccount,
+    name: "Creation",
+    component: AddAccountByAdmin,
   },
 ];
 
