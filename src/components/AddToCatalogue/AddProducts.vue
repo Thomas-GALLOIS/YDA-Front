@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <p v-if="this.status == 200">Votre produit à bien été ajouté</p>
+    <p v-if="this.res == 500">Oups un problème est survenu</p>
+  </div>
   <form @submit.prevent="addProduct">
     <label for="name">Nom produit</label>
     <input type="text" name="name" id="name" v-model="name" />
@@ -45,6 +49,8 @@ export default {
       price: "",
       service_id: "",
       checked: "",
+      status: "",
+      res: "",
     };
   },
   methods: {
@@ -69,9 +75,10 @@ export default {
       };
       const response = await fetch(url, options);
       console.log(response);
-
+      this.res = response.status;
       const data = await response.json();
       console.log(data);
+      this.status = data.status_code;
     },
   },
 };

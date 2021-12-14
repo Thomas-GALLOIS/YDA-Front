@@ -1,5 +1,9 @@
 <template>
   <h1>Ajouter un nouveau Type:</h1>
+  <div>
+    <p v-if="this.status == 200">Votre Type à bien été crée</p>
+    <p v-if="this.res == 500">Oups un problème est survenu</p>
+  </div>
   <form @submit.prevent="addType">
     <label for="name">Type</label>
     <input type="text" v-model="name" id="name" />
@@ -13,6 +17,8 @@ export default {
   data() {
     return {
       name: "",
+      status: "",
+      res: "",
     };
   },
   methods: {
@@ -31,8 +37,11 @@ export default {
       };
       const response = await fetch(url, options);
       console.log(response);
+      this.res = response.status;
+
       const data = await response.json();
       console.log(data);
+      this.status = data.status_code;
     },
   },
 };

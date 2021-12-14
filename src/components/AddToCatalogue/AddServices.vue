@@ -1,26 +1,24 @@
 <template>
   <div class="form_add_service">
+    <div>
+      <p v-if="this.status == 200">Votre Service à bien été crée</p>
+      <p v-if="this.res == 500">Oups un problème est survenu</p>
+    </div>
     <form @submit.prevent="addService">
       <div class="inside_form">
         <h1>Ajouter un nouveau service</h1>
-        <br />
+
         <label for="name">Nom</label>
 
         <input id="name" type="text" v-model="name" name="name" />
-        <br />
-        <br />
+
         <label for="description_1">Description</label>
         <textarea
           id="description_1"
           v-model="description_1"
           name="description_1"
         ></textarea>
-        <br />
-        <br />
-        <!--<label for="description_2">Description</label>
-        <textarea id="description_2" v-model="description_2"></textarea>
-        <br />
-        <br />-->
+
         <label for="categories">Categorie</label>
         <select name="type_id" id="categories">
           <option value="1">Pour les papilles</option>
@@ -31,28 +29,29 @@
           <option value="6">Les services de vos assistantes</option>
           <option value="7">Autres</option>
         </select>
-        <br />
-        <br />
+
         <label for="image">Image</label>
 
         <input type="file" id="image" @change="uploadImage" name="image" />
-        <br />
+
         <div class="img_container">
           <img :src="previewImage" class="uploading-image" />
         </div>
 
-        <br />
-        <br />
+        <input type="radio" id="checkbox" name="status" value="on" />
+        <label for="checkbox">Produit actif</label>
+
+        <input type="radio" id="checkbox" name="status" value="off" />
+        <label for="checkbox">Produit inactif</label>
+
         <label for="email">Email</label>
 
         <input type="email" id="email" v-model="email" name="email" />
-        <br />
-        <br />
+
         <label for="phone">Téléphone</label>
 
         <input type="tel" id="phone" name="phone" v-model="phone" />
-        <br />
-        <br />
+
         <input
           id="submit_btn"
           type="submit"
@@ -73,7 +72,9 @@ export default {
       phone: "",
       type_id: "",
       previewImage: null,
-      toto: false,
+
+      status: "",
+      res: "",
     };
   },
 
@@ -99,16 +100,11 @@ export default {
       };
       const response = await fetch(url, options);
       console.log(response);
+      this.res = response.status;
 
       const data = await response.json();
       console.log(data);
-    },
-    tata() {
-      if (this.toto == false) {
-        this.toto = true;
-      } else {
-        this.toto = false;
-      }
+      this.status = data.status_code;
     },
   },
 };
