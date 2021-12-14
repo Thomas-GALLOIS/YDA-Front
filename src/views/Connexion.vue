@@ -8,6 +8,9 @@
           <img src="../assets/img/logo_color.png" alt="" />
         </div>
         <!--EMAIL -->
+        <div v-if="this.success == 500">
+          <p class="p_red">email ou mot de passe inavlide</p>
+        </div>
         <label for="username">Login</label>
         <input id="username" type="email" v-model="email" />
         <!--PASSWORD -->
@@ -28,6 +31,7 @@ export default {
     return {
       email: "",
       password: "",
+      success: "",
     };
   },
 
@@ -58,11 +62,14 @@ export default {
       // Création de la const data qui nous permet la récupération des data stockées dans l'API
       const data = await response.json();
       console.log(data);
+      this.success = data.status_code;
+
       // Sauvegarde du token généré par l'API lors de la connection
-      localStorage.setItem("@token", data.access_token);
+
       //Si le status renvoyé par l'API est 200 alors on redirige vers la page utilisateur
       if (data.status_code == 200) {
-        this.$router.push("/dashboard");
+        localStorage.setItem("@token", data.access_token);
+        this.$router.push({ name: "Dashboard" });
       }
     },
   },
@@ -74,6 +81,9 @@ export default {
 }
 form {
   margin: auto;
+}
+.p_red {
+  color: red;
 }
 
 input {

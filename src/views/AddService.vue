@@ -1,23 +1,42 @@
 <template>
   <Navbarre />
   <div class="form_add_service">
-    <form @submit.prevent="addService()">
+    <form @submit.prevent="addService">
       <div class="inside_form">
         <h1>Ajouter un nouveau service</h1>
         <br />
         <label for="name">Nom</label>
 
-        <input id="name" type="text" v-model="name" />
+        <input id="name" type="text" v-model="name" name="name" />
         <br />
         <br />
-        <label for="description">Description</label>
-
-        <textarea id="description" v-model="description"></textarea>
+        <label for="description_1">Description</label>
+        <textarea
+          id="description_1"
+          v-model="description_1"
+          name="description_1"
+        ></textarea>
+        <br />
+        <br />
+        <!--<label for="description_2">Description</label>
+        <textarea id="description_2" v-model="description_2"></textarea>
+        <br />
+        <br />-->
+        <label for="categories">Categorie</label>
+        <select name="type_id" id="categories">
+          <option value="1">Pour les papilles</option>
+          <option value="2">Pour le bien-être</option>
+          <option value="3">Pour la maison</option>
+          <option value="4">Pour le quotidien</option>
+          <option value="5">Les idées Coffrets Your Daily</option>
+          <option value="6">Les services de vos assistantes</option>
+          <option value="7">Autres</option>
+        </select>
         <br />
         <br />
         <label for="image">Image</label>
 
-        <input type="file" id="image" @change="uploadImage" />
+        <input type="file" id="image" @change="uploadImage" name="image" />
         <br />
         <div class="img_container">
           <img :src="previewImage" class="uploading-image" />
@@ -27,12 +46,12 @@
         <br />
         <label for="email">Email</label>
 
-        <input type="email" id="email" v-model="email" />
+        <input type="email" id="email" v-model="email" name="email" />
         <br />
         <br />
-        <label for="telephone">Téléphone</label>
+        <label for="phone">Téléphone</label>
 
-        <input type="tel" id="telephone" v-model="telephone" />
+        <input type="tel" id="phone" name="phone" v-model="phone" />
         <br />
         <br />
         <input
@@ -52,9 +71,10 @@ export default {
   data() {
     return {
       name: "",
-      description: "",
+      description_1: "",
       email: "",
-      telephone: "",
+      phone: "",
+      type_id: "",
       previewImage: null,
     };
   },
@@ -74,22 +94,15 @@ export default {
         console.log(this.previewImage);
       };
     },
-    async addService() {
-      const url = "localhost";
+    async addService(e) {
+      const url = "http://127.0.0.1:8000/api/services";
 
       const options = {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@token"),
         },
-
-        body: JSON.stringify({
-          name: this.name,
-          description: this.description,
-          email: this.email,
-          telephone: this.telephone,
-          image: this.previewImage,
-        }),
+        body: new FormData(e.target),
       };
       const response = await fetch(url, options);
       console.log(response);
@@ -101,6 +114,11 @@ export default {
 };
 </script>
 <style scoped>
+select {
+  width: 50%;
+  margin-left: 25%;
+  /* margin-right: 0%; */
+}
 .form_add_service {
   width: 100%;
 }
