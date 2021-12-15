@@ -1,5 +1,6 @@
 <template>
   <h1>Services</h1>
+
   <div
     class="service_card"
     v-for="(element, index) in servicesArray"
@@ -12,7 +13,6 @@
     <div class="title_description">
       <h2>{{ element.name }}</h2>
       <p>{{ element.description_1 }}</p>
-      <p>{{ element.id }}</p>
     </div>
   </div>
 </template>
