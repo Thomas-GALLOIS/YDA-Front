@@ -177,7 +177,6 @@ label {
   margin-top: 20px;
 }
 #submit_btn {
-  width: 30%;
   margin-top: 20px;
   color: #0f0f0f;
   background: #db9024;
@@ -185,7 +184,7 @@ label {
   border: 2px solid #0f0f0f;
   transition: background 1s;
   height: 40px;
-  margin-left: 400px;
+  margin-left: auto;
 }
 #submit_btn:hover {
   color: #db9024;
@@ -258,22 +257,20 @@ label {
   box-shadow: none;
 }
 .block_area {
-  width: 475px;
-  margin: 15px 0 15px 310px;
-  height: 100px;
+  width: 26rem;
+  height: 10rem;
+  margin: 15px auto;
   border: none;
   border-radius: 5px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
   outline: none;
   transition: box-shadow 1.2s;
-  resize: none;
 }
-.text_container label {
-  margin-left: 310px;
-}
+
 .text_container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .block_area:focus {
   box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);

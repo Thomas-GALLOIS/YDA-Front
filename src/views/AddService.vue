@@ -1,8 +1,10 @@
 <template>
   <NavbarreAdmin />
-  <button @click="showTypeForm()">Ajouter un type</button>
-  <button @click="showServiceForm()">Ajouter un service</button>
-  <button @click="showProductForm()">Ajouter un produit</button>
+  <div class="button">
+    <button @click="showTypeForm()">Ajouter un type</button>
+    <button @click="showServiceForm()">Ajouter un service</button>
+    <button @click="showProductForm()">Ajouter un produit</button>
+  </div>
 
   <div v-if="this.showType == true">
     <AddTypes></AddTypes>
@@ -59,4 +61,14 @@ export default {
 };
 </script>
 <style scoped>
+.button {
+  display: flex;
+  justify-content: center;
+}
+button {
+  border-radius: 5px;
+  margin: 2%;
+  background-color: #ffffff;
+  color: #db9024;
+}
 </style>
