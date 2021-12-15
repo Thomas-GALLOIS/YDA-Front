@@ -1,7 +1,8 @@
 <template>
   <h1>Services</h1>
 
-  <SelectType @change="filterTypeId(element.type_id)" />
+  <SelectType v-model="selected" />
+  <p>{{ this.selected }}</p>
 
   <div
     class="service_card"
@@ -27,6 +28,7 @@ export default {
       servicesArray: "",
       id: "",
       type_id: "",
+      selected: "",
     };
   },
   components: {
@@ -48,6 +50,7 @@ export default {
     //console.log(data);
     this.servicesArray = data.donnees;
     console.log(this.servicesArray);
+    this.type_id = data.donnees.type_id;
   },
 
   methods: {
@@ -68,21 +71,28 @@ export default {
       localStorage.setItem("id", id);
       this.$router.push({ name: "CatalogueProducts" });
     },
+    /*async filterTypeId(event) {
+      const url = `http://127.0.0.1:8000/api/services/${event.target.value}`;
+      const options = {
+        method: "GET",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+    },*/
   },
-
-  async filterTypeId(type_id) {
-    const url = `http://127.0.0.1:8000/api/services/${type_id}`;
-    const options = {
-      method: "GET",
-
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "bearer " + localStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
+  computed: {
+    filterTypeId() {
+      console.log(this.selected);
+      return this.servicesArray.filter((element) => {
+        return element.type_id.includes(this.selected);
+      });
+    },
   },
 };
 </script>
