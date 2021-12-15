@@ -7,50 +7,83 @@
     <form @submit.prevent="addService">
       <div class="inside_form">
         <h1>Ajouter un nouveau service</h1>
-
-        <label for="name">Nom</label>
-
-        <input id="name" type="text" v-model="name" name="name" />
-
-        <label for="description_1">Description</label>
-        <textarea
-          id="description_1"
-          v-model="description_1"
-          name="description_1"
-        ></textarea>
-
-        <label for="categories">Categorie</label>
-        <select name="type_id" id="categories">
-          <option value="1">Pour les papilles</option>
-          <option value="2">Pour le bien-être</option>
-          <option value="3">Pour la maison</option>
-          <option value="4">Pour le quotidien</option>
-          <option value="5">Les idées Coffrets Your Daily</option>
-          <option value="6">Les services de vos assistantes</option>
-          <option value="7">Autres</option>
-        </select>
-
-        <label for="image">Image</label>
-
-        <input type="file" id="image" @change="uploadImage" name="image" />
-
-        <div class="img_container">
-          <img :src="previewImage" class="uploading-image" />
+        <div class="top_form">
+          <div class="child_top">
+            <label for="name">Nom</label>
+            <input id="name" type="text" v-model="name" name="name" />
+          </div>
+          <div class="child_top">
+            <label for="email">Email</label>
+            <input type="email" id="email" v-model="email" name="email" />
+          </div>
         </div>
+        <div class="mid_form">
+          <div class="child_mid">
+            <label for="phone">Téléphone</label>
 
-        <input type="radio" id="checkbox" name="status" value="on" />
-        <label for="checkbox">Produit actif</label>
+            <input type="tel" id="phone" name="phone" v-model="phone" />
+          </div>
+          <div class="child_mid">
+            <label for="categories">Categorie</label>
+            <select name="type_id" id="categories">
+              <option value="1">Pour les papilles</option>
+              <option value="2">Pour le bien-être</option>
+              <option value="3">Pour la maison</option>
+              <option value="4">Pour le quotidien</option>
+              <option value="5">Les idées Coffrets Your Daily</option>
+              <option value="6">Les services de vos assistantes</option>
+              <option value="7">Autres</option>
+            </select>
+          </div>
+        </div>
+        <div class="img_parent">
+          <div class="img_container">
+            <label for="image">Image</label>
+            <input
+              type="file"
+              id="image"
+              @change="uploadImage"
+              name="image"
+              class="file"
+            />
+          </div>
 
-        <input type="radio" id="checkbox" name="status" value="off" />
-        <label for="checkbox">Produit inactif</label>
+          <div class="img_container">
+            <img :src="previewImage" class="uploading-image" />
+          </div>
+        </div>
+        <div class="bot_container">
+          <div class="child_bot">
+            <input
+              type="radio"
+              id="checkbox"
+              class="check"
+              name="status"
+              value="on"
+            />
+            <label for="checkbox">Produit actif</label>
+          </div>
 
-        <label for="email">Email</label>
-
-        <input type="email" id="email" v-model="email" name="email" />
-
-        <label for="phone">Téléphone</label>
-
-        <input type="tel" id="phone" name="phone" v-model="phone" />
+          <div class="child_bot">
+            <input
+              type="radio"
+              id="checkbox"
+              class="check"
+              name="status"
+              value="off"
+            />
+            <label for="checkbox">Produit inactif</label>
+          </div>
+        </div>
+        <div class="text_container">
+          <label for="description_1">Description</label>
+          <textarea
+            id="description_1"
+            v-model="description_1"
+            name="description_1"
+            class="block_area"
+          ></textarea>
+        </div>
 
         <input
           id="submit_btn"
@@ -112,9 +145,16 @@ export default {
 
 <style scoped>
 select {
-  width: 50%;
-  margin-left: 25%;
-  /* margin-right: 0%; */
+  width: 200px;
+  height: 30px;
+  margin: 15px 0;
+  border: 1px solid transparent;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+select:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 .form_add_service {
   width: 100%;
@@ -122,9 +162,8 @@ select {
 form {
   margin: auto;
 }
-input,
-textarea {
-  width: 50%;
+input {
+  width: 200px;
   height: 30px;
   margin: 15px auto;
   border: none;
@@ -139,7 +178,7 @@ input:focus {
 }
 label {
   text-align: left;
-  margin: auto;
+  margin-top: 20px;
 }
 #submit_btn {
   width: 30%;
@@ -150,6 +189,7 @@ label {
   border: 2px solid #0f0f0f;
   transition: background 1s;
   height: 40px;
+  margin-left: 400px;
 }
 #submit_btn:hover {
   color: #db9024;
@@ -160,15 +200,111 @@ label {
 .inside_form {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 80%;
   margin: auto;
   border-radius: 20%;
 }
+
+.top_form {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+
+.child_top {
+  display: flex;
+  flex-direction: column;
+}
+.mid_form {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+
+.child_mid {
+  display: flex;
+  flex-direction: column;
+}
+.img_parent {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+.img_container {
+  display: flex;
+  flex-direction: column;
+}
 .img_container img {
-  width: 100px;
+  width: 200px;
+  height: auto;
   margin: 0px;
 }
-.uploading-image {
-  width: 10%;
+.bot_container {
+  margin: 15px auto;
+  display: flex;
+  gap: 20%;
+  white-space: nowrap;
+}
+
+.child_bot {
+  display: flex;
+}
+
+.check {
+  box-shadow: none;
+  border-radius: 100%;
+  margin: 15px auto;
+  width: 100px;
+  text-align: left;
+}
+
+.check:focus {
+  box-shadow: none;
+}
+.block_area {
+  width: 475px;
+  margin: 15px 0 15px 310px;
+  height: 100px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+  resize: none;
+}
+.text_container label {
+  margin-left: 310px;
+}
+.text_container {
+  display: flex;
+  flex-direction: column;
+}
+.block_area:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db9024;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f;
+}
+.file {
+  background: #db9024;
+  display: none;
 }
 </style>
