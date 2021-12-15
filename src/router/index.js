@@ -4,7 +4,6 @@ import Connexion from "../views/Connexion.vue";
 import AddService from "../views/AddService.vue";
 import DashBoard from "../views/DashBoardAdmin.vue";
 import AddAccountByAdmin from "../views/AddAccountByAdmin.vue";
-import CatalogueCategories from "../views/Catalogue/CatalogueCategories.vue";
 import CatalogueServices from "../views/Catalogue/CatalogueServices.vue";
 import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
 
@@ -45,11 +44,7 @@ const routes = [
     name: "Creation",
     component: AddAccountByAdmin,
   },
-  {
-    path: "/catalogue/categories",
-    name: "CatalogueCategories",
-    component: CatalogueCategories,
-  },
+
   {
     path: "/catalogue/services",
     name: "CatalogueServices",
