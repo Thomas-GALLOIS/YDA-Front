@@ -6,6 +6,7 @@ import DashBoard from "../views/DashBoardAdmin.vue";
 import AddAccountByAdmin from "../views/AddAccountByAdmin.vue";
 import CatalogueServices from "../views/Catalogue/CatalogueServices.vue";
 import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
+import Initialisation from "../views/InitialisationForm.vue";
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
     name: "CatalogueProducts",
     component: CatalogueProducts,
     props: true,
+  },
+  {
+    path: "/initialisation",
+    name: "initialisation",
+    component: Initialisation,
   },
 ];
 

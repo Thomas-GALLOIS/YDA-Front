@@ -8,7 +8,7 @@
     <label for="name">Type</label>
     <input type="text" v-model="name" id="name" />
 
-    <input type="submit" value="Envoyer" />
+    <input type="submit" value="Envoyer" id="submit_btn" />
   </form>
 </template>
 
@@ -48,6 +48,18 @@ export default {
 </script>
 
 <style scoped>
+select {
+  width: 200px;
+  height: 30px;
+  margin: 15px 0;
+  border: 1px solid transparent;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+select:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -68,5 +80,21 @@ input:focus {
 }
 label {
   margin-right: 165px;
+}
+#submit_btn {
+  width: 200px;
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  border: 2px solid #0f0f0f;
+  transition: background 1s;
+  height: 40px;
+}
+#submit_btn:hover {
+  color: #db9024;
+  background: #0f0f0f;
+  border: 2px solid #db9024;
+  transition: background 1s;
 }
 </style>

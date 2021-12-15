@@ -3,119 +3,93 @@
   <NavbarreAdmin />
 
   <!-- bouton pour affichage des formulaires -->
-  <button @click="showFormAccount()">Création Compte</button
-  ><button @click="showFormFirm()">Création d'entreprise</button>
+  <button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
   <!-- formulaire création de nouveau compte -->
   <form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
-    <select
-      @change="selectCategoryAccount($event)"
-      name="role"
-      id="add_account"
-    >
+    <select @change="selectCategoryAccount($event)" name="role" id="add_account">
       <option value="choix">Choix</option>
       <option value="admin">Admin</option>
       <option value="manager">Manager</option>
       <option value="member">Member</option>
     </select>
+
     <div class="form">
-      <div
-        v-if="
-          this.accountSelect == 'admin' ||
-          this.accountSelect == 'manager' ||
-          this.accountSelect == 'member'
-        "
-      >
-        <div class="form_p1">
-          <div class="last_name">
-            <label for="last_name">Nom : </label>
-            <input type="text" id="last_name" name="lastname" />
-          </div>
-          <div class="first_name">
-            <label for="first_name">Prenom : </label>
-            <input type="text" id="first_name" name="firstname" />
-          </div>
+        <div v-if=" this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
+            <div class="form_p1">
+                <div class="last_name">
+                    <label for="last_name">Nom : </label>
+                    <input type="text" id="last_name" name="lastname" />
+                </div>
+           
+                <div class="first_name">
+                    <label for="first_name">Prenom : </label>
+                    <input type="text" id="first_name" name="firstname" />
+                </div>
+            </div>
+                <div class="email">
+                    <label for="email">E-mail : </label>
+                    <input type="email" id="email" name="email" />
+                </div>
+                <button>Initialisation MDP</button>
         </div>
 
-        <div class="form_p1">
-          <div class="email">
-            <label for="email">E-mail : </label>
-            <input type="email" id="email" name="email" />
-            <button>Initialisation MDP</button>
-          </div>
+        <!-- champs communs comptes manager et member-->
+        <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
+            <div class="form_p1">
+                <div class="phone">
+                    <label for="add_phone">Téléphone : </label>
+                    <input type="tel" id="add_phone">
+                </div>
+                <div class="firm">
+                    <label for="add_firm">Entreprise : </label>
+                    <select @change="selectFirm($event)" @click="FirmChoice" name="firm_id" id="add_firm">
+                        <option v-for="(firm, index) in firmList" :key="index" :value="firm.id">{{firm.name}}</option>                      
+                    </select>
+                </div>
+            </div>
         </div>
-      </div>
+    
 
-      <!-- champs communs comptes manager et member-->
-      <div
-        v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'"
-      >
-        <div class="form_p1">
-          <div class="phone">
-            <label for="add_phone">Téléphone : </label>
-            <input type="tel" id="add_phone" />
-          </div>
-          <div class="firm">
-            <label for="add_firm">Entreprise : </label>
-            <select @change="selectFirm($event)" name="firm_id" id="add_firm">
-              <option value="1">test</option>
-              <option value="2">test2</option>
-            </select>
-          </div>
+        <!-- champs spécifiques compte membre -->
+        <div v-if="this.accountSelect == 'member'">
+            <div class="form_p1">
+                <div class="comment">
+                    <label for="add_comment">Commentaire :</label>
+                    <input type="text" name="add_comment" id="add_comment">
+                </div>
+                <div class="avatar">
+                    <label for="avatar">Avatar :</label>
+                    <img :src="avatarPicture" class="preview" alt="" />
+                    <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <!-- champs spécifiques compte membre -->
-      <div v-if="this.accountSelect == 'member'">
-        <div class="part_7">
-          <div class="comment">
-            <label for="add_comment">Commentaire :</label>
-            <input type="text" name="add_comment" id="add_comment" />
-          </div>
-          <div class="avatar">
-            <label for="avatar">Avatar :</label>
-            <img :src="avatarPicture" alt="" />
-            <input
-              type="file"
-              @change="downloadAvatar"
-              id="avatar"
-              accept="/*"
-              enctype="multipart/form-data"
-            />
-          </div>
+        <div v-if="accountSelect && this.accountSelect != 'choix'">
+            <input class="add_account_button btn btn-primary" type="submit" value="Valider"/>
         </div>
-      </div>
-
-      <div v-if="accountSelect && this.accountSelect != 'choix'">
-        <input
-          class="add_account_button btn btn-primary"
-          type="submit"
-          value="Valider"
-        />
-      </div>
     </div>
-  </form>
+</form>
 
   <!-- formulaire compte entreprise -->
   <div>
     <div class="form">
-      <form
-        v-if="this.showFirmAccount == true"
-        @submit.prevent="CreateAccountFirm"
-      >
-        <div class="name">
-          <label for="name">Nom : </label>
-          <input type="text" id="last_name" name="name" />
-        </div>
-
+      <form v-if="this.showFirmAccount == true" @submit.prevent="CreateAccountFirm">
         <div class="form_p1">
-          <div class="email">
-            <label for="email">E-mail : </label>
-            <input type="email" id="email" name="email" />
-          </div>
+            <div class="name">
+                <label for="name">Nom : </label>
+                <input type="text" id="name" name="name"/>
+            </div>
+        
+            <div class="email">
+                <label for="email">E-mail : </label>
+                <input type="email" id="email" name="email"/>
+            </div>
+            <button>Initialisation MDP</button>
         </div>
-
+        
         <div class="form_p1">
           <div class="address">
             <label for="address">Adresse :</label>
@@ -129,32 +103,32 @@
         </div>
 
         <div class="form_p1">
-          <div class="schedule">
-            <label for="schedule">Jour et heures 1er passage :</label>
-            <input type="text" name="visit_day_time_1" id="schedule" />
-          </div>
+            <div class="schedule">
+                <label for="schedule">Jour et heure 1er passage :</label>
+                <input type="text" name="visit_day_time_1" id="schedule">
+            </div>
 
-          <div class="schedule">
-            <label for="schedule">Jour et heure 2nd passage : </label>
-            <input type="text" id="schedule" name="visit_day_time_2" />
-          </div>
+            <div class="schedule">
+                <label for="schedule">Jour et heure 2nd passage :</label>
+                <input type="text" name="visit_day_time_2" id="schedule">
+            </div>
         </div>
 
         <div class="form_p1">
-          <div class="siret">
-            <label for="add_siret">Siret :</label>
-            <input type="text" name="siret" id="add_siret" />
-          </div>
-          <div class="Subscription">
-            <label for="add_subscription">Abonnement :</label>
-            <input type="text" name="subscription" id="add_subscription" />
-          </div>
+            <div class="siret">
+                <label for="add_siret">Siret :</label>
+                <input type="text" name="siret" id="add_siret">
+            </div>
+            <div class="subscription">
+                <label for="add_subscription">Abonnement :</label>
+                <input type="text" name="subscription" id="add_subscription">
+            </div>
         </div>
 
         <div class="form_p1">
           <div class="logo">
             <label for="logo">Logo :</label>
-            <img :src="logoPicture" alt="" />
+            <img  :src="logoPicture" class="preview" alt="" />
             <input
               type="file"
               @change="downloadLogo"
@@ -170,10 +144,10 @@
               <option value="color">bleu</option>
             </select>
           </div>
-          <div>
+        </div>
+        <div>
             <input class="add_account_button" type="submit" value="Valider" />
           </div>
-        </div>
       </form>
     </div>
   </div>
@@ -186,24 +160,28 @@
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 
 export default {
-  name: "AddAccount",
-  // component
-  components: {
-    NavbarreAdmin: NavbarreAdmin,
-  },
-  // data properties
-  data() {
-    return {
-      accountSelect: "",
-      firmSelect: "",
-      logoPicture: "",
-      avatarPicture: "",
-      showAccount: false,
-      showFirmAccount: false,
-    };
-  },
-  // methodes
-  methods: {
+    name:"AddAccount",
+    // component
+    components: {
+        NavbarreAdmin: NavbarreAdmin,
+    },
+    // data properties
+    data() {
+        return {
+            
+            accountSelect:"",
+            firmSelect:"",
+            logoPicture:"",
+            avatarPicture: "",
+            showAccount: false,
+            showFirmAccount: false,
+            firmList:"",
+            
+        };
+    },
+    // methodes
+    methods: {
+        
     //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
     async CreateAccountAdmin(e) {
       const url = "http://127.0.0.1:8000/api/inscription";
@@ -242,6 +220,30 @@ export default {
       console.log(data);
     },
 
+    async FirmChoice () {
+
+        const url = "http://127.0.0.1:8000/api/firms";
+      //Options de la requête API
+      const options = {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("@token"),
+        },
+      };
+      // va chercher les options de l'API
+      const response = await fetch(url, options);
+      console.log(response);
+      // la récupération des data stockées dans l'API
+      const data = await response.json();
+      console.log(data);
+
+      this.firmList = data;
+      console.log(this.firmList);
+
+
+        
+    },
+
     // Récupération de la valeur des selects
     selectCategoryAccount(event) {
       this.accountSelect = event.target.value;
@@ -252,6 +254,7 @@ export default {
       console.log(this.firmSelect);
     },
 
+    // methodes affichant les différents formulaires
     showFormAccount() {
       if (this.showAccount == false) {
         this.showAccount = true;
@@ -294,7 +297,6 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 500px;
   width: 500px;
   margin: auto;
@@ -309,7 +311,13 @@ export default {
 
 .form_p1 {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 50px;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
 }
 
 .last_name {
@@ -332,7 +340,7 @@ export default {
   flex-direction: column;
 }
 
-.adresse {
+.address {
   display: flex;
   flex-direction: column;
 }
@@ -370,5 +378,15 @@ export default {
 .avatar {
   display: flex;
   flex-direction: column;
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview {
+    width: 150px;
+    height: 150px;
 }
 </style>

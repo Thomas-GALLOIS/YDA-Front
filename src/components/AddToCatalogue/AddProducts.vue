@@ -4,8 +4,17 @@
     <p v-if="this.res == 500">Oups un problème est survenu</p>
   </div>
   <form @submit.prevent="addProduct">
-    <label for="name">Nom produit</label>
-    <input type="text" name="name" id="name" v-model="name" />
+    <div class="top_form">
+      <div class="child_top">
+        <label for="name">Nom produit</label>
+        <input type="text" name="name" id="name" v-model="name" />
+      </div>
+
+      <div class="child_top">
+        <label for="price">Prix produit</label>
+        <input type="number" name="price" id="price" v-model.number="price" />
+      </div>
+    </div>
 
     <label for="image">Image</label>
     <input type="file" id="image" @change="uploadImage" name="image" />
@@ -20,9 +29,6 @@
       id="description"
       v-model="description"
     />
-
-    <label for="price">Prix produit</label>
-    <input type="number" name="price" id="price" v-model.number="price" />
 
     <input type="radio" id="checkbox" name="status" value="on" />
     <label for="checkbox">Produit actif</label>
@@ -86,3 +92,44 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+form {
+  margin: auto;
+}
+input {
+  width: 200px;
+  height: 30px;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+label {
+  text-align: left;
+  margin-top: 20px;
+}
+#submit_btn {
+  width: 30%;
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  border: 2px solid #0f0f0f;
+  transition: background 1s;
+  height: 40px;
+  margin-left: 400px;
+}
+#submit_btn:hover {
+  color: #db9024;
+  background: #0f0f0f;
+  border: 2px solid #db9024;
+  transition: background 1s;
+}
+</style>
