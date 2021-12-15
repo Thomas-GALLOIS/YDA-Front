@@ -25,15 +25,7 @@
           </div>
           <div class="child_mid">
             <label for="categories">Categorie</label>
-            <select name="type_id" id="categories">
-              <option value="1">Pour les papilles</option>
-              <option value="2">Pour le bien-être</option>
-              <option value="3">Pour la maison</option>
-              <option value="4">Pour le quotidien</option>
-              <option value="5">Les idées Coffrets Your Daily</option>
-              <option value="6">Les services de vos assistantes</option>
-              <option value="7">Autres</option>
-            </select>
+            <SelectType />
           </div>
         </div>
         <div class="img_parent">
@@ -96,6 +88,7 @@
 </template>
 
 <script>
+import SelectType from "../UI/SelectTypes.vue";
 export default {
   data() {
     return {
@@ -109,6 +102,9 @@ export default {
       status: "",
       res: "",
     };
+  },
+  components: {
+    SelectType: SelectType,
   },
 
   methods: {
@@ -305,6 +301,5 @@ label {
 }
 .file {
   background: #db9024;
-  display: none;
 }
 </style>
