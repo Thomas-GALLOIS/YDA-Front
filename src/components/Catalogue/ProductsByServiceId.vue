@@ -12,6 +12,7 @@
       <div class="title_description">
         <h2>{{ value.name }}</h2>
         <p>{{ value.description }}</p>
+        <p>{{ value.id }}</p>
       </div>
       <div class="buttonedit" v-show="showModif">
         <button @click="showEdit = !showEdit">Modifier le produit</button>
@@ -76,16 +77,13 @@ export default {
       price: "",
       checked: "",
       status: "",
-      res: "",
-      services: "",
       productsArray: "",
-      id: "",
       showEdit: false,
       showModif: true,
     };
   },
   async mounted() {
-    console.log(this.servicesId);
+    console.log(this.id);
     const url = `http://127.0.0.1:8000/api/services/${this.servicesId}`;
 
     const options = {
@@ -104,9 +102,7 @@ export default {
 
   methods: {
     async editProduct() {
-      const url = `http://127.0.0.1:8000/api/services/${localStorage.getItem(
-        "id"
-      )}`;
+      const url = `http://127.0.0.1:8000/api/products/${this.value.id}`;
 
       const options = {
         method: "PUT",
