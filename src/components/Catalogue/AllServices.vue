@@ -1,6 +1,8 @@
 <template>
   <h1>Services</h1>
 
+  <SelectType @change="filterTypeId(element.type_id)" />
+
   <div
     class="service_card"
     v-for="(element, index) in servicesArray"
@@ -17,12 +19,18 @@
   </div>
 </template>
 <script>
+import SelectType from "../UI/SelectTypes.vue";
+
 export default {
   data() {
     return {
       servicesArray: "",
       id: "",
+      type_id: "",
     };
+  },
+  components: {
+    SelectType: SelectType,
   },
   async mounted() {
     const url = "http://127.0.0.1:8000/api/services";
@@ -60,6 +68,21 @@ export default {
       localStorage.setItem("id", id);
       this.$router.push({ name: "CatalogueProducts" });
     },
+  },
+
+  async filterTypeId(type_id) {
+    const url = `http://127.0.0.1:8000/api/services/${type_id}`;
+    const options = {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data);
   },
 };
 </script>
