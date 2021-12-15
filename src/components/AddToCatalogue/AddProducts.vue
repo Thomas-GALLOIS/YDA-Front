@@ -31,15 +31,14 @@
     <label for="checkbox">Produit inactif</label>
 
     <label for="service">Categorie</label>
-    <select name="service_id" id="service">
-      <option value="1">Pour les papilles</option>
-    </select>
+    <SelectServices />
 
     <input type="submit" value="Valider" />
   </form>
 </template>
 
 <script>
+import SelectServices from "../UI/SelectServices.vue";
 export default {
   data() {
     return {
@@ -51,7 +50,11 @@ export default {
       checked: "",
       status: "",
       res: "",
+      services: "",
     };
+  },
+  components: {
+    SelectServices: SelectServices,
   },
   methods: {
     uploadImage(e) {

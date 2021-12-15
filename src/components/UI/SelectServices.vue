@@ -1,0 +1,37 @@
+<template>
+  <select name="service_id" id="service">
+    <option
+      v-for="(element, index) in services"
+      :key="index"
+      :value="element.id"
+    >
+      {{ element.name }}
+    </option>
+  </select>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      services: "",
+    };
+  },
+  async mounted() {
+    const url = "http://127.0.0.1:8000/api/services";
+
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, options);
+    console.log(response);
+
+    const data = await response.json();
+    console.log(data);
+    this.services = data.donnees;
+  },
+};
+</script>
