@@ -3,78 +3,99 @@
   <NavbarreAdmin />
 
   <!-- bouton pour affichage des formulaires -->
-  <button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
+  <button @click="showFormAccount()">Création Compte</button
+  ><button @click="showFormFirm()">Création d'entreprise</button>
   <!-- formulaire création de nouveau compte -->
-<form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
+  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
-    <select @change="selectCategoryAccount($event)" name="role" id="add_account" >
-        <option value="choix">Choix</option>
-        <option value="admin">Admin</option>
-        <option value="manager">Manager</option>
-        <option value="member">Member</option>
+    <select
+      @change="selectCategoryAccount($event)"
+      name="role"
+      id="add_account"
+    >
+      <option value="choix">Choix</option>
+      <option value="admin">Admin</option>
+      <option value="manager">Manager</option>
+      <option value="member">Member</option>
     </select>
     <div class="form">
-        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
-            
-            <div class="form_p1">
-                <div class="last_name">
-                    <label for="last_name">Nom : </label>
-                    <input type="text" id="last_name" name="lastname"/>
-                </div>
-                <div class="first_name">
-                    <label for="first_name">Prenom : </label>
-                    <input type="text" id="first_name" name="firstname"/>
-                </div>
-            </div>
-                  
-            <div class="form_p1">
-                <div class="email">
-                    <label for="email">E-mail : </label>
-                    <input type="email" id="email" name="email"/>
-                    <button>Initialisation MDP</button>
-                </div>
-            </div>                     
+      <div
+        v-if="
+          this.accountSelect == 'admin' ||
+          this.accountSelect == 'manager' ||
+          this.accountSelect == 'member'
+        "
+      >
+        <div class="form_p1">
+          <div class="last_name">
+            <label for="last_name">Nom : </label>
+            <input type="text" id="last_name" name="lastname" />
+          </div>
+          <div class="first_name">
+            <label for="first_name">Prenom : </label>
+            <input type="text" id="first_name" name="firstname" />
+          </div>
         </div>
 
-        <!-- champs communs comptes manager et member-->
-        <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
-            <div class="form_p1">
-                <div class="phone">
-                    <label for="add_phone">Téléphone : </label>
-                    <input type="tel" id="add_phone">
-                </div>
-                <div class="firm">
-                    <label for="add_firm">Entreprise : </label>
-                    <select @change="selectFirm($event)" name="firm_id" id="add_firm">
-                        <option value="1">test</option>
-                        <option value="2">test2</option>
-                    </select>
-                </div>
-            </div>
+        <div class="form_p1">
+          <div class="email">
+            <label for="email">E-mail : </label>
+            <input type="email" id="email" name="email" />
+            <button>Initialisation MDP</button>
+          </div>
         </div>
-    
+      </div>
 
-        <!-- champs spécifiques compte membre -->
-        <div v-if="this.accountSelect == 'member'">
-            <div class="part_7">
-                <div class="comment">
-                    <label for="add_comment">Commentaire :</label>
-                    <input type="text" name="add_comment" id="add_comment">
-                </div>
-                <div class="avatar">
-                    <label for="avatar">Avatar :</label>
-                    <img :src="avatarPicture" alt="" />
-                    <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
-                </div>
-            </div>
+      <!-- champs communs comptes manager et member-->
+      <div
+        v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'"
+      >
+        <div class="form_p1">
+          <div class="phone">
+            <label for="add_phone">Téléphone : </label>
+            <input type="tel" id="add_phone" />
+          </div>
+          <div class="firm">
+            <label for="add_firm">Entreprise : </label>
+            <select @change="selectFirm($event)" name="firm_id" id="add_firm">
+              <option value="1">test</option>
+              <option value="2">test2</option>
+            </select>
+          </div>
         </div>
+      </div>
 
-        <div v-if="accountSelect && this.accountSelect != 'choix'">
-            <input class="add_account_button btn btn-primary" type="submit" value="Valider"/>
+      <!-- champs spécifiques compte membre -->
+      <div v-if="this.accountSelect == 'member'">
+        <div class="part_7">
+          <div class="comment">
+            <label for="add_comment">Commentaire :</label>
+            <input type="text" name="add_comment" id="add_comment" />
+          </div>
+          <div class="avatar">
+            <label for="avatar">Avatar :</label>
+            <img :src="avatarPicture" alt="" />
+            <input
+              type="file"
+              @change="downloadAvatar"
+              id="avatar"
+              accept="/*"
+              enctype="multipart/form-data"
+            />
+          </div>
         </div>
+      </div>
+
+      <div v-if="accountSelect && this.accountSelect != 'choix'">
+        <input
+          class="add_account_button btn btn-primary"
+          type="submit"
+          value="Valider"
+        />
+      </div>
     </div>
-</form>
+  </form>
 
   <!-- formulaire compte entreprise -->
   <div>
@@ -84,50 +105,50 @@
         @submit.prevent="CreateAccountFirm"
       >
         <div class="name">
-                <label for="name">Nom : </label>
-                <input type="text" id="last_name" name="name"/>
+          <label for="name">Nom : </label>
+          <input type="text" id="last_name" name="name" />
         </div>
 
         <div class="form_p1">
-                    <div class="email">
-                        <label for="email">E-mail : </label>
-                        <input type="email" id="email" name="email"/>
-                    </div>
-                </div>
-        
-        <div class="form_p1">
-            <div class="address">
-                <label for="address">Adresse :</label>
-                <input type="text" name="address" id="address">
-            </div>
-
-            <div class="phone">
-                <label for="add_phone">Téléphone : </label>
-                <input type="tel" id="add_phone" name="phone">
-            </div>
+          <div class="email">
+            <label for="email">E-mail : </label>
+            <input type="email" id="email" name="email" />
+          </div>
         </div>
 
         <div class="form_p1">
-            <div class="schedule">
-                <label for="schedule">Jour et heures 1er passage :</label>
-                <input type="text" name="visit_day_time_1" id="schedule">
-            </div>
+          <div class="address">
+            <label for="address">Adresse :</label>
+            <input type="text" name="address" id="address" />
+          </div>
 
-            <div class="schedule">
-                <label for="schedule">Jour et heure 2nd passage : </label>
-                <input type="text" id="schedule" name="visit_day_time_2">
-            </div>
+          <div class="phone">
+            <label for="add_phone">Téléphone : </label>
+            <input type="tel" id="add_phone" name="phone" />
+          </div>
         </div>
 
         <div class="form_p1">
-            <div class="siret">
-                <label for="add_siret">Siret :</label>
-                <input type="text" name="siret" id="add_siret">
-            </div>
-            <div class="Subscription">
-                <label for="add_subscription">Abonnement :</label>
-                <input type="text" name="subscription" id="add_subscription">
-            </div>
+          <div class="schedule">
+            <label for="schedule">Jour et heures 1er passage :</label>
+            <input type="text" name="visit_day_time_1" id="schedule" />
+          </div>
+
+          <div class="schedule">
+            <label for="schedule">Jour et heure 2nd passage : </label>
+            <input type="text" id="schedule" name="visit_day_time_2" />
+          </div>
+        </div>
+
+        <div class="form_p1">
+          <div class="siret">
+            <label for="add_siret">Siret :</label>
+            <input type="text" name="siret" id="add_siret" />
+          </div>
+          <div class="Subscription">
+            <label for="add_subscription">Abonnement :</label>
+            <input type="text" name="subscription" id="add_subscription" />
+          </div>
         </div>
 
         <div class="form_p1">
@@ -162,31 +183,28 @@
 
 
 <script>
-import NavbarreAdminVue from "../components/NavbarreAdmin.vue";
+import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 
 export default {
-    name:"AddAccount",
-    // component
-    components: {
-        NavbarreAdmin: NavbarreAdmin,
-    },
-    // data properties
-    data() {
-        return {
-            
-            accountSelect:"",
-            firmSelect:"",
-            logoPicture:"",
-            avatarPicture: "",
-            showAccount: false,
-            showFirmAccount: false,
-            
-        };
-    },
-    // methodes
-    methods: {
-        
-        //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
+  name: "AddAccount",
+  // component
+  components: {
+    NavbarreAdmin: NavbarreAdmin,
+  },
+  // data properties
+  data() {
+    return {
+      accountSelect: "",
+      firmSelect: "",
+      logoPicture: "",
+      avatarPicture: "",
+      showAccount: false,
+      showFirmAccount: false,
+    };
+  },
+  // methodes
+  methods: {
+    //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
     async CreateAccountAdmin(e) {
       const url = "http://127.0.0.1:8000/api/inscription";
       //Options de la requête API
