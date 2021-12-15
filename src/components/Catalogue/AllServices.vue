@@ -94,7 +94,11 @@ export default {
   computed: {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
-        return element.type_id == this.toto;
+        if (this.toto != "") {
+          return element.type_id == this.toto;
+        } else {
+          return element.type_id;
+        }
       });
     },
   },
