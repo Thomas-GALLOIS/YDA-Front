@@ -28,7 +28,7 @@ export default {
       id: "",
       type_id: "",
       selected: "",
-      toto: "",
+      getValueFromOptions: "",
     };
   },
   components: {
@@ -55,21 +55,10 @@ export default {
 
   methods: {
     async showServiceProducts(id) {
-      const url = `http://127.0.0.1:8000/api/services/${id}`;
-
-      const options = {
-        method: "GET",
-
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-      localStorage.setItem("id", id);
-      this.$router.push({ name: "CatalogueProducts" });
+      this.$router.replace({
+        name: "CatalogueProducts",
+        params: { servicesId: id },
+      });
     },
     /*async filterTypeId(event) {
       const url = `http://127.0.0.1:8000/api/services/${event.target.value}`;
@@ -87,15 +76,14 @@ export default {
     },*/
 
     getOptionValue(event) {
-      this.toto = event.target.value;
-      console.log(this.toto);
+      this.getValueFromOptions = event.target.value;
     },
   },
   computed: {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
-        if (this.toto != "") {
-          return element.type_id == this.toto;
+        if (this.getValueFromOptions != "") {
+          return element.type_id == this.getValueFromOptions;
         } else {
           return element.type_id;
         }

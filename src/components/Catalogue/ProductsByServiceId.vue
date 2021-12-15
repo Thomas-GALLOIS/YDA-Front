@@ -19,6 +19,9 @@
 
 <script>
 export default {
+  props: {
+    servicesId: String,
+  },
   data() {
     return {
       productsArray: "",
@@ -26,9 +29,8 @@ export default {
     };
   },
   async mounted() {
-    const url = `http://127.0.0.1:8000/api/services/${localStorage.getItem(
-      "id"
-    )}`;
+    console.log(this.servicesId);
+    const url = `http://127.0.0.1:8000/api/services/${this.servicesId}`;
 
     const options = {
       method: "GET",

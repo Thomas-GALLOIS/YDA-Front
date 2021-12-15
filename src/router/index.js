@@ -59,6 +59,7 @@ const routes = [
     path: "/catalogue/products",
     name: "CatalogueProducts",
     component: CatalogueProducts,
+    props: true,
   },
 ];
 
