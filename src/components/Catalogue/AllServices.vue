@@ -1,12 +1,11 @@
 <template>
   <h1>Services</h1>
 
-  <SelectType v-model="selected" />
-  <p>{{ this.selected }}</p>
+  <SelectType @change="getOptionValue($event)" />
 
   <div
     class="service_card"
-    v-for="(element, index) in servicesArray"
+    v-for="(element, index) in filterTypeId"
     :key="index"
     @click="showServiceProducts(element.id)"
   >
@@ -25,10 +24,11 @@ import SelectType from "../UI/SelectTypes.vue";
 export default {
   data() {
     return {
-      servicesArray: "",
+      servicesArray: [],
       id: "",
       type_id: "",
       selected: "",
+      toto: "",
     };
   },
   components: {
@@ -85,12 +85,16 @@ export default {
       const data = await response.json();
       console.log(data);
     },*/
+
+    getOptionValue(event) {
+      this.toto = event.target.value;
+      console.log(this.toto);
+    },
   },
   computed: {
     filterTypeId() {
-      console.log(this.selected);
       return this.servicesArray.filter((element) => {
-        return element.type_id.includes(this.selected);
+        return element.type_id == this.toto;
       });
     },
   },
