@@ -25,7 +25,7 @@
             <router-link class="anim" to="/">Liste Entreprise</router-link>
           </li>
           <li>
-            <router-link class="anim" to="/catalogue/categories"
+            <router-link class="anim" to="/catalogue/services"
               >Catalogue</router-link
             >
           </li>
