@@ -7,6 +7,7 @@ import AddAccountByAdmin from "../views/AddAccountByAdmin.vue";
 import CatalogueCategories from "../views/Catalogue/CatalogueCategories.vue";
 import CatalogueServices from "../views/Catalogue/CatalogueServices.vue";
 import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
+import Initialisation from "../views/InitialisationForm.vue";
 
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
     path: "/catalogue/products",
     name: "CatalogueProducts",
     component: CatalogueProducts,
+  },
+  {
+    path: "/initialisation",
+    name: "initialisation",
+    component: Initialisation,
   },
 ];
 
