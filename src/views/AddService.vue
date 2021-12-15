@@ -1,5 +1,5 @@
 <template>
-  <Navbarre />
+  <NavbarreAdmin />
   <button @click="showTypeForm()">Ajouter un type</button>
   <button @click="showServiceForm()">Ajouter un service</button>
   <button @click="showProductForm()">Ajouter un produit</button>
@@ -13,12 +13,9 @@
   <div v-if="this.showService == true">
     <AddServices></AddServices>
   </div>
-
-  <Footer></Footer>
 </template>
 <script>
-import Footer from "../components/Footer.vue";
-import Navbarre from "../components/Navbarre.vue";
+import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 import AddServices from "../components/AddToCatalogue/AddServices.vue";
 import AddTypes from "../components/AddToCatalogue/AddTypes.vue";
 import AddProducts from "../components/AddToCatalogue/AddProducts.vue";
@@ -31,8 +28,7 @@ export default {
     };
   },
   components: {
-    Footer,
-    Navbarre,
+    NavbarreAdmin: NavbarreAdmin,
     AddServices: AddServices,
     AddTypes: AddTypes,
     AddProducts: AddProducts,

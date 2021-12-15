@@ -1,8 +1,11 @@
 <template>
   <h1>Services</h1>
+
+  <SelectType @change="getOptionValue($event)" />
+
   <div
     class="service_card"
-    v-for="(element, index) in servicesArray"
+    v-for="(element, index) in filterTypeId"
     :key="index"
     @click="showServiceProducts(element.id)"
   >
@@ -12,17 +15,24 @@
     <div class="title_description">
       <h2>{{ element.name }}</h2>
       <p>{{ element.description_1 }}</p>
-      <p>{{ element.id }}</p>
     </div>
   </div>
 </template>
 <script>
+import SelectType from "../UI/SelectTypes.vue";
+
 export default {
   data() {
     return {
-      servicesArray: "",
+      servicesArray: [],
       id: "",
+      type_id: "",
+      selected: "",
+      getValueFromOptions: "",
     };
+  },
+  components: {
+    SelectType: SelectType,
   },
   async mounted() {
     const url = "http://127.0.0.1:8000/api/services";
@@ -40,12 +50,18 @@ export default {
     //console.log(data);
     this.servicesArray = data.donnees;
     console.log(this.servicesArray);
+    this.type_id = data.donnees.type_id;
   },
 
   methods: {
     async showServiceProducts(id) {
-      const url = `http://127.0.0.1:8000/api/services/${id}`;
-
+      this.$router.replace({
+        name: "CatalogueProducts",
+        params: { servicesId: id },
+      });
+    },
+    /*async filterTypeId(event) {
+      const url = `http://127.0.0.1:8000/api/services/${event.target.value}`;
       const options = {
         method: "GET",
 
@@ -57,8 +73,21 @@ export default {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log(data);
-      localStorage.setItem("id", id);
-      this.$router.push({ name: "CatalogueProducts" });
+    },*/
+
+    getOptionValue(event) {
+      this.getValueFromOptions = event.target.value;
+    },
+  },
+  computed: {
+    filterTypeId() {
+      return this.servicesArray.filter((element) => {
+        if (this.getValueFromOptions != "") {
+          return element.type_id == this.getValueFromOptions;
+        } else {
+          return element.type_id;
+        }
+      });
     },
   },
 };

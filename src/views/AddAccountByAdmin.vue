@@ -3,38 +3,39 @@
   <NavbarreAdmin />
 
   <!-- bouton pour affichage des formulaires -->
-  <button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
+  <button @click="showFormAccount()">Création Compte</button
+  ><button @click="showFormFirm()">Création d'entreprise</button>
   <!-- formulaire création de nouveau compte -->
-<form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
+  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
-    <select @change="selectCategoryAccount($event)" name="role" id="add_account" >
-        <option value="choix">Choix</option>
-        <option value="admin">Admin</option>
-        <option value="manager">Manager</option>
-        <option value="member">Member</option>
+    <select
+      @change="selectCategoryAccount($event)"
+      name="role"
+      id="add_account"
+    >
+      <option value="choix">Choix</option>
+      <option value="admin">Admin</option>
+      <option value="manager">Manager</option>
+      <option value="member">Member</option>
     </select>
     <div class="form">
-        <div v-if="this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
-            
-            <div class="form_p1">
-                <div class="last_name">
-                    <label for="last_name">Nom : </label>
-                    <input type="text" id="last_name" name="lastname"/>
-                </div>
-                <div class="first_name">
-                    <label for="first_name">Prenom : </label>
-                    <input type="text" id="first_name" name="firstname"/>
-                </div>
-            </div>
-                  
-            <div class="form_p1">
-                <div class="email">
-                    <label for="email">E-mail : </label>
-                    <input type="email" id="email" name="email"/>
-                    <button>Initialisation MDP</button>
-                </div>
-            </div>                     
+      <div
+        v-if="
+          this.accountSelect == 'admin' ||
+          this.accountSelect == 'manager' ||
+          this.accountSelect == 'member'
+        "
+      >
+        <div class="form_p1">
+          <div class="last_name">
+            <label for="last_name">Nom : </label>
+            <input type="text" id="last_name" name="lastname" />
+          </div>
+          <div class="first_name">
+            <label for="first_name">Prenom : </label>
+            <input type="text" id="first_name" name="firstname" />
+          </div>
         </div>
 
         <!-- champs communs comptes manager et member-->
@@ -67,13 +68,26 @@
                     <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
                 </div>
             </div>
+        <div class="form_p1">
+          <div class="email">
+            <label for="email">E-mail : </label>
+            <input type="email" id="email" name="email" />
+            <button>Initialisation MDP</button>
+          </div>
         </div>
+      </div>
 
-        <div v-if="accountSelect && this.accountSelect != 'choix'">
-            <input class="add_account_button btn btn-primary" type="submit" value="Valider"/>
-        </div>
+    
+
+      <div v-if="accountSelect && this.accountSelect != 'choix'">
+        <input
+          class="add_account_button btn btn-primary"
+          type="submit"
+          value="Valider"
+        />
+      </div>
     </div>
-</form>
+  </form>
 
   <!-- formulaire compte entreprise -->
   <div>
@@ -92,15 +106,15 @@
         </div>
         
         <div class="form_p1">
-            <div class="address">
-                <label for="address">Adresse :</label>
-                <input type="text" name="address" id="address">
-            </div>
+          <div class="address">
+            <label for="address">Adresse :</label>
+            <input type="text" name="address" id="address" />
+          </div>
 
-            <div class="phone">
-                <label for="add_phone">Téléphone : </label>
-                <input type="tel" id="add_phone" name="phone">
-            </div>
+          <div class="phone">
+            <label for="add_phone">Téléphone : </label>
+            <input type="tel" id="add_phone" name="phone" />
+          </div>
         </div>
 
         <div class="form_p1">
