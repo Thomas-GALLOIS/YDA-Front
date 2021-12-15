@@ -1,27 +1,34 @@
 <template>
-  <div
-    class="service_card"
-    v-for="(element, index) in servicesArray"
-    :key="index"
-  >
-    <div class="image">
-      <img src="https://i.imgur.com/EHDYFaT.jpeg" />
-    </div>
-    <div class="title_description">
-      <h1>{{ element.name }}</h1>
-      <p>{{ element.description_1 }}</p>
+  <h1>Products</h1>
+  <div v-for="(element, index) in productsArray" :key="index">
+    <div
+      class="product_card"
+      v-for="(value, index) in element.products"
+      :key="index"
+    >
+      <div class="image">
+        <img src="https://i.imgur.com/EHDYFaT.jpeg" />
+      </div>
+      <div class="title_description">
+        <h2>{{ value.name }}</h2>
+        <p>{{ value.description }}</p>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data() {
     return {
-      servicesArray: "",
+      productsArray: "",
+      id: "",
     };
   },
   async mounted() {
-    const url = "http://127.0.0.1:8000/api/services";
+    const url = `http://127.0.0.1:8000/api/services/${localStorage.getItem(
+      "id"
+    )}`;
 
     const options = {
       method: "GET",
@@ -33,9 +40,8 @@ export default {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    //console.log(data);
-    this.servicesArray = data.donnees;
-    console.log(this.servicesArray);
+    this.productsArray = data.donnees;
+    console.log(this.productsArray);
   },
 };
 </script>
@@ -46,7 +52,7 @@ img {
   height: 15rem;
 }
 
-.service_card {
+.product_card {
   display: flex;
   justify-content: flex-start;
   align-content: space-around;
@@ -55,6 +61,10 @@ img {
   padding: 1%;
   border: 1px solid black;
   border-radius: 20px;
+  box-shadow: 2px 1px 9px 0px black;
+}
+
+.product_card:hover {
   box-shadow: inset 2px 1px 9px 0px black;
 }
 
