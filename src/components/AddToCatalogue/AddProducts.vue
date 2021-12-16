@@ -1,8 +1,10 @@
 <template>
   <div>
+    <!--message suite au succés ou non de la requête -->
     <p v-if="this.status == 200">Votre produit à bien été ajouté</p>
     <p v-if="this.res == 500">Oups un problème est survenu</p>
   </div>
+  <!--formulaire d'ajout d'un produit -->
   <form @submit.prevent="addProduct">
     <h1>Ajouter un nouveau produit</h1>
     <div class="top_form">
@@ -66,7 +68,9 @@
 </template>
 
 <script>
+/* import du component selectservices de tout les services enregistrés en BDD */
 import SelectServices from "../UI/SelectServices.vue";
+
 export default {
   data() {
     return {
@@ -85,6 +89,7 @@ export default {
     SelectServices: SelectServices,
   },
   methods: {
+    /* method pour télécharger l'image du formulaire*/
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -94,6 +99,7 @@ export default {
         console.log(this.previewImage);
       };
     },
+    /* method pour ajouter un produit en bdd avec vérification du token */
     async addProduct(e) {
       const url = "http://127.0.0.1:8000/api/products";
 

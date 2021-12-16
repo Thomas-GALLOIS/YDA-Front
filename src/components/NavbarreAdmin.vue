@@ -1,4 +1,6 @@
 <template>
+  <!--Component Navbarre pour admin réutilisable de partout-->
+
   <div class="nav_admin">
     <div class="nav_primaire">
       <div class="logo">

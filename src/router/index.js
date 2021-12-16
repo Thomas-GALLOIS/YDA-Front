@@ -23,40 +23,44 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  /*route de connexion*/
   {
     path: "/connexion",
     name: "Connexion",
     component: Connexion,
   },
+  /*route pour ajouter de nouveaux types, services ou produits*/
   {
     path: "/addService",
     name: "AddService",
     component: AddService,
   },
-
+  /*route pour acceder à la page d'acceuil*/
   {
     path: "/dashboard",
     name: "Dashboard",
     component: DashBoard,
   },
-
+  /*route de création de compte admin, company ou membre*/
   {
     path: "/creation",
     name: "Creation",
     component: AddAccountByAdmin,
   },
-
+  /*route d'affichage du catalogue des services'*/
   {
     path: "/catalogue/services",
     name: "CatalogueServices",
     component: CatalogueServices,
   },
+  /*route d'affichage du catalogue des produits'*/
   {
     path: "/catalogue/products",
     name: "CatalogueProducts",
     component: CatalogueProducts,
     props: true,
   },
+  /*route pour initialiser son MDP suite à oublie ou inscription*/
   {
     path: "/initialisation",
     name: "initialisation",
