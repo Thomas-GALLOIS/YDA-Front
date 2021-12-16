@@ -1,5 +1,5 @@
 <template>
-  <h1>Ajouter un nouveau Type:</h1>
+  <h1>Ajouter un nouveau Type</h1>
   <div>
     <p v-if="this.status == 200">Votre Type à bien été crée</p>
     <p v-if="this.res == 500">Oups un problème est survenu</p>

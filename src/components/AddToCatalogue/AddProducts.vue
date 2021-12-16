@@ -4,6 +4,7 @@
     <p v-if="this.res == 500">Oups un problème est survenu</p>
   </div>
   <form @submit.prevent="addProduct">
+    <h1>Ajouter un nouveau produit</h1>
     <div class="top_form">
       <div class="child_top">
         <label for="name">Nom produit</label>
@@ -15,31 +16,52 @@
         <input type="number" name="price" id="price" v-model.number="price" />
       </div>
     </div>
-
-    <label for="image">Image</label>
-    <input type="file" id="image" @change="uploadImage" name="image" />
-    <div class="img_container">
-      <img :src="previewImage" class="uploading-image" />
+    <div class="div_input_unique">
+      <label for="image">Image</label>
+      <input type="file" id="image" @change="uploadImage" name="image" />
+      <div class="img_container">
+        <img :src="previewImage" class="uploading-image" />
+      </div>
+    </div>
+    <div class="text_container">
+      <div class="div_input_unique">
+        <label for="description">Description produit</label>
+        <textarea
+          type="text"
+          class="block_area"
+          name="description"
+          id="description"
+          v-model="description"
+        ></textarea>
+      </div>
     </div>
 
-    <label for="description">Description produit</label>
-    <input
-      type="text"
-      name="description"
-      id="description"
-      v-model="description"
-    />
+    <div class="bot_container">
+      <div class="child_bot">
+        <label for="checkbox">Produit actif</label>
+        <input
+          class="check"
+          type="radio"
+          id="checkbox"
+          name="status"
+          value="on"
+        />
+        <label for="checkbox">Produit inactif</label>
+        <input
+          class="check"
+          type="radio"
+          id="checkbox"
+          name="status"
+          value="off"
+        />
+      </div>
+    </div>
+    <div class="div_input_unique">
+      <label for="service">Categorie</label>
+      <SelectServices />
+    </div>
 
-    <input type="radio" id="checkbox" name="status" value="on" />
-    <label for="checkbox">Produit actif</label>
-
-    <input type="radio" id="checkbox" name="status" value="off" />
-    <label for="checkbox">Produit inactif</label>
-
-    <label for="service">Categorie</label>
-    <SelectServices />
-
-    <input type="submit" value="Valider" />
+    <input id="submit_btn" type="submit" value="Valider" />
   </form>
 </template>
 
@@ -94,8 +116,25 @@ export default {
 </script>
 
 <style scoped>
-form {
+.bot_container {
+  margin: 15px auto;
+  display: flex;
+  gap: 20%;
+  white-space: nowrap;
+}
+
+.child_bot {
+  display: flex;
+}
+.div_input_unique {
   margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 input {
   width: 200px;
@@ -116,7 +155,6 @@ label {
   margin-top: 20px;
 }
 #submit_btn {
-  width: 30%;
   margin-top: 20px;
   color: #0f0f0f;
   background: #db9024;
@@ -124,12 +162,88 @@ label {
   border: 2px solid #0f0f0f;
   transition: background 1s;
   height: 40px;
-  margin-left: 400px;
+  margin-left: auto;
 }
 #submit_btn:hover {
   color: #db9024;
   background: #0f0f0f;
   border: 2px solid #db9024;
   transition: background 1s;
+}
+
+.top_form {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+
+.child_top {
+  display: flex;
+  flex-direction: column;
+}
+
+.img_container {
+  display: flex;
+  flex-direction: column;
+}
+.img_container img {
+  width: 200px;
+  height: auto;
+  margin: 0px;
+}
+
+.check {
+  box-shadow: none;
+  border-radius: 100%;
+  margin: 15px auto;
+  width: 100px;
+  text-align: left;
+}
+
+.check:focus {
+  box-shadow: none;
+}
+.block_area {
+  width: 26rem;
+  height: 10rem;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+.text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.block_area:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db9024;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f;
+}
+.file {
+  background: #db9024;
 }
 </style>
