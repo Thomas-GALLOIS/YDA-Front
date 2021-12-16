@@ -1,4 +1,5 @@
 <template>
+  <!--v-for sur le select pour afficher tout les  services dispo en BDD -->
   <select name="service_id" id="service">
     <option
       v-for="(element, index) in services"
@@ -18,6 +19,7 @@ export default {
     };
   },
   async mounted() {
+    /* requete pour récuperer les services en BDD */
     const url = "http://127.0.0.1:8000/api/services";
 
     const options = {

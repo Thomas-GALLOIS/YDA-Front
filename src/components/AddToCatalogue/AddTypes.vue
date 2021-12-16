@@ -1,9 +1,11 @@
 <template>
-  <h1>Ajouter un nouveau Type:</h1>
+  <h1>Ajouter un nouveau Type</h1>
   <div>
+    <!--message suite au succés ou non de la requête -->
     <p v-if="this.status == 200">Votre Type à bien été crée</p>
     <p v-if="this.res == 500">Oups un problème est survenu</p>
   </div>
+  <!--formulaire d'ajout d'un type de service -->
   <form @submit.prevent="addType">
     <label for="name">Type</label>
     <input type="text" v-model="name" id="name" />
@@ -22,6 +24,7 @@ export default {
     };
   },
   methods: {
+    /* method pour ajouter un type de service en bdd avec vérification du token */
     async addType() {
       const url = "http://127.0.0.1:8000/api/types";
 

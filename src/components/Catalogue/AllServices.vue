@@ -1,8 +1,8 @@
 <template>
   <h1>Services</h1>
-
+  <!--component de selection du type-->
   <SelectType @change="getOptionValue($event)" />
-
+  <!--v-for pour afficher tout les services en BDD -->
   <div
     class="service_card"
     v-for="(element, index) in filterTypeId"
@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+/*import du composant selecttype*/
 import SelectType from "../UI/SelectTypes.vue";
 
 export default {
@@ -35,6 +36,7 @@ export default {
     SelectType: SelectType,
   },
   async mounted() {
+    /*requete pour récuperer au montage tout les services en BDD*/
     const url = "http://127.0.0.1:8000/api/services";
 
     const options = {
@@ -52,6 +54,7 @@ export default {
     console.log(this.servicesArray);
     this.type_id = data.donnees.type_id;
   },
+  /* method au click pour selectionner le bon service avec le bon ID qui renvoie vers la page des produits de ce service selectionné */
 
   methods: {
     async showServiceProducts(id) {
@@ -75,11 +78,13 @@ export default {
       console.log(data);
     },*/
 
+    /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
     },
   },
   computed: {
+    /* fonction de filtre par type de services*/
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
