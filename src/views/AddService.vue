@@ -1,4 +1,5 @@
 <template>
+  <!-- page d'ajout de types, services ou produits avec conditions d'affichage en fonction du formulaire choisi  -->
   <NavbarreAdmin />
   <div class="button">
     <button @click="showTypeForm()">Ajouter un type</button>

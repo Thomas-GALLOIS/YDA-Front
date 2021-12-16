@@ -1,4 +1,6 @@
 <template>
+  <!--page d'afffichage du catalogue des services avec imports de différent composants-->
+
   <NavbarreAdmin />
   <AllServices />
   <Footer></Footer>
