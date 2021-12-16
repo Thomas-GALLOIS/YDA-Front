@@ -12,14 +12,14 @@
       <div class="title_description">
         <h2>{{ value.name }}</h2>
         <p>{{ value.description }}</p>
-        <p>{{ value.id }}</p>
       </div>
-      <div class="buttonedit" v-show="showModif">
+
+      <div class="buttonedit">
         <button @click="showEdit = !showEdit">Modifier le produit</button>
       </div>
 
       <div v-show="showEdit">
-        <form class="edit_product">
+        <form class="edit_product" @submit.prevent="editProduct(value.id)">
           <label>Nom</label>
           <input type="text" v-model="name" name="name" id="name" />
           <br />
@@ -51,13 +51,27 @@
           <label for="price">Prix produit</label>
           <input type="number" name="price" id="price" v-model.number="price" />
           <br />
-          <input type="radio" id="checkbox" name="status" value="on" />
+          <input
+            type="radio"
+            id="checkbox"
+            name="status"
+            v-model="radio"
+            value="actif"
+          />
           <label for="checkbox">Produit actif</label>
           <br />
-          <input type="radio" id="checkbox" name="status" value="off" />
+          <input
+            type="radio"
+            id="checkbox"
+            name="status"
+            v-model="radio"
+            value="inactf"
+          />
+          {{ name }}
           <label for="checkbox">Produit inactif</label>
           <br />
-          <button @click="editUser">Valider mes modifications</button>
+          <SelectServices />
+          <input type="submit" value="valider" />
         </form>
       </div>
     </div>
@@ -65,7 +79,11 @@
 </template>
 
 <script>
+import SelectServices from "../UI/SelectServices.vue";
 export default {
+  components: {
+    SelectServices: SelectServices,
+  },
   props: {
     servicesId: String,
   },
@@ -80,10 +98,11 @@ export default {
       productsArray: "",
       showEdit: false,
       showModif: true,
+      radio: "",
+      toto: "",
     };
   },
   async mounted() {
-    console.log(this.id);
     const url = `http://127.0.0.1:8000/api/services/${this.servicesId}`;
 
     const options = {
@@ -97,32 +116,45 @@ export default {
     const response = await fetch(url, options);
     const data = await response.json();
     this.productsArray = data.donnees;
+
     console.log(this.productsArray);
   },
 
   methods: {
-    async editProduct() {
-      const url = `http://127.0.0.1:8000/api/products/${this.value.id}`;
+    uploadImage(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.previewImage = e.target.result;
+        console.log(this.previewImage);
+      };
+    },
+    async editProduct(id) {
+      console.log(this.toto);
+      const url = `http://127.0.0.1:8000/api/products/${id}`;
 
       const options = {
         method: "PUT",
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
+          Authorization: "bearer " + localStorage.getItem("@token"),
+          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify({
           name: this.name,
           image: this.image,
           description: this.description,
           price: this.price,
-          status: this.status,
+          status: this.radio,
+          service_id: 1,
         }),
       };
       const response = await fetch(url, options);
+      console.log(response);
       const data = await response.json();
       console.log(data);
-      this.$router.go();
     },
   },
 };
