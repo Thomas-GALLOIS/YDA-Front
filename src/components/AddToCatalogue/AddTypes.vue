@@ -81,6 +81,8 @@ export default {
       const data = await response.json();
       console.log(data);
       this.status = data.status_code;
+
+      //ajout de fake data aprés validation input
       if (!this.name) {
         // input value is empty
         return;

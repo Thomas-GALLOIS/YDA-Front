@@ -10,7 +10,7 @@
     @click="showServiceProducts(element.id)"
   >
     <div class="image">
-      <img src="https://i.imgur.com/EHDYFaT.jpeg" />
+      <img src="http://i.imgur.com/EHDYFaT.jpeg" />
     </div>
     <div class="title_description">
       <h2>{{ element.name }}</h2>
