@@ -9,8 +9,21 @@
   <form @submit.prevent="addType">
     <label for="name">Type</label>
     <input type="text" v-model="name" id="name" />
-
     <input type="submit" value="Envoyer" id="submit_btn" />
+    <br />
+    <ul></ul>
+    <h2>Listes des types de services</h2>
+    <!--v-for pour afficher tout les types en BDD -->
+    <div class="type_card" v-for="(element, index) in typesArray" :key="index">
+      <p>
+        {{ element.name }}
+        <i @click="deleteType(element.id)" class="far fa-trash-alt"></i>
+      </p>
+    </div>
+    <!-- v-for pour afficher des fake création de types pour rendre la page dynamique -->
+    <p v-for="type in types" :key="type">
+      {{ type }} <i class="far fa-trash-alt" @click="deleteName()"></i>
+    </p>
   </form>
 </template>
 
@@ -21,8 +34,31 @@ export default {
       name: "",
       status: "",
       res: "",
+      types: [],
+      typesArray: [],
+      id: "",
     };
   },
+
+  async mounted() {
+    /*requete pour récuperer au montage tout les services en BDD*/
+    const url = "http://127.0.0.1:8000/api/types";
+
+    const options = {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    //console.log(data);
+    this.typesArray = data.donnees;
+    console.log(this.typesArray);
+  },
+
   methods: {
     /* method pour ajouter un type de service en bdd avec vérification du token */
     async addType() {
@@ -45,6 +81,32 @@ export default {
       const data = await response.json();
       console.log(data);
       this.status = data.status_code;
+      if (!this.name) {
+        // input value is empty
+        return;
+      }
+      // add item to reactive array items
+      this.types.push(this.name);
+      // clear the input
+      this.name = "";
+    },
+    /* requete pour supprimer le type de service afficher en BDD et dynamiquement*/
+    async deleteType(id) {
+      const url = `http://127.0.0.1:8000/api/types/${id}`;
+
+      const options = {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+      let i = this.typesArray.map((item) => item.id).indexOf(id); // find index of your object
+      this.typesArray.splice(i, 1); // remove it from array
     },
   },
 };
