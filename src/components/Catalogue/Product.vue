@@ -12,6 +12,13 @@
     <div class="buttonedit">
       <button @click="showEdit = !showEdit">Modifier le produit</button>
     </div>
+    <div class="orders">
+      <form @submit.prevent="addToCart">
+        <input type="text" v-model="comment" />
+        <input type="number" v-model="quantity" />
+        <input type="submit" value="Commander" />
+      </form>
+    </div>
 
     <div v-show="showEdit">
       <form class="edit_product" @submit.prevent="editProduct">
@@ -94,6 +101,10 @@ export default {
       showModif: true,
       radio: this.values.status ?? "",
       id: this.values.id,
+      quantity: "",
+      comment: "",
+      cart: [],
+      globalCart: [],
     };
   },
 
@@ -131,6 +142,19 @@ export default {
       console.log(response);
       const data = await response.json();
       console.log(data);
+    },
+    addToCart() {
+      this.cart = [
+        ...this.cart,
+        {
+          commentaire: this.comment,
+          Qt: this.quantity,
+          id_product: this.id,
+        },
+      ];
+      this.globalCart = [...this.cart, this.cart];
+      //localStorage.setItem("@cart", this.globalCart);
+      console.log(this.globalCart);
     },
   },
 };
