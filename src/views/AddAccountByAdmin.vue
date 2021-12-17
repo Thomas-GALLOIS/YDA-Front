@@ -5,7 +5,7 @@
   <!-- bouton pour affichage des formulaires -->
   <button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
   <!-- formulaire création de nouveau compte -->
-  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountAdmin">
+  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountByAdmin">
     <!-- selection du compte à créer -->
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
     <select @change="selectCategoryAccount($event)" name="role" id="add_account">
@@ -18,31 +18,30 @@
     <div class="form">
         <div v-if=" this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
             <div class="form_p1">
-                <div class="last_name">
+                <div class="form_p2">
                     <label for="last_name">Nom : </label>
                     <input type="text" id="last_name" name="lastname" />
                 </div>
            
-                <div class="first_name">
+                <div class="form_p2">
                     <label for="first_name">Prenom : </label>
                     <input type="text" id="first_name" name="firstname" />
                 </div>
             </div>
-                <div class="email">
+                <div class="form_p2">
                     <label for="email">E-mail : </label>
-                    <input type="email" id="email" name="email" />
+                    <input type="email" id="email" name="email" v-model="inputEmail" />
                 </div>
-                <button>Initialisation MDP</button>
-        </div>
+            </div>
 
         <!-- champs communs comptes manager et member-->
         <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
             <div class="form_p1">
-                <div class="phone">
+                <div class="form_p2">
                     <label for="add_phone">Téléphone : </label>
                     <input type="tel" id="add_phone">
                 </div>
-                <div class="firm">
+                <div class="form_p2">
                     <label for="add_firm">Entreprise : </label>
                     <select @change="selectFirm($event)" @click="FirmChoice" name="firm_id" id="add_firm">
                         <option v-for="(firm, index) in firmList" :key="index" :value="firm.id">{{firm.name}}</option>                      
@@ -55,11 +54,11 @@
         <!-- champs spécifiques compte membre -->
         <div v-if="this.accountSelect == 'member'">
             <div class="form_p1">
-                <div class="comment">
+                <div class="form_p2">
                     <label for="add_comment">Commentaire :</label>
                     <input type="text" name="add_comment" id="add_comment">
                 </div>
-                <div class="avatar">
+                <div class="form_p2">
                     <label for="avatar">Avatar :</label>
                     <img :src="avatarPicture" class="preview" alt="" />
                     <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
@@ -78,55 +77,54 @@
     <div class="form">
       <form v-if="this.showFirmAccount == true" @submit.prevent="CreateAccountFirm">
         <div class="form_p1">
-            <div class="name">
+            <div class="form_p2">
                 <label for="name">Nom : </label>
                 <input type="text" id="name" name="name"/>
             </div>
         
-            <div class="email">
+            <div class="form_p2">
                 <label for="email">E-mail : </label>
-                <input type="email" id="email" name="email"/>
+                <input type="email" id="email" name="email" v-model="inputEmail"/>
             </div>
-            <button>Initialisation MDP</button>
         </div>
         
         <div class="form_p1">
-          <div class="address">
+          <div class="form_p2">
             <label for="address">Adresse :</label>
             <input type="text" name="address" id="address" />
           </div>
 
-          <div class="phone">
+          <div class="form_p2">
             <label for="add_phone">Téléphone : </label>
             <input type="tel" id="add_phone" name="phone" />
           </div>
         </div>
 
         <div class="form_p1">
-            <div class="schedule">
+            <div class="form_p2">
                 <label for="schedule">Jour et heure 1er passage :</label>
                 <input type="text" name="visit_day_time_1" id="schedule">
             </div>
 
-            <div class="schedule">
+            <div class="form_p2">
                 <label for="schedule">Jour et heure 2nd passage :</label>
                 <input type="text" name="visit_day_time_2" id="schedule">
             </div>
         </div>
 
         <div class="form_p1">
-            <div class="siret">
+            <div class="form_p2">
                 <label for="add_siret">Siret :</label>
                 <input type="text" name="siret" id="add_siret">
             </div>
-            <div class="subscription">
+            <div class="form_p2">
                 <label for="add_subscription">Abonnement :</label>
                 <input type="text" name="subscription" id="add_subscription">
             </div>
         </div>
 
         <div class="form_p1">
-          <div class="logo">
+          <div class="form_p2">
             <label for="logo">Logo :</label>
             <img  :src="logoPicture" class="preview" alt="" />
             <input
@@ -138,7 +136,7 @@
               enctype="multipart/form-data"
             />
           </div>
-          <div class="color">
+          <div class="form_p2">
             <label for="add_color">Couleur de l'entreprise : </label>
             <select name="color" id="add_color">
               <option value="color">bleu</option>
@@ -168,7 +166,8 @@ export default {
     // data properties
     data() {
         return {
-            
+           
+            inputEmail: "",
             accountSelect:"",
             firmSelect:"",
             logoPicture:"",
@@ -183,7 +182,7 @@ export default {
     methods: {
         
     //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
-    async CreateAccountAdmin(e) {
+    async CreateAccountByAdmin(e) {
       const url = "http://127.0.0.1:8000/api/inscription";
       //Options de la requête API
       const options = {
@@ -199,6 +198,25 @@ export default {
       // la récupération des data stockées dans l'API
       const data = await response.json();
       console.log(data);
+
+      const urlMagicLink= "http://127.0.0.1:8000/api/login";
+
+        const optionsMagicLink = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("@token"),
+            },
+
+            body: JSON.stringify ({
+              email: this.inputEmail
+            }),
+        };
+
+        const responseMagicLink = await fetch(urlMagicLink, optionsMagicLink);
+
+        const dataMagicLink = await responseMagicLink.json();
+        console.log(dataMagicLink);
     },
 
     //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
@@ -218,6 +236,7 @@ export default {
       // la récupération des data stockées dans l'API
       const data = await response.json();
       console.log(data);
+     
     },
 
     async FirmChoice () {
@@ -238,10 +257,7 @@ export default {
       console.log(data);
 
       this.firmList = data;
-      console.log(this.firmList);
-
-
-        
+      console.log(this.firmList); 
     },
 
     // Récupération de la valeur des selects
@@ -315,75 +331,13 @@ export default {
   gap: 50px;
 }
 
-.name {
-    display: flex;
-    flex-direction: column;
-}
-
-.last_name {
+.form_p2 {
   display: flex;
   flex-direction: column;
+  align-items: initial;
 }
 
-.first_name {
-  display: flex;
-  flex-direction: column;
-}
 
-.email {
-  display: flex;
-  flex-direction: column;
-}
-
-.password {
-  display: flex;
-  flex-direction: column;
-}
-
-.address {
-  display: flex;
-  flex-direction: column;
-}
-
-.phone {
-  display: flex;
-  flex-direction: column;
-}
-
-.siret {
-  display: flex;
-  flex-direction: column;
-}
-
-.firm {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment {
-  display: flex;
-  flex-direction: column;
-}
-
-.subscription {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
-  display: flex;
-  flex-direction: column;
-}
-
-.avatar {
-  display: flex;
-  flex-direction: column;
-}
-
-.schedule {
-    display: flex;
-    flex-direction: column;
-}
 
 .preview {
     width: 150px;

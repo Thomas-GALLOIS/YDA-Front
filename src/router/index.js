@@ -64,9 +64,10 @@ const routes = [
   },
   /*route pour initialiser son MDP suite à oublie ou inscription*/
   {
-    path: "/initialisation",
+    path: "/initialisation/:token",
     name: "initialisation",
     component: Initialisation,
+    props: true,
   },
   {
     path: "/AllFirms",
