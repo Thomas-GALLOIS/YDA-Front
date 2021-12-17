@@ -65,6 +65,7 @@ export default {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
+          console.log("je suis un type id" + element.type_id);
           return element.type_id == this.getValueFromOptions;
         } else {
           return element.type_id;
