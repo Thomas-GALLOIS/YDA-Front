@@ -5,6 +5,7 @@
       v-for="(value, index) in element.products"
       :key="index"
       :values="value"
+      :addToCart="addToCart"
     />
   </div>
 </template>
@@ -23,6 +24,7 @@ export default {
     return {
       productsArray: [],
       name: "",
+      cart: [],
     };
   },
   async mounted() {
@@ -41,7 +43,13 @@ export default {
     this.productsArray = data.donnees;
   },
 
-  methods: {},
+  methods: {
+    addToCart(product) {
+      this.cart = [...this.cart, product];
+
+      localStorage.setItem("@cart", JSON.stringify(this.cart));
+    },
+  },
 };
 </script>
 

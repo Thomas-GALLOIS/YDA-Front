@@ -11,6 +11,11 @@ import Footer from "../../components/Footer.vue";
 import ProductsByServiceId from "../../components/Catalogue/ProductsByServiceId.vue";
 
 export default {
+  data() {
+    return {
+      globalCart: [],
+    };
+  },
   props: {
     servicesId: String,
   },
