@@ -58,9 +58,10 @@ const routes = [
     props: true,
   },
   {
-    path: "/initialisation",
+    path: "/initialisation/:token",
     name: "initialisation",
     component: Initialisation,
+    props: true,
   },
 ];
 
