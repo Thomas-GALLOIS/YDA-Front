@@ -2,11 +2,15 @@
   <!-- import de la barre de navigation -->
   <NavbarreAdmin />
 
+<div class="all">
   <!-- bouton pour affichage des formulaires -->
-  <button @click="showFormAccount()">Création Compte</button><button @click="showFormFirm()">Création d'entreprise</button>
+  <div class="button">
+  <button @click="showFormAccount()" id="submit_btn">Création Compte</button><button @click="showFormFirm()" id="submit_btn">Création d'entreprise</button>
+  </div>
   <!-- formulaire création de nouveau compte -->
   <form v-if="this.showAccount == true" @submit.prevent="CreateAccountByAdmin">
     <!-- selection du compte à créer -->
+  <div class="select">
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
     <select @change="selectCategoryAccount($event)" name="role" id="add_account">
       <option value="choix">Choix</option>
@@ -14,6 +18,7 @@
       <option value="manager">Manager</option>
       <option value="member">Member</option>
     </select>
+  </div>
 
     <div class="form">
         <div v-if=" this.accountSelect == 'admin' || this.accountSelect == 'manager' || this.accountSelect == 'member'">
@@ -37,6 +42,10 @@
         <!-- champs communs comptes manager et member-->
         <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
             <div class="form_p1">
+                 <div class="form_p2">
+                    <label for="birthday">Date de naissance : </label>
+                    <input type="date" id="birthday" name="birthday">
+                </div>
                 <div class="form_p2">
                     <label for="add_phone">Téléphone : </label>
                     <input type="tel" id="add_phone">
@@ -55,25 +64,25 @@
         <div v-if="this.accountSelect == 'member'">
             <div class="form_p1">
                 <div class="form_p2">
-                    <label for="add_comment">Commentaire :</label>
-                    <input type="text" name="add_comment" id="add_comment">
-                </div>
-                <div class="form_p2">
                     <label for="avatar">Avatar :</label>
                     <img :src="avatarPicture" class="preview" alt="" />
                     <input type="file" @change="downloadAvatar" id="avatar" accept="/*" enctype="multipart/form-data"/>
+                </div>
+                <div class="form_p2">
+                    <label for="add_comment">Commentaire :</label>
+                    <textarea type="text" name="add_comment" id="add_comment"></textarea>
                 </div>
             </div>
         </div>
 
         <div v-if="accountSelect && this.accountSelect != 'choix'">
-            <input class="add_account_button btn btn-primary" type="submit" value="Valider"/>
+            <input id="submit_btn" type="submit" value="Valider"/>
         </div>
     </div>
 </form>
 
   <!-- formulaire compte entreprise -->
-  <div>
+
     <div class="form">
       <form v-if="this.showFirmAccount == true" @submit.prevent="CreateAccountFirm">
         <div class="form_p1">
@@ -117,10 +126,6 @@
                 <label for="add_siret">Siret :</label>
                 <input type="text" name="siret" id="add_siret">
             </div>
-            <div class="form_p2">
-                <label for="add_subscription">Abonnement :</label>
-                <input type="text" name="subscription" id="add_subscription">
-            </div>
         </div>
 
         <div class="form_p1">
@@ -144,11 +149,11 @@
           </div>
         </div>
         <div>
-            <input class="add_account_button" type="submit" value="Valider" />
+            <input id="submit_btn" type="submit" value="Valider" />
           </div>
       </form>
     </div>
-  </div>
+</div>
 </template>
 
 
@@ -313,30 +318,70 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  width: 500px;
+  height: 100vh;
+  width: 600px;
   margin: auto;
   text-align: initial;
-  justify-content: space-evenly;
+ 
 }
 
 .form input {
-  width: 200px;
-  margin-bottom: 20px;
+  
+  width: 100%;
+  height: 30px;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+#submit_btn {
+  width: 25%;
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+
+  transition: background 1s;
+  height: 40px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+#submit_btn:hover {
+  color: #0f0f0f;
+  transition: box-shadow 1s;
+  box-shadow: inset 3px 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  margin: auto;
+}
+
+.select {
+  margin: auto;
 }
 
 .form_p1 {
   display: flex;
   align-items: center;
   gap: 50px;
+  
 }
 
 .form_p2 {
   display: flex;
   flex-direction: column;
   align-items: initial;
+  width: 40%;
+  margin: auto;
+  border-radius: 20%;
 }
-
 
 
 .preview {
