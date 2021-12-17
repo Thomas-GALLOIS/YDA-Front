@@ -53,7 +53,7 @@
               id="checkbox"
               class="check"
               name="status"
-              value="on"
+              value="actif"
             />
             <label for="checkbox">Produit actif</label>
           </div>
@@ -64,7 +64,7 @@
               id="checkbox"
               class="check"
               name="status"
-              value="off"
+              value="inactif"
             />
             <label for="checkbox">Produit inactif</label>
           </div>

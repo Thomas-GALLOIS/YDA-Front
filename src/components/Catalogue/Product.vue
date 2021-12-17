@@ -6,7 +6,7 @@
     <div class="title_description">
       <h2>{{ name }}</h2>
       <p>{{ description }}</p>
-      {{ price }}
+      {{ price }}€
     </div>
 
     <div class="buttonedit">

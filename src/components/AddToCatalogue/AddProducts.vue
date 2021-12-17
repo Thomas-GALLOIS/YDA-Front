@@ -46,7 +46,7 @@
           type="radio"
           id="checkbox"
           name="status"
-          value="on"
+          value="actif"
         />
         <label for="checkbox">Produit inactif</label>
         <input
@@ -54,7 +54,7 @@
           type="radio"
           id="checkbox"
           name="status"
-          value="off"
+          value="inactif"
         />
       </div>
     </div>
