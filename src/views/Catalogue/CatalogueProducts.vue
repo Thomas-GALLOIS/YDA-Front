@@ -1,7 +1,7 @@
 <template>
+  <!--page d'afffichage du catalogue des produits avec imports de différent composants-->
   <NavbarreAdmin />
   <ProductsByServiceId :servicesId="this.servicesId" />
-
   <Footer></Footer>
 </template>
 

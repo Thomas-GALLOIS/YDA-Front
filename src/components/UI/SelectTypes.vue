@@ -1,4 +1,6 @@
  <template>
+  <!--v-for sur le select pour afficher tout les types de services dispo en BDD -->
+
   <select name="type_id" id="categories">
     <option v-for="(element, index) in type" :key="index" :value="element.id">
       {{ element.name }}
@@ -14,6 +16,8 @@ export default {
     };
   },
   async mounted() {
+    /* requete pour récuperer les types de services en BDD */
+
     const url = "http://127.0.0.1:8000/api/types";
 
     const options = {

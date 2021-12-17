@@ -1,4 +1,6 @@
 <template>
+  <!--Component Navbarre pour admin réutilisable de partout-->
+
   <div class="nav_admin">
     <div class="nav_primaire">
       <div class="logo">
@@ -22,7 +24,9 @@
             <router-link class="anim" to="/dashboard">Dashboard</router-link>
           </li>
           <li>
-            <router-link class="anim" to="/">Liste Entreprise</router-link>
+            <router-link class="anim" to="/AllFirms"
+              >Liste Entreprise</router-link
+            >
           </li>
           <li>
             <router-link class="anim" to="/catalogue/services"

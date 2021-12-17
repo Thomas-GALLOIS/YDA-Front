@@ -1,4 +1,5 @@
 <template>
+  <!--Component FOOTER réutilisable de partout-->
   <footer class="footer-distributed">
     <div class="footer-left">
       <img

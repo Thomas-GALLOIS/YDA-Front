@@ -1,9 +1,13 @@
 <template>
   <NavbarreAdmin />
+  <AllFirms />
+  <Footer />
 </template>
 
 <script>
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
+import AllFirms from "../components/AllFirms.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   data() {
@@ -13,6 +17,8 @@ export default {
   },
   components: {
     NavbarreAdmin: NavbarreAdmin,
+    AllFirms: AllFirms,
+    Footer: Footer,
   },
 };
 </script>

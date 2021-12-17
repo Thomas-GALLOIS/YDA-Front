@@ -1,91 +1,31 @@
 <template>
   <h1>Products</h1>
   <div v-for="(element, index) in productsArray" :key="index">
-    <div
-      class="product_card"
+    <Product
       v-for="(value, index) in element.products"
       :key="index"
-    >
-      <div class="image">
-        <img src="https://i.imgur.com/EHDYFaT.jpeg" />
-      </div>
-      <div class="title_description">
-        <h2>{{ value.name }}</h2>
-        <p>{{ value.description }}</p>
-      </div>
-      <div class="buttonedit" v-show="showModif">
-        <button @click="showEdit = !showEdit">Modifier le produit</button>
-      </div>
-
-      <div v-show="showEdit">
-        <form class="edit_product">
-          <label>Nom</label>
-          <input type="text" v-model="name" name="name" id="name" />
-          <br />
-          <div class="img_parent">
-            <div class="img_container">
-              <label for="image">Image</label>
-              <input
-                type="file"
-                id="image"
-                @change="uploadImage"
-                name="image"
-                class="file"
-              />
-            </div>
-            <br />
-            <div class="img_container">
-              <img :src="previewImage" class="uploading-image" />
-            </div>
-          </div>
-          <br />
-          <label for="description">Description produit</label>
-          <input
-            type="text"
-            name="description"
-            id="description"
-            v-model="description"
-          />
-          <br />
-          <label for="price">Prix produit</label>
-          <input type="number" name="price" id="price" v-model.number="price" />
-          <br />
-          <input type="radio" id="checkbox" name="status" value="on" />
-          <label for="checkbox">Produit actif</label>
-          <br />
-          <input type="radio" id="checkbox" name="status" value="off" />
-          <label for="checkbox">Produit inactif</label>
-          <br />
-          <button @click="editUser">Valider mes modifications</button>
-        </form>
-      </div>
-    </div>
+      :values="value"
+    />
   </div>
 </template>
 
 <script>
+import Product from "./Product.vue";
+
 export default {
+  components: {
+    Product,
+  },
   props: {
     servicesId: String,
   },
   data() {
     return {
+      productsArray: [],
       name: "",
-      previewImage: null,
-      description: "",
-      price: "",
-      checked: "",
-      status: "",
-      res: "",
-      services: "",
-      productsArray: "",
-      id: "",
-      showEdit: false,
-      showModif: true,
     };
   },
   async mounted() {
-    console.log(this.servicesId);
     const url = `http://127.0.0.1:8000/api/services/${this.servicesId}`;
 
     const options = {
@@ -99,36 +39,9 @@ export default {
     const response = await fetch(url, options);
     const data = await response.json();
     this.productsArray = data.donnees;
-    console.log(this.productsArray);
   },
 
-  methods: {
-    async editProduct() {
-      const url = `http://127.0.0.1:8000/api/services/${localStorage.getItem(
-        "id"
-      )}`;
-
-      const options = {
-        method: "PUT",
-
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          name: this.name,
-          image: this.image,
-          description: this.description,
-          price: this.price,
-          status: this.status,
-        }),
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-      this.$router.go();
-    },
-  },
+  methods: {},
 };
 </script>
 
