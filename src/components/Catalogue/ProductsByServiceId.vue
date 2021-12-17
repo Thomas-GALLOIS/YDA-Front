@@ -1,5 +1,6 @@
 <template>
   <h1>Products</h1>
+  <button @click="sendCart">Valider commande</button>
   <div v-for="(element, index) in productsArray" :key="index">
     <Product
       v-for="(value, index) in element.products"
@@ -25,6 +26,7 @@ export default {
       productsArray: [],
       name: "",
       cart: [],
+      toto: "",
     };
   },
   async mounted() {
@@ -46,8 +48,29 @@ export default {
   methods: {
     addToCart(product) {
       this.cart = [...this.cart, product];
-
       localStorage.setItem("@cart", JSON.stringify(this.cart));
+    },
+
+    async sendCart() {
+      const url = "http://127.0.0.1:8000/api/orders";
+
+      const options = {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: 2,
+          products: localStorage.getItem("@cart"),
+          status: "actif",
+        }),
+      };
+      const response = await fetch(url, options);
+
+      const data = await response.json();
+
+      console.log(data);
     },
   },
 };
