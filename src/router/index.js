@@ -7,6 +7,8 @@ import AddAccountByAdmin from "../views/AddAccountByAdmin.vue";
 import CatalogueServices from "../views/Catalogue/CatalogueServices.vue";
 import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
 import Initialisation from "../views/InitialisationForm.vue";
+import AllFirms from "../views/AllFirms.vue";
+
 
 const routes = [
   {
@@ -65,6 +67,11 @@ const routes = [
     path: "/initialisation",
     name: "initialisation",
     component: Initialisation,
+  },
+  {
+    path: "/AllFirms",
+    name: "AllFirms",
+    component: AllFirms,
   },
 ];
 
