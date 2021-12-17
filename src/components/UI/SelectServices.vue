@@ -1,6 +1,6 @@
 <template>
   <!--v-for sur le select pour afficher tout les  services dispo en BDD -->
-  <select name="service_id" id="service">
+  <select name="service_id" id="service" v-model="select">
     <option
       v-for="(element, index) in services"
       :key="index"
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       services: "",
+      select: "",
     };
   },
   async mounted() {
