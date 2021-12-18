@@ -13,7 +13,7 @@
       <button @click="showEdit = !showEdit">Modifier le produit</button>
     </div>
     <div class="orders">
-      <form @submit.prevent="addToCart">
+      <form @submit.prevent="addProductToCart">
         <input type="text" v-model="comment" />
         <input type="number" v-model="quantity" />
         <input type="submit" value="Commander" />
@@ -89,6 +89,7 @@ export default {
 
   props: {
     values: Object,
+    addToCart: Function,
   },
 
   data() {
@@ -103,8 +104,6 @@ export default {
       id: this.values.id,
       quantity: "",
       comment: "",
-      cart: [],
-      globalCart: [],
     };
   },
 
@@ -142,18 +141,12 @@ export default {
       const data = await response.json();
       console.log(data);
     },
-    addToCart() {
-      this.cart = [
-        ...this.cart,
-        {
-          commentaire: this.comment,
-          Qt: this.quantity,
-          id_product: this.id,
-        },
-      ];
-      this.globalCart = [...this.cart, this.cart];
-      //localStorage.setItem("@cart", this.globalCart);
-      console.log(this.globalCart);
+    addProductToCart() {
+      this.addToCart({
+        comment: this.comment,
+        quantity: this.quantity,
+        id: this.id,
+      });
     },
   },
 };

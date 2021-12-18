@@ -20,7 +20,7 @@ body {
 }
 
 .nav_secondaire {
-  background-color: #f39c11;
+  background-color: #db9024;
   height: 80px;
   text-align: right;
 }
