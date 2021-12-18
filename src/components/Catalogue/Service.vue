@@ -7,6 +7,7 @@
       <h2>{{ name }}</h2>
       <p>{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
+      <i @click="deleteService()" class="far fa-trash-alt"></i>
     </div>
 
     <div class="buttonedit">
@@ -157,6 +158,23 @@ export default {
         name: "CatalogueProducts",
         params: { servicesId: id },
       });
+    },
+    async deleteService() {
+      const url = `http://127.0.0.1:8000/api/services/${this.id}`;
+
+      const options = {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+      let i = this.servicesArray.map((item) => item.this.id).indexOf(this.id); // find index of your object
+      this.servicesArray.splice(i, 1); // remove it from array
     },
   },
 };

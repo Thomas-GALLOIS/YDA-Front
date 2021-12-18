@@ -22,7 +22,7 @@
     </div>
     <!-- v-for pour afficher des fake création de types pour rendre la page dynamique -->
     <p v-for="type in types" :key="type">
-      {{ type }} <i class="far fa-trash-alt" @click="deleteName()"></i>
+      {{ type }} <i class="far fa-trash-alt"></i>
     </p>
   </form>
 </template>

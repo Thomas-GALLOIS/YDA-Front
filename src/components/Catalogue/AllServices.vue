@@ -65,15 +65,12 @@ export default {
 
     filterTypeId() {
       return this.servicesArray.filter((element) => {
-        if (element.type_id == this.getValueFromOptions) {
-          return element;
-        }
-        /* if (this.getValueFromOptions != "") {
+        if (this.getValueFromOptions != "") {
           console.log("element.type_id : " + element.type_id);
           return this.getValueFromOptions.includes(element.type_id);
         } else {
           return element.type_id;
-        }*/
+        }
       });
     },
   },
