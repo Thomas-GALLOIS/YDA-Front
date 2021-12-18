@@ -114,7 +114,8 @@ export default {
       showEdit: false,
       showModif: true,
       radio: this.values.status ?? "",
-      id: this.values.id,
+      id: this.values.id ?? "",
+      type: this.values.type_id ?? "",
     };
   },
 
@@ -125,7 +126,6 @@ export default {
       reader.readAsDataURL(image);
       reader.onload = (e) => {
         this.previewImage = e.target.result;
-        console.log(this.previewImage);
       };
     },
     async editService() {
@@ -149,7 +149,6 @@ export default {
         }),
       };
       const response = await fetch(url, options);
-      console.log(response);
       const data = await response.json();
       console.log(data);
     },

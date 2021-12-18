@@ -139,7 +139,6 @@ export default {
         }),
       };
       const response = await fetch(url, options);
-      console.log(response);
       const data = await response.json();
       console.log(data);
     },

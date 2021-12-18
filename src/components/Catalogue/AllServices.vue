@@ -49,8 +49,6 @@ export default {
     const data = await response.json();
     //console.log(data);
     this.servicesArray = data.donnees;
-    console.log(this.servicesArray);
-    this.type_id = data.donnees.type_id;
   },
   /* method au click pour selectionner le bon service avec le bon ID qui renvoie vers la page des produits de ce service selectionné */
 
@@ -58,17 +56,24 @@ export default {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
+      console.log(this.getValueFromOptions);
+      console.log(this.servicesArray);
     },
   },
   computed: {
     /* fonction de filtre par type de services*/
+
     filterTypeId() {
       return this.servicesArray.filter((element) => {
-        if (this.getValueFromOptions != "") {
-          return element.type_id == this.getValueFromOptions;
+        if (element.type_id == this.getValueFromOptions) {
+          return element;
+        }
+        /* if (this.getValueFromOptions != "") {
+          console.log("element.type_id : " + element.type_id);
+          return this.getValueFromOptions.includes(element.type_id);
         } else {
           return element.type_id;
-        }
+        }*/
       });
     },
   },
