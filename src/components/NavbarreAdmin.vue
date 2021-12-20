@@ -24,9 +24,10 @@
             <router-link class="anim" to="/dashboard">Dashboard</router-link>
           </li>
           <li>
-            <router-link class="anim" to="/AllFirms"
-              >Liste Entreprise</router-link
-            >
+            <router-link class="anim" to="/AllFirms">Liste Entreprise</router-link>
+          </li>
+          <li>
+            <router-link class="anim" to="/Users">Utilisateurs</router-link>
           </li>
           <li>
             <router-link class="anim" to="/catalogue/services"

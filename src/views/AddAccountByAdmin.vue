@@ -8,7 +8,7 @@
   <button @click="showFormAccount()" id="submit_btn">Création Compte</button><button @click="showFormFirm()" id="submit_btn">Création d'entreprise</button>
   </div>
   <!-- formulaire création de nouveau compte -->
-  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountByAdmin">
+  <form v-if="this.showAccount == true" @submit.prevent="CreateAccountByAdmin" ref="test">
     <!-- selection du compte à créer -->
   <div class="select">
     <p>Selectionez le type de compte que vous souhaitez créer :</p>
@@ -33,22 +33,25 @@
                     <input type="text" id="first_name" name="firstname" />
                 </div>
             </div>
+            <div class="form_p1">
                 <div class="form_p2">
                     <label for="email">E-mail : </label>
                     <input type="email" id="email" name="email" v-model="inputEmail" />
                 </div>
+
+                 <div class="form_p2">
+                    <label for="birthday">Date de naissance : </label>
+                    <input type="date" id="birthday" name="birthday"/>
+                </div>
             </div>
+        </div>
 
         <!-- champs communs comptes manager et member-->
         <div v-if="this.accountSelect == 'manager' || this.accountSelect == 'member'">
-            <div class="form_p1">
-                 <div class="form_p2">
-                    <label for="birthday">Date de naissance : </label>
-                    <input type="date" id="birthday" name="birthday">
-                </div>
+              <div class="form_p1">
                 <div class="form_p2">
                     <label for="add_phone">Téléphone : </label>
-                    <input type="tel" id="add_phone">
+                    <input type="tel" id="add_phone" name="phone">
                 </div>
                 <div class="form_p2">
                     <label for="add_firm">Entreprise : </label>
@@ -56,7 +59,7 @@
                         <option v-for="(firm, index) in firmList" :key="index" :value="firm.id">{{firm.name}}</option>                      
                     </select>
                 </div>
-            </div>
+              </div>
         </div>
     
 
@@ -78,8 +81,10 @@
         <div v-if="accountSelect && this.accountSelect != 'choix'">
             <input id="submit_btn" type="submit" value="Valider"/>
         </div>
+         <div v-if="this.success === true" class="msg">Vous avez bien crée un nouveau compte !</div>
     </div>
 </form>
+ 
 
   <!-- formulaire compte entreprise -->
 
@@ -152,6 +157,7 @@
             <input id="submit_btn" type="submit" value="Valider" />
           </div>
       </form>
+      <div v-if="this.successFirm === true" class="msg">Vous avez bien ajouté une entreprise !</div>
     </div>
 </div>
 </template>
@@ -180,6 +186,8 @@ export default {
             showAccount: false,
             showFirmAccount: false,
             firmList:"",
+            success: "",
+            successFirm: "",
             
         };
     },
@@ -222,6 +230,10 @@ export default {
 
         const dataMagicLink = await responseMagicLink.json();
         console.log(dataMagicLink);
+
+        this.success = true;
+        
+        this.$refs.test.reset();
     },
 
     //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
@@ -242,6 +254,7 @@ export default {
       const data = await response.json();
       console.log(data);
      
+     this.successFirm = true;
     },
 
     async FirmChoice () {

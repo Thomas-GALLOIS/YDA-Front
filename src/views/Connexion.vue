@@ -9,17 +9,25 @@
         </div>
         <!--EMAIL -->
         <div v-if="this.success == 500">
-          <p class="p_red">email ou mot de passe inavlide</p>
+          <p class="p_red">E-mail ou mot de passe invalide</p>
         </div>
         <label for="username">Login</label>
         <input id="username" type="email" v-model="email" />
         <!--PASSWORD -->
         <label for="password">Password</label>
         <input id="password" type="password" v-model="password" />
+        <router-link to="/connexion" @click="SendMagicLink">Mot de passe oublié ?</router-link>
         <!-- CONNECTION BOUTON -->
         <input id="submit_btn" type="submit" value="Connexion" />
       </div>
     </form>
+      
+  </div>
+  <div v-if="this.success == 200">
+    <p>Nous vous avons envoyé un email, vérifiez votre boite mail !</p>
+  </div>
+  <div v-if="this.success == 500" class="p_red">
+    <p>Veuillez renseigner le login avec votre E-mail svp !</p>
   </div>
   <Footer></Footer>
 </template>
@@ -72,6 +80,31 @@ export default {
         this.$router.push({ name: "Dashboard" });
       }
     },
+
+    async SendMagicLink () {
+
+      
+      const urlMagicLink= "http://127.0.0.1:8000/api/login";
+
+        const optionsMagicLink = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("@token"),
+            },
+
+            body: JSON.stringify ({
+              email: this.email
+            }),
+        };
+
+        const responseMagicLink = await fetch(urlMagicLink, optionsMagicLink);
+
+        const dataMagicLink = await responseMagicLink.json();
+        console.log(dataMagicLink);
+
+        this.success = dataMagicLink.status_code;
+    }
   },
 };
 </script>
