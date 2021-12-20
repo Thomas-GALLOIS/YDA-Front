@@ -16,12 +16,13 @@
         <!--PASSWORD -->
         <label for="password">Password</label>
         <input id="password" type="password" v-model="password" />
-        <router-link to="/connexion" @click="SendMagicLink">Mot de passe oublié ?</router-link>
+        <router-link to="/connexion" @click="SendMagicLink"
+          >Mot de passe oublié ?</router-link
+        >
         <!-- CONNECTION BOUTON -->
         <input id="submit_btn" type="submit" value="Connexion" />
       </div>
     </form>
-      
   </div>
   <div v-if="this.success == 200">
     <p>Nous vous avons envoyé un email, vérifiez votre boite mail !</p>
@@ -79,34 +80,33 @@ export default {
       //Si le status renvoyé par l'API est 200 alors on redirige vers la page utilisateur
       if (data.status_code == 200) {
         localStorage.setItem("@token", data.access_token);
+        localStorage.setItem("@id", data.id);
         this.$router.push({ name: "Dashboard" });
       }
     },
 
-    async SendMagicLink () {
+    async SendMagicLink() {
+      const urlMagicLink = "http://127.0.0.1:8000/api/login";
 
-      
-      const urlMagicLink= "http://127.0.0.1:8000/api/login";
+      const optionsMagicLink = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("@token"),
+        },
 
-        const optionsMagicLink = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("@token"),
-            },
+        body: JSON.stringify({
+          email: this.email,
+        }),
+      };
 
-            body: JSON.stringify ({
-              email: this.email
-            }),
-        };
+      const responseMagicLink = await fetch(urlMagicLink, optionsMagicLink);
 
-        const responseMagicLink = await fetch(urlMagicLink, optionsMagicLink);
+      const dataMagicLink = await responseMagicLink.json();
+      console.log(dataMagicLink);
 
-        const dataMagicLink = await responseMagicLink.json();
-        console.log(dataMagicLink);
-
-        this.success = dataMagicLink.status_code;
-    }
+      this.success = dataMagicLink.status_code;
+    },
   },
   watch: {
     role(value) {

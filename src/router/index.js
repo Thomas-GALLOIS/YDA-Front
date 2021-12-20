@@ -9,6 +9,7 @@ import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
 import Initialisation from "../views/InitialisationForm.vue";
 import AllFirms from "../views/AllFirms.vue";
 import UsersList from "../views/UsersList.vue";
+import CartUser from "../views/CartUser.vue";
 
 const routes = [
   {
@@ -79,6 +80,11 @@ const routes = [
     path: "/Users",
     name: "Users",
     component: UsersList,
+  },
+  {
+    path: "/panier",
+    name: "Panier",
+    component: CartUser,
   },
 ];
 
