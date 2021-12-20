@@ -103,6 +103,22 @@ export default {
   props: {
     values: Object,
   },
+  //watch sur les valeurs des services à afficher pour mettre à jour l'objet values et permettre le filtre par type de bien fonctionner
+  watch: {
+    values() {
+      this.name = this.values.name ?? "";
+      this.email = this.values.email ?? "";
+      this.phone = this.values.phone ?? "";
+      this.categories = this.values.categories ?? "";
+      this.previewImage = this.values.image ?? null;
+      this.description_1 = this.values.description_1 ?? "";
+      this.showEdit = false;
+      this.showModif = true;
+      this.radio = this.values.status ?? "";
+      this.id = this.values.id ?? "";
+      this.type = this.values.type_id ?? "";
+    },
+  },
 
   data() {
     return {
