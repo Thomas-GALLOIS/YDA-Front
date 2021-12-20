@@ -11,8 +11,8 @@
       <p>{{ element.logo }}</p>
       <p>{{ element.siret }}</p>
       <p>{{ element.subscription }}</p>
-      <p>{{ element.visit_day_time_1 }}</p>
-      <p>{{ element.visit_day_time_2 }}</p>
+      <p>1er passage: {{ element.visit_day_time_1 }}</p>
+      <p>2ème passage:{{ element.visit_day_time_2 }}</p>
       <p>{{ element.news }}</p>
     </div>
   </div>
