@@ -154,7 +154,7 @@ export default {
       console.log(data);
     },
     async showServiceProducts(id) {
-      this.$router.replace({
+      this.$router.push({
         name: "CatalogueProducts",
         params: { servicesId: id },
       });
