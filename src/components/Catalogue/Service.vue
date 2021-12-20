@@ -7,6 +7,7 @@
       <h2>{{ name }}</h2>
       <p>{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
+      <br />
       <i @click="deleteService()" class="far fa-trash-alt"></i>
     </div>
 
@@ -197,7 +198,40 @@ export default {
 </script>
 
 <style scoped>
+button {
+  margin: 2%;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: black;
+}
 img {
-  width: 100px;
+  width: 10rem;
+  height: 10rem;
+}
+
+.service_card {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-around;
+  align-items: center;
+  margin: 1%;
+  padding: 1%;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-shadow: 2px 1px 9px 0px black;
+}
+
+.service_card:hover {
+  box-shadow: inset 2px 1px 9px 0px black;
+}
+
+.image {
+  margin-left: 1%;
+}
+
+.title_description {
+  margin-left: 5%;
 }
 </style>
