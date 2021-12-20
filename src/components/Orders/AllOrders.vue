@@ -1,27 +1,41 @@
 <template>
-  <h1>Listes des commandes</h1>
+  <h2>Listes des commandes</h2>
   <br />
-  <select name="status" id="status" @change="getOptionValue($event)">
-    <option value="en_cours">En cours</option>
-    <option value="en_attente">En attente</option>
-    <option value="terminees">terminées</option>
-  </select>
-  <!--v-for pour afficher tout les commandes en BDD -->
-  <div class="groupeOrders">
-    <div class="order_card" v-for="(element, index) in ordersList" :key="index">
-      <p>Commande n°{{ element.id }}</p>
-      <p>Statut de la commande: {{ element.status }}</p>
-      <p>Prix total: {{ element.total }}€</p>
-      <p>Commentaire: {{ element.comments }}</p>
-      <p>Note Admin: {{ element.note_admin }}</p>
-    </div>
-  </div>
+  <table>
+    <tr>
+      <td>Commande n°</td>
+      <td>
+        <select name="status" id="status" @change="getOptionValue($event)">
+          <option value="">Statuts</option>
+          <option value="en cours">En cours</option>
+          <option value="en attente">En attente</option>
+          <option value="terminée">Terminées</option>
+        </select>
+      </td>
+      <td>Prix total</td>
+      <td>Commentaires</td>
+      <td>Note Admin</td>
+      <td>Date création</td>
+      <td>Date dernière modification</td>
+    </tr>
+    <!--v-for pour afficher tout les commandes en BDD -->
+
+    <tr v-for="(element, index) in filterStatus" :key="index">
+      <td>{{ element.id }}</td>
+      <td>{{ element.status }}</td>
+      <td>{{ element.total }}€</td>
+      <td>{{ element.comments }}</td>
+      <td>{{ element.note_admin }}</td>
+      <td>{{ element.created_at }}</td>
+      <td>{{ element.updated_at }}</td>
+    </tr>
+  </table>
 </template>
 <script>
 export default {
   data() {
     return {
-      ordersList: "",
+      ordersList: [],
       id: "",
       status: "",
       getValueFromOptions: "",
@@ -43,15 +57,25 @@ export default {
     // la récupération des data stockées dans l'API
     const data = await response.json();
     this.ordersList = data.donnees;
-    return this.ordersList.filter((item) => {
-      item.status.includes("terminées");
-    });
   },
   methods: {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
       console.log(this.getValueFromOptions);
+    },
+  },
+  computed: {
+    /* fonction de filtre par status*/
+
+    filterStatus() {
+      return this.ordersList.filter((element) => {
+        if (this.getValueFromOptions != "") {
+          return String(this.getValueFromOptions) == String(element.status);
+        } else {
+          return true;
+        }
+      });
     },
   },
 };
@@ -69,5 +93,12 @@ export default {
 
 .groupeOrders {
   display: flex;
+}
+td {
+  padding: 5px;
+  border: black solid 1px;
+}
+table {
+  display: inline-table;
 }
 </style>
