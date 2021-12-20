@@ -7,6 +7,8 @@
       <h2>{{ name }}</h2>
       <p>{{ description }}</p>
       {{ price }}€
+      <br />
+      <i @click="deleteProduct()" class="far fa-trash-alt"></i>
     </div>
 
     <div class="buttonedit">
@@ -138,7 +140,6 @@ export default {
         }),
       };
       const response = await fetch(url, options);
-      console.log(response);
       const data = await response.json();
       console.log(data);
     },
@@ -148,6 +149,21 @@ export default {
         quantity: this.quantity,
         id: this.id,
       });
+    },
+    async deleteProduct() {
+      const url = `http://127.0.0.1:8000/api/products/${this.id}`;
+
+      const options = {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
     },
   },
 };

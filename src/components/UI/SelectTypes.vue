@@ -1,7 +1,7 @@
  <template>
   <!--v-for sur le select pour afficher tout les types de services dispo en BDD -->
 
-  <select name="type_id" id="categories">
+  <select name="type_id" id="categories" @change="handleChange">
     <option v-for="(element, index) in type" :key="index" :value="element.id">
       {{ element.name }}
     </option>
@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  emits: [],
   data() {
     return {
       type: "",
@@ -28,11 +29,14 @@ export default {
     };
 
     const response = await fetch(url, options);
-    console.log(response);
 
     const data = await response.json();
-    console.log(data);
     this.type = data.donnees;
+  },
+  methods: {
+    handleChange(e) {
+      this.$emit("change", e);
+    },
   },
 };
 </script>

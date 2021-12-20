@@ -4,7 +4,7 @@
   >
   <h1>Services</h1>
   <!--component de selection du type-->
-  <SelectType @change="getOptionValue($event)" />
+  <SelectType @change="getOptionValue" />
   <!--v-for pour afficher tout les services en BDD -->
   <div>
     <Service
@@ -20,6 +20,8 @@ import Service from "./Service.vue";
 import SelectType from "../UI/SelectTypes.vue";
 
 export default {
+  emits: [],
+
   data() {
     return {
       servicesArray: [],
@@ -31,6 +33,10 @@ export default {
   components: {
     Service,
     SelectType,
+  },
+
+  updated() {
+    console.log(this.filterTypeId);
   },
 
   async mounted() {
@@ -49,8 +55,6 @@ export default {
     const data = await response.json();
     //console.log(data);
     this.servicesArray = data.donnees;
-    console.log(this.servicesArray);
-    this.type_id = data.donnees.type_id;
   },
   /* method au click pour selectionner le bon service avec le bon ID qui renvoie vers la page des produits de ce service selectionné */
 
@@ -58,17 +62,24 @@ export default {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
+      console.log(this.getValueFromOptions);
     },
   },
   computed: {
     /* fonction de filtre par type de services*/
+
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
-          console.log("je suis un type id" + element.type_id);
-          return element.type_id == this.getValueFromOptions;
+          console.log("name: " + element.name);
+          console.log(
+            "element.type_id : " +
+              (String(this.getValueFromOptions) == String(element.type_id))
+          );
+          console.log("-----");
+          return String(this.getValueFromOptions) == String(element.type_id);
         } else {
-          return element.type_id;
+          return true;
         }
       });
     },

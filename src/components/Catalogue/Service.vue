@@ -7,6 +7,7 @@
       <h2>{{ name }}</h2>
       <p>{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
+      <i @click="deleteService()" class="far fa-trash-alt"></i>
     </div>
 
     <div class="buttonedit">
@@ -102,6 +103,22 @@ export default {
   props: {
     values: Object,
   },
+  //watch sur les valeurs des services à afficher pour mettre à jour l'objet values et permettre le filtre par type de bien fonctionner
+  watch: {
+    values() {
+      this.name = this.values.name ?? "";
+      this.email = this.values.email ?? "";
+      this.phone = this.values.phone ?? "";
+      this.categories = this.values.categories ?? "";
+      this.previewImage = this.values.image ?? null;
+      this.description_1 = this.values.description_1 ?? "";
+      this.showEdit = false;
+      this.showModif = true;
+      this.radio = this.values.status ?? "";
+      this.id = this.values.id ?? "";
+      this.type = this.values.type_id ?? "";
+    },
+  },
 
   data() {
     return {
@@ -114,7 +131,8 @@ export default {
       showEdit: false,
       showModif: true,
       radio: this.values.status ?? "",
-      id: this.values.id,
+      id: this.values.id ?? "",
+      type: this.values.type_id ?? "",
     };
   },
 
@@ -125,7 +143,6 @@ export default {
       reader.readAsDataURL(image);
       reader.onload = (e) => {
         this.previewImage = e.target.result;
-        console.log(this.previewImage);
       };
     },
     async editService() {
@@ -149,15 +166,31 @@ export default {
         }),
       };
       const response = await fetch(url, options);
-      console.log(response);
       const data = await response.json();
       console.log(data);
     },
     async showServiceProducts(id) {
-      this.$router.replace({
+      this.$router.push({
         name: "CatalogueProducts",
         params: { servicesId: id },
       });
+    },
+    async deleteService() {
+      const url = `http://127.0.0.1:8000/api/services/${this.id}`;
+
+      const options = {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.getItem("token"),
+        },
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+      let i = this.servicesArray.map((item) => item.this.id).indexOf(this.id); // find index of your object
+      this.servicesArray.splice(i, 1); // remove it from array
     },
   },
 };

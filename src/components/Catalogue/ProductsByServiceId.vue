@@ -53,6 +53,7 @@ export default {
 
     async sendCart() {
       const url = "http://127.0.0.1:8000/api/orders";
+      const storage = JSON.parse(localStorage.getItem("@cart"));
 
       const options = {
         method: "POST",
@@ -61,9 +62,7 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: 2,
-          products: localStorage.getItem("@cart"),
-          status: "actif",
+          products: storage,
         }),
       };
       const response = await fetch(url, options);
