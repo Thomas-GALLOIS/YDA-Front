@@ -4,7 +4,7 @@
   >
   <h1>Services</h1>
   <!--component de selection du type-->
-  <SelectType @change="getOptionValue($event)" />
+  <SelectType @change="getOptionValue" />
   <!--v-for pour afficher tout les services en BDD -->
   <div>
     <Service
@@ -20,6 +20,8 @@ import Service from "./Service.vue";
 import SelectType from "../UI/SelectTypes.vue";
 
 export default {
+  emits: [],
+
   data() {
     return {
       servicesArray: [],
@@ -31,6 +33,10 @@ export default {
   components: {
     Service,
     SelectType,
+  },
+
+  updated() {
+    console.log(this.filterTypeId);
   },
 
   async mounted() {
@@ -57,7 +63,6 @@ export default {
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
       console.log(this.getValueFromOptions);
-      console.log(this.servicesArray);
     },
   },
   computed: {
@@ -66,10 +71,15 @@ export default {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
-          console.log("element.type_id : " + element.type_id);
-          return this.getValueFromOptions.includes(element.type_id);
+          console.log("name: " + element.name);
+          console.log(
+            "element.type_id : " +
+              (String(this.getValueFromOptions) == String(element.type_id))
+          );
+          console.log("-----");
+          return String(this.getValueFromOptions) == String(element.type_id);
         } else {
-          return element.type_id;
+          return true;
         }
       });
     },
