@@ -38,7 +38,7 @@
             <router-link class="anim" to="">Agenda</router-link>
           </li>
           <li>
-            <router-link class="anim" to="">Commandes</router-link>
+            <router-link class="anim" to="">{{ role }}</router-link>
           </li>
         </ul>
       </nav>
@@ -47,6 +47,7 @@
 </template>
 <script>
 export default {
+  inject: ["role"],
   data() {
     return {};
   },

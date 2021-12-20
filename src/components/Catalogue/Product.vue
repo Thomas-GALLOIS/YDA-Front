@@ -18,7 +18,7 @@
       <form @submit.prevent="addProductToCart">
         <input type="text" v-model="comment" />
         <input type="number" v-model="quantity" />
-        <input type="submit" value="Commander" />
+        <input type="submit" value="Commander" @click="global" />
       </form>
     </div>
 
@@ -106,6 +106,7 @@ export default {
       id: this.values.id,
       quantity: "",
       comment: "",
+      globalCart: [],
     };
   },
 
@@ -149,6 +150,11 @@ export default {
         quantity: this.quantity,
         id: this.id,
       });
+    },
+    global() {
+      let toto = localStorage.getItem("@cart");
+      this.globalCart = [...this.globalCart, toto];
+      localStorage.setItem("@global", JSON.stringify(this.globalCart));
     },
     async deleteProduct() {
       const url = `http://127.0.0.1:8000/api/products/${this.id}`;

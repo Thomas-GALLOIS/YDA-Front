@@ -40,6 +40,7 @@ export default {
       email: "",
       password: "",
       success: "",
+      role: "",
     };
   },
 
@@ -71,6 +72,7 @@ export default {
       const data = await response.json();
       console.log(data);
       this.success = data.status_code;
+      this.role = data.role;
 
       // Sauvegarde du token généré par l'API lors de la connection
 
@@ -106,6 +108,12 @@ export default {
         this.success = dataMagicLink.status_code;
     }
   },
+  watch: {
+    role(value) {
+      this.setRole(value);
+    },
+  },
+  inject: ["setRole"],
 };
 </script>
 <style scoped>
