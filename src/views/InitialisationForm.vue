@@ -1,12 +1,12 @@
 <template>
   <Navbarre />
 <div>
-<h2> Bonjour {{this.firstname}}</h2>
+<h2> Bonjour {{this.firstname}}, maintenant vous avez le temps !</h2>
   <div class="form_initialisation">
     <!--FORM -->
       <div class="inside_form">
         <!--PASSWORD -->
-        <label for="password">Password :</label>
+        <label for="password">Créer un nouveau mot de passe :</label>
         <input id="password" type="password" name="password" v-model="inputPassword" required/>
       </div>
   </div>
@@ -93,7 +93,7 @@ export default {
     async initialisation_mdp() {
 
       if (this.inputPassword === this.inputConfirm) {
-      const url = `http://127.0.0.1:8000/api/users/${this.idUser}`;
+      const url = `http://127.0.0.1:8000/api/majMdp/${this.idUser}`;
       //Options de la requête API
       const options = {
         method: "PUT",
@@ -116,6 +116,7 @@ export default {
       console.log(data);
 
       this.success = true;
+      this.$router.push({ name: "Connexion" });
 
       } else {
 
