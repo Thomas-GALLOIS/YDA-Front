@@ -20,6 +20,7 @@ export default {
   },
   props: {
     servicesId: String,
+    addToGlobal: Function,
   },
   data() {
     return {
@@ -47,8 +48,9 @@ export default {
 
   methods: {
     addToCart(product) {
-      this.cart = [...this.cart, product];
-      localStorage.setItem("@cart", JSON.stringify(this.cart));
+      this.addToGlobal({
+        cart: [...this.cart, product],
+      });
     },
 
     async sendCart() {

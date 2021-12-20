@@ -9,7 +9,6 @@ import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
 import Initialisation from "../views/InitialisationForm.vue";
 import AllFirms from "../views/AllFirms.vue";
 
-
 const routes = [
   {
     path: "/",

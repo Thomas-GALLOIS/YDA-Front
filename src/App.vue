@@ -1,7 +1,25 @@
 <template>
   <router-view />
 </template>
+<script>
+import { computed } from "vue";
+export default {
+  data() {
+    return {
+      role: "",
+    };
+  },
 
+  provide() {
+    return {
+      role: computed(() => this.role),
+      setRole: (value) => {
+        this.role = value;
+      },
+    };
+  },
+};
+</script>
 <style>
 body {
   margin: 0%;

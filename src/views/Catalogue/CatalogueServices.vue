@@ -12,11 +12,17 @@ import Footer from "../../components/Footer.vue";
 import AllServices from "../../components/Catalogue/AllServices.vue";
 
 export default {
+  data() {
+    return {
+      globalCart: [],
+    };
+  },
   components: {
     Footer,
     NavbarreAdmin,
     AllServices,
   },
+  methods: {},
 };
 </script>
 
