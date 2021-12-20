@@ -62,7 +62,6 @@ export default {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
-      console.log(this.getValueFromOptions);
     },
   },
   computed: {
@@ -71,12 +70,6 @@ export default {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
-          console.log("name: " + element.name);
-          console.log(
-            "element.type_id : " +
-              (String(this.getValueFromOptions) == String(element.type_id))
-          );
-          console.log("-----");
           return String(this.getValueFromOptions) == String(element.type_id);
         } else {
           return true;
@@ -92,5 +85,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.anim {
+  width: 25%;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  height: 40px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  text-decoration: none;
+  margin: 2%;
 }
 </style>
