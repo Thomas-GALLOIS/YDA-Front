@@ -40,9 +40,9 @@
 
         <td>{{ element.email }}</td>
 
-        <td>{{ element.visit_day_time_1 }}</td>
+        <td>{{ element.visit_day_1 }}, {{ element.time_1 }}</td>
 
-        <td>{{ element.visit_day_time_2 }}</td>
+        <td>{{ element.visit_day_2 }}, {{ element.time_2 }}</td>
 
         <td>
           <i @click="getFirmById(element.id)" class="fas fa-pen"></i>
@@ -103,6 +103,7 @@ export default {
       let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
       this.firmList.splice(i, 1); // remove it from array
     },
+    
     async getUsersByFirm(id) {
       this.$router.push({
         name: "Users",
