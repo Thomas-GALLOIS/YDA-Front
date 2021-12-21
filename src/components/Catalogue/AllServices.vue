@@ -6,7 +6,7 @@
   <!--component de selection du type-->
   <SelectType @change="getOptionValue" />
   <!--v-for pour afficher tout les services en BDD -->
-  <div>
+  <div class="groupe_service_card">
     <Service
       v-for="(element, index) in filterTypeId"
       :key="index"
@@ -62,7 +62,6 @@ export default {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
     getOptionValue(event) {
       this.getValueFromOptions = event.target.value;
-      console.log(this.getValueFromOptions);
     },
   },
   computed: {
@@ -71,12 +70,6 @@ export default {
     filterTypeId() {
       return this.servicesArray.filter((element) => {
         if (this.getValueFromOptions != "") {
-          console.log("name: " + element.name);
-          console.log(
-            "element.type_id : " +
-              (String(this.getValueFromOptions) == String(element.type_id))
-          );
-          console.log("-----");
           return String(this.getValueFromOptions) == String(element.type_id);
         } else {
           return true;
@@ -88,32 +81,20 @@ export default {
 </script>
 
 <style scoped>
-img {
-  width: 15rem;
-  height: 15rem;
-}
-
-.service_card {
+.groupe_service_card {
   display: flex;
-  justify-content: flex-start;
-  align-content: space-around;
-  align-items: center;
-  margin: 5%;
-  padding: 1%;
-  border: 1px solid black;
-  border-radius: 20px;
-  box-shadow: 2px 1px 9px 0px black;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.service_card:hover {
-  box-shadow: inset 2px 1px 9px 0px black;
-}
-
-.image {
-  margin-left: 1%;
-}
-
-.title_description {
-  margin-left: 5%;
+.anim {
+  width: 25%;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  height: 40px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  text-decoration: none;
+  margin: 2%;
 }
 </style>

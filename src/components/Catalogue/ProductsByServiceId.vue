@@ -20,13 +20,13 @@ export default {
   },
   props: {
     servicesId: String,
+    addToGlobal: Function,
   },
   data() {
     return {
       productsArray: [],
       name: "",
       cart: [],
-      toto: "",
     };
   },
   async mounted() {
@@ -47,22 +47,25 @@ export default {
 
   methods: {
     addToCart(product) {
-      this.cart = [...this.cart, product];
-      localStorage.setItem("@cart", JSON.stringify(this.cart));
+      this.addToGlobal({
+        cart: [...this.cart, product],
+      });
     },
 
     async sendCart() {
       const url = "http://127.0.0.1:8000/api/orders";
       const storage = JSON.parse(localStorage.getItem("@cart"));
-
+      const id = JSON.parse(localStorage.getItem("@id"));
       const options = {
         method: "POST",
 
         headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           products: storage,
+          user_id: id,
         }),
       };
       const response = await fetch(url, options);

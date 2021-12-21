@@ -10,6 +10,7 @@ import Initialisation from "../views/InitialisationForm.vue";
 import AllFirms from "../views/AllFirms.vue";
 import UsersList from "../views/UsersList.vue";
 import EditProfil from "../views/EditProfil.vue";
+import CartUser from "../views/CartUser.vue";
 
 const routes = [
   {
@@ -87,6 +88,11 @@ const routes = [
     name: "EditProfil",
     component: EditProfil,
     props: true,
+  },
+  {
+    path: "/panier",
+    name: "Panier",
+    component: CartUser,
   },
 ];
 
