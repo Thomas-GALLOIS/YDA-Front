@@ -1,37 +1,48 @@
 <template>
   <h2>Listes des commandes</h2>
   <br />
-  <table>
-    <tr>
-      <td>Commande n°</td>
-      <td>
-        <select name="status" id="status" @change="getOptionValue($event)">
-          <option value="">Statuts</option>
-          <option value="en cours">En cours</option>
-          <option value="en attente">En attente</option>
-          <option value="terminée">Terminées</option>
-        </select>
-      </td>
-      <td>Prix total</td>
-      <td>Commentaires</td>
-      <td>Note Admin</td>
-      <td>Date création</td>
-      <td>Date dernière modification</td>
-    </tr>
-    <!--v-for pour afficher tout les commandes en BDD -->
+  <table v-for="(element, index) in ordersList" :key="index">
+    <thead>
+      <tr>
+        <td>Commande n°</td>
+        <td>
+          <select name="status" id="status" @change="getOptionValue($event)">
+            <option value="">Statuts</option>
+            <option value="en cours">En cours</option>
+            <option value="en attente">En attente</option>
+            <option value="terminée">Terminées</option>
+          </select>
+        </td>
+        <td>Prix total</td>
+        <td>Commentaires</td>
+        <td>Note Admin</td>
+        <td>Date création</td>
+        <td>Date dernière modification</td>
+        <td>Nom entreprise</td>
+        <td>Nom salarié</td>
+      </tr>
+    </thead>
 
-    <tr v-for="(element, index) in filterStatus" :key="index">
-      <td>{{ element.id }}</td>
-      <td>{{ element.status }}</td>
-      <td>{{ element.total }}€</td>
-      <td>{{ element.comments }}</td>
-      <td>{{ element.note_admin }}</td>
-      <td>{{ element.created_at }}</td>
-      <td>{{ element.updated_at }}</td>
-    </tr>
+    <!--v-for pour afficher tout les commandes en BDD -->
+    <tbody v-for="(user, index) in element.users" :key="index">
+      <tr v-for="(order, index) in user.orders" :key="index">
+        <td>{{ order.id }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.total }}€</td>
+        <td>{{ order.comments }}</td>
+        <td>{{ order.note_admin }}</td>
+        <td>{{ moment(order.created_at).format("DD MMM YYYY, HH:mm ") }}</td>
+        <td>
+          {{ moment(order.updated_at).format("DD MMM YYYY, HH:mm ") }}
+        </td>
+        <td>{{ element.name }}</td>
+        <td>{{ user.firstname }} {{ user.lastname }}</td>
+      </tr>
+    </tbody>
   </table>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -41,10 +52,13 @@ export default {
       getValueFromOptions: "",
     };
   },
+  created: function () {
+    this.moment = moment;
+  },
 
   async mounted() {
-    /*requete pour récuperer au montage toutes les commandes en BDD*/
-    const url = "http://127.0.0.1:8000/api/orders";
+    /*requete pour récuperer au montage tout les entreprises, et les users avec leurs commandes en BDD*/
+    const url = "http://127.0.0.1:8000/api/firms";
     //Options de la requête API
     const options = {
       method: "GET",
@@ -54,9 +68,13 @@ export default {
     };
     // va chercher les options de l'API
     const response = await fetch(url, options);
+    console.log(response);
     // la récupération des data stockées dans l'API
     const data = await response.json();
-    this.ordersList = data.donnees;
+    console.log(data);
+
+    this.ordersList = data;
+    console.log(this.ordersList);
   },
   methods: {
     /*récupération de l'event change sur le select pour la fonction de filtre ci dessous*/
