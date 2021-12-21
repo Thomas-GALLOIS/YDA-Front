@@ -81,7 +81,11 @@ export default {
       if (data.status_code == 200) {
         localStorage.setItem("@token", data.access_token);
         localStorage.setItem("@id", data.id);
-        this.$router.push({ name: "Dashboard" });
+        if (this.role == "admin") {
+          this.$router.push({ name: "Dashboard" });
+        } else {
+          this.$router.push({ name: "CatalogueServices" });
+        }
       }
     },
 

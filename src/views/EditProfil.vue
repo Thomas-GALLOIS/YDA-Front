@@ -167,11 +167,13 @@ export default {
 
       const res = await fetch(url, options);
       console.log(res);
-      const datauser = await res.json();
-      console.log(datauser);
+      const dataUser = await res.json();
+      console.log(dataUser);
 
+      if (dataUser == 200) {
       this.success = true;
       this.show = false;
+      }
     },
   },
 };

@@ -8,10 +8,14 @@
       <p>{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
       <br />
-      <i @click="deleteService()" class="far fa-trash-alt"></i>
+      <i
+        v-if="this.role.value == 'admin'"
+        @click="deleteService()"
+        class="far fa-trash-alt"
+      ></i>
     </div>
 
-    <div class="buttonedit">
+    <div v-if="this.role.value == 'admin'" class="buttonedit">
       <button @click="showEdit = !showEdit">Modifier le service</button>
     </div>
 
@@ -97,6 +101,7 @@
 import SelectType from "../UI/SelectTypes.vue";
 
 export default {
+  inject: ["role"],
   components: {
     SelectType: SelectType,
   },
