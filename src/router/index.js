@@ -9,6 +9,7 @@ import CatalogueProducts from "../views/Catalogue/CatalogueProducts.vue";
 import Initialisation from "../views/InitialisationForm.vue";
 import AllFirms from "../views/AllFirms.vue";
 import UsersList from "../views/UsersList.vue";
+import EditProfil from "../views/EditProfil.vue";
 import CartUser from "../views/CartUser.vue";
 
 const routes = [
@@ -80,6 +81,13 @@ const routes = [
     path: "/Users",
     name: "Users",
     component: UsersList,
+    props: true,
+  },
+  {
+    path: "/Editprofil",
+    name: "EditProfil",
+    component: EditProfil,
+    props: true,
   },
   {
     path: "/panier",

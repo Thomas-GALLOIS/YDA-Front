@@ -27,12 +27,7 @@
             <router-link class="anim" to="/AllFirms">Liste Entreprise</router-link>
           </li>
           <li>
-            <router-link class="anim" to="/Users">Utilisateurs</router-link>
-          </li>
-          <li>
-            <router-link class="anim" to="/catalogue/services"
-              >Catalogue</router-link
-            >
+            <router-link class="anim" to="/catalogue/services">Catalogue</router-link>
           </li>
           <li>
             <router-link class="anim" to="">Agenda</router-link>
