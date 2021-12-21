@@ -3,8 +3,9 @@
   <div v-for="(element, index) in this.cart" :key="index">
     <div v-for="(value, index) in element.cart" :key="index">
       <p>commentaire:{{ value.comment }}</p>
-      <p>id:{{ value.id }}</p>
+
       <p>quantité:{{ value.quantity }}</p>
+      <img :src="value.img" />
     </div>
   </div>
 </template>
@@ -14,6 +15,9 @@ export default {
   data() {
     return {
       cart: JSON.parse(localStorage.getItem("@cart")),
+      product: [],
+      toto: "",
+      getValueFromOptions: "",
     };
   },
   async mounted() {
@@ -28,6 +32,10 @@ export default {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log(data);
+
+    this.product = data.donnees;
   },
+
+  methods: {},
 };
 </script>

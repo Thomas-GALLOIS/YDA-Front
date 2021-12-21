@@ -27,7 +27,6 @@ export default {
       productsArray: [],
       name: "",
       cart: [],
-      toto: "",
     };
   },
   async mounted() {
