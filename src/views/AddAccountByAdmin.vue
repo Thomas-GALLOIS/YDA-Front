@@ -6,15 +6,15 @@
     <div class="all">
       <!-- bouton pour affichage des formulaires -->
       <div class="button">
-        <button @click="showFormAccount()" id="submit_btn">
+        <button @click="this.showAccount = true, this.showFirmAccount=false, this.msg=false" id="submit_btn">
           Création Compte</button
-        ><button @click="showFormFirm()" id="submit_btn">
+        ><button @click="this.showFirmAccount = true, this.showAccount = false, this.msg=false" id="submit_btn">
           Création d'entreprise
         </button>
       </div>
       <!-- formulaire création de nouveau compte -->
       <form
-        v-if="this.showAccount == true"
+        v-show="this.showAccount"
         @submit.prevent="CreateAccountByAdmin"
         ref="test"
       >
@@ -129,19 +129,13 @@
           <div v-if="accountSelect && this.accountSelect != 'choix'">
             <input id="submit_btn" type="submit" value="Valider" />
           </div>
-          <div v-if="this.success === true" class="msg">
-            Vous avez bien crée un nouveau compte !
-          </div>
         </div>
       </form>
 
       <!-- formulaire compte entreprise -->
 
-      <div class="form">
-        <form
-          v-if="this.showFirmAccount == true"
-          @submit.prevent="CreateAccountFirm"
-        >
+      <div class="form" v-show="this.showFirmAccount">
+        <form @submit.prevent="CreateAccountFirm">
           <div class="form_p1">
             <div class="form_p2">
               <label for="name">Nom : </label>
@@ -256,19 +250,19 @@
               <label for="title">Titre de l'actualité : </label>
               <input type="text" name="title">
             </div>
+          </div>
             <div class="form_p2">
               <label for="news">Actualité : </label>
-              <input type="text" name="news">
+              <textarea type="text" name="news"></textarea>
             </div>
-          </div>
 
           <div>
             <input id="submit_btn" type="submit" value="Valider" />
           </div>
         </form>
-        <div v-if="this.successFirm === true" class="msg">
-          Vous avez bien ajouté une entreprise !
-        </div>
+      </div>
+      <div v-show="this.msg == true" class="msg">
+          Nouveau compte crée !
       </div>
     </div>
   </div>
@@ -300,6 +294,7 @@ export default {
       firmList: "",
       success: "",
       successFirm: "",
+      msg: false,
     };
   },
   // methodes
@@ -341,9 +336,13 @@ export default {
       const dataMagicLink = await responseMagicLink.json();
       console.log(dataMagicLink);
 
-      this.success = true;
+      this.success = data.status_code;
+      console.log(this.success);
 
-      this.$refs.test.reset();
+      if (data.status_code == 200) {
+        this.showAccount = false;
+        this.msg = true;
+      }
     },
 
     //Demande asynchronisée permettant la création du compte et l'envoi des données saisies au serveur API
@@ -364,7 +363,13 @@ export default {
       const data = await response.json();
       console.log(data);
 
-      this.successFirm = true;
+      this.successFirm = data.status_code;
+      
+
+      if (data.status_code == 200) {
+        this.showFirmAccount = false;
+        this.msg = true;
+      }
     },
 
     async FirmChoice() {
@@ -395,21 +400,6 @@ export default {
     selectFirm(event) {
       this.firmSelect = event.target.value;
       console.log(this.firmSelect);
-    },
-
-    // methodes affichant les différents formulaires
-    showFormAccount() {
-      if (this.showAccount == false) {
-        this.showAccount = true;
-        this.showFirmAccount = false;
-      }
-    },
-
-    showFormFirm() {
-      if (this.showFirmAccount == false) {
-        this.showFirmAccount = true;
-        this.showAccount = false;
-      }
     },
 
     // Chargement des images
@@ -452,7 +442,7 @@ export default {
   flex-direction: column;
   height: 100vh;
   width: 600px;
-  margin: auto;
+  margin: auto; 
   text-align: initial;
 }
 
@@ -515,5 +505,9 @@ input:focus {
 .preview {
   width: 150px;
   height: 150px;
+}
+
+.msg {
+  margin-top: 10%;
 }
 </style>
