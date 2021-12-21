@@ -8,10 +8,14 @@
       <p>{{ description }}</p>
       {{ price }}€
       <br />
-      <i @click="deleteProduct()" class="far fa-trash-alt"></i>
+      <i
+        v-if="this.role.value == 'admin'"
+        @click="deleteProduct()"
+        class="far fa-trash-alt"
+      ></i>
     </div>
 
-    <div class="buttonedit">
+    <div v-if="this.role.value == 'admin'" class="buttonedit">
       <button @click="showEdit = !showEdit">Modifier le produit</button>
     </div>
     <div class="orders">
@@ -85,6 +89,7 @@
 import SelectServices from "../UI/SelectServices.vue";
 
 export default {
+  inject: ["role"],
   components: {
     SelectServices: SelectServices,
   },
