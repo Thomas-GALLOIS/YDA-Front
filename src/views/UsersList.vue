@@ -1,6 +1,4 @@
 <template>
-    <!-- composant barre de navigation -->
-    <NavbarreAdmin/>
     <h2>Listes des utilisateurs</h2>
 
 <div class="arrayUsers">
@@ -27,27 +25,27 @@
 
     <!-- affichage de tous les utilisateurs -->
   
-        <tbody v-for="(user, index) in arrayUsers" :key="index" class="body">  
-            <tr >
-                <td>{{user.firstname}}</td>
-           
-                <td>{{user.lastname}}</td>
-           
-                <td>{{user.birthday}}</td>
-          
-                <td>{{user.email}}</td>
-       
-                <td>{{user.phone}}</td>
-         
-                <td>{{user.role}}</td>
-         
-                <td>{{user.comments}}</td>
-
-                <button>Modifier</button>
-                <button @click="deleteUser">Supprimer</button>
-            </tr>
-        </tbody>
         
+          <tbody v-for="(firm, index) in arrayFirms" :key="index">  
+            <tr v-for="(value, index) in firm.users" :key="index">
+                <td>{{value.firstname}}</td>
+           
+                <td>{{value.lastname}}</td>
+           
+                <td>{{value.birthday}}</td>
+          
+                <td>{{value.email}}</td>
+       
+                <td>{{value.phone}}</td>
+         
+                <td>{{value.role}}</td>
+         
+                <td>{{value.comments}}</td>
+
+                <button @click="getUserProfil(value.id)">Modifier</button>
+                <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+            </tr>
+            </tbody>    
 </table>
 
 </div>
@@ -55,22 +53,29 @@
 
 <script>
 
-import NavbarreAdmin from "../components/NavbarreAdmin.vue";
+
 
 export default {
+
+  props: {
+    firmId: String,
+  },
+
     components: {
-        NavbarreAdmin: NavbarreAdmin,
+        
     },
 
     data() {
         return {
-            arrayUsers: [],
+            arrayFirms: [],
+            id:this.firmId,
+            idUser: "",
         }
     },
 
     async mounted () {
             /*requete pour récuperer au montage tout les entreprises en BDD*/
-    const url = "http://127.0.0.1:8000/api/users";
+    const url = `http://127.0.0.1:8000/api/firms/${this.id}`;
     //Options de la requête API
     const options = {
       method: "GET",
@@ -85,13 +90,42 @@ export default {
     const data = await response.json();
     console.log(data);
 
-    this.arrayUsers = data.donnees;
+    this.arrayFirms = data.tab_firms;
+    
     
   },
 
-  async deleteUser () {
+  methods: {
+    async editUser (id) {
 
-      const url = `http://127.0.0.1:8000/api/users/${this.userId}`;
+      const url = `http://127.0.0.1:8000/api/users/${id}`;
+    //Options de la requête API
+    const options = {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("@token"),
+      },
+    };
+    // va chercher les options de l'API
+    const response = await fetch(url, options);
+    console.log(response);
+    // la récupération des data stockées dans l'API
+    const data = await response.json();
+    console.log(data);
+
+    this.$router.push({ name: "Connexion" });
+  },
+
+  async getUserProfil (id) {
+      this.$router.push({
+        name: "EditProfil",
+        params: { profilId: id },
+      });
+  },
+
+  async deleteUser (id) {
+
+      const url = `http://127.0.0.1:8000/api/users/${id}`;
     //Options de la requête API
     const options = {
       method: "DELETE",
@@ -106,6 +140,7 @@ export default {
     const data = await response.json();
     console.log(data);
   }
+},
 };
     
 

@@ -2,7 +2,7 @@
   <h1>Listes des entreprises enregistrées</h1>
 
   <!--v-for pour afficher tout les entreprises en BDD -->
-  <div class="firm_card" v-for="(element, index) in firmList" :key="index">
+  <div class="firm_card" v-for="(element, index) in firmList" :key="index" @click="getUsersByFirm(element.id)">
     <div class="title_description">
       <h2>{{ element.name }}</h2>
       <p>{{ element.address }}</p>
@@ -14,16 +14,23 @@
       <p>1er passage: {{ element.visit_day_time_1 }}</p>
       <p>2ème passage:{{ element.visit_day_time_2 }}</p>
       <p>{{ element.news }}</p>
+       {{element.id}}
     </div>
   </div>
+  
 </template>
 <script>
+
 export default {
   data() {
     return {
       firmList: [],
-      id: "",
+      idFirm: "",
     };
+  },
+
+  components: {
+    
   },
 
   async mounted() {
@@ -45,7 +52,17 @@ export default {
 
     this.firmList = data;
     console.log(this.firmList);
+
   },
+
+  methods: {
+    async getUsersByFirm (id) {
+      this.$router.push({
+        name: "Users",
+        params: { firmId: id },
+      });
+  }
+},
 };
 </script>
 
