@@ -106,6 +106,7 @@ export default {
       let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
       this.firmList.splice(i, 1); // remove it from array
     },
+    
     async getUsersByFirm(id) {
       this.$router.push({
         name: "Users",

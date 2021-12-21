@@ -1,4 +1,12 @@
 <template>
+<NavbarreAdmin/>
+    <h2>Infos de l'entreprise</h2>
+
+      <p>Nom de l'entreprise :{{this.name}}</p>
+      <p>Adresse : {{this.address}}</p>
+      <p>Téléphone : {{this.phone}}</p>
+      <P>E-mail : {{this.email}}</P>
+      <p>Siret : {{this.siret}}</p>
     <h2>Listes des utilisateurs</h2>
 
 <div class="arrayUsers">
@@ -26,7 +34,7 @@
     <!-- affichage de tous les utilisateurs -->
   
         
-          <tbody v-for="(firm, index) in arrayFirms" :key="index">  
+          <tbody v-for="(firm, index) in usersFirms" :key="index">  
             <tr v-for="(value, index) in firm.users" :key="index">
                 <td>{{value.firstname}}</td>
            
@@ -42,7 +50,7 @@
          
                 <td>{{value.comments}}</td>
 
-                <button @click="getUserProfil(value.id)">Modifier</button>
+               <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
                 <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
             </tr>
             </tbody>    
@@ -53,7 +61,7 @@
 
 <script>
 
-
+import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 
 export default {
 
@@ -62,12 +70,17 @@ export default {
   },
 
     components: {
-        
+        NavbarreAdmin: NavbarreAdmin,
     },
 
     data() {
         return {
-            arrayFirms: [],
+            usersFirms: [],
+            name:"",
+            address: "",
+            phone: "",
+            email: "",
+            siret: "",
             id:this.firmId,
             idUser: "",
         }
@@ -90,7 +103,15 @@ export default {
     const data = await response.json();
     console.log(data);
 
-    this.arrayFirms = data.tab_firms;
+    this.usersFirms = data.tab_firms;
+    
+    const arrayFirms = data.tab_firms;
+
+    this.name = arrayFirms[0].name;
+    this.phone = arrayFirms[0].phone;
+    this.address = arrayFirms[0].address;
+    this.email = arrayFirms[0].email;
+    this.siret = arrayFirms[0].siret;
     
     
   },
