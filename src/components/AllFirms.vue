@@ -26,7 +26,12 @@
 
     <!-- affichage de tous les utilisateurs -->
 
-    <tbody v-for="(element, index) in firmList" :key="index" class="body">
+    <tbody
+      v-for="(element, index) in firmList"
+      :key="index"
+      class="body"
+      @click="getUsersByFirm(element.id)"
+    >
       <tr>
         <td>
           <img :src="`http://localhost:8000/img/logos/` + element.logo" />
@@ -56,9 +61,11 @@ export default {
   data() {
     return {
       firmList: [],
-      id: "",
+      idFirm: "",
     };
   },
+
+  components: {},
 
   async mounted() {
     /*requete pour récuperer au montage tout les entreprises en BDD*/
@@ -98,6 +105,12 @@ export default {
 
       let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
       this.firmList.splice(i, 1); // remove it from array
+    },
+    async getUsersByFirm(id) {
+      this.$router.push({
+        name: "Users",
+        params: { firmId: id },
+      });
     },
   },
 };
