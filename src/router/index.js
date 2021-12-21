@@ -11,6 +11,7 @@ import AllFirms from "../views/AllFirms.vue";
 import UsersList from "../views/UsersList.vue";
 import EditProfil from "../views/EditProfil.vue";
 import CartUser from "../views/CartUser.vue";
+import EditFirm from "../views/EditFirm.vue";
 
 const routes = [
   {
@@ -93,6 +94,12 @@ const routes = [
     path: "/panier",
     name: "Panier",
     component: CartUser,
+  },
+  {
+    path: "/EditFirm",
+    name: "EditFirm",
+    component: EditFirm,
+    props: true,
   },
 ];
 

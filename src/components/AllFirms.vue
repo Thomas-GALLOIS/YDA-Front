@@ -26,14 +26,9 @@
 
     <!-- affichage de tous les utilisateurs -->
 
-    <tbody
-      v-for="(element, index) in firmList"
-      :key="index"
-      class="body"
-      @click="getUsersByFirm(element.id)"
-    >
+    <tbody v-for="(element, index) in firmList" :key="index" class="body">
       <tr>
-        <td>
+        <td @click="getUsersByFirm(element.id)">
           <img :src="`http://localhost:8000/img/logos/` + element.logo" />
         </td>
 
@@ -49,9 +44,11 @@
 
         <td>{{ element.visit_day_time_2 }}</td>
 
-        <i class="fas fa-pen"></i>
+        <td>
+          <i @click="getFirmById(element.id)" class="fas fa-pen"></i>
 
-        <i @click="deleteFirm(element.id)" class="far fa-trash-alt"></i>
+          <i @click="deleteFirm(element.id)" class="far fa-trash-alt"></i>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -112,6 +109,12 @@ export default {
         params: { firmId: id },
       });
     },
+    async getFirmById(id) {
+      this.$router.push({
+        name: "EditFirm",
+        params: { firmId: id },
+      });
+    },
   },
 };
 </script>
@@ -156,7 +159,7 @@ td {
   color: #fff;
 }
 
-tr:hover {
+tbody tr:hover {
   background-color: #f5f5f5;
   transform: scale(1.02);
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
@@ -173,6 +176,5 @@ img {
 
 i {
   width: 50px;
-  margin-top: 50px;
 }
 </style>
