@@ -93,6 +93,7 @@
 /* import du component selectservices de tout les services enregistrés en BDD */
 import SelectType from "../UI/SelectTypes.vue";
 export default {
+  inject: ["role"],
   data() {
     return {
       name: "",
@@ -124,22 +125,24 @@ export default {
     /* method pour ajouter un service en bdd avec vérification du token */
 
     async addService(e) {
-      const url = "http://127.0.0.1:8000/api/services";
+      if (this.role.value == "admin") {
+        const url = "http://127.0.0.1:8000/api/services";
 
-      const options = {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("@token"),
-        },
-        body: new FormData(e.target),
-      };
-      const response = await fetch(url, options);
-      console.log(response);
-      this.res = response.status;
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+          },
+          body: new FormData(e.target),
+        };
+        const response = await fetch(url, options);
+        console.log(response);
+        this.res = response.status;
 
-      const data = await response.json();
-      console.log(data);
-      this.status = data.status_code;
+        const data = await response.json();
+        console.log(data);
+        this.status = data.status_code;
+      }
     },
   },
 };

@@ -152,28 +152,30 @@ export default {
       };
     },
     async editService() {
-      const url = `http://127.0.0.1:8000/api/services/${this.id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/services/${this.id}`;
 
-      const options = {
-        method: "PUT",
+        const options = {
+          method: "PUT",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("@token"),
-        },
-        body: JSON.stringify({
-          name: this.name,
-          email: this.email,
-          phone: this.phone,
-          image: this.image,
-          description_1: this.description_1,
-          status: this.radio,
-          type_id: this.select,
-        }),
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("@token"),
+          },
+          body: JSON.stringify({
+            name: this.name,
+            email: this.email,
+            phone: this.phone,
+            image: this.image,
+            description_1: this.description_1,
+            status: this.radio,
+            type_id: this.select,
+          }),
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      }
     },
     async showServiceProducts(id) {
       this.$router.push({
@@ -182,21 +184,23 @@ export default {
       });
     },
     async deleteService() {
-      const url = `http://127.0.0.1:8000/api/services/${this.id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/services/${this.id}`;
 
-      const options = {
-        method: "DELETE",
+        const options = {
+          method: "DELETE",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-      let i = this.servicesArray.map((item) => item.this.id).indexOf(this.id); // find index of your object
-      this.servicesArray.splice(i, 1); // remove it from array
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("token"),
+          },
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+        let i = this.servicesArray.map((item) => item.this.id).indexOf(this.id); // find index of your object
+        this.servicesArray.splice(i, 1); // remove it from array
+      }
     },
   },
 };
