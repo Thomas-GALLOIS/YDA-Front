@@ -161,7 +161,7 @@
 
           <div class="form_p1">
             <div class="form_p2">
-              <label for="address">Adresse :</label>
+              <label for="address">Addresse :</label>
               <input type="text" name="address" id="address" />
             </div>
 
@@ -183,11 +183,11 @@
                 <option value="friday">Vendredi</option>
               </select>
               <select name="time_1">
-                <option value="monday">8 - 10 H</option>
-                <option value="tuesday">10 - 12 H</option>
-                <option value="wednesday">12 - 14 H</option>
-                <option value="thursday">14 - 16 H</option>
-                <option value="friday">16 - 18 H</option>
+                <option value="8">8 - 10 H</option>
+                <option value="10">10 - 12 H</option>
+                <option value="12">12 - 14 H</option>
+                <option value="14">14 - 16 H</option>
+                <option value="16">16 - 18 H</option>
               </select>
             </div>
 
@@ -202,11 +202,11 @@
                 <option value="friday">Vendredi</option>
               </select>
               <select name="time_2">
-                <option value="monday">8 - 10 H</option>
-                <option value="tuesday">10 - 12 H</option>
-                <option value="wednesday">12 - 14 H</option>
-                <option value="thursday">14 - 16 H</option>
-                <option value="friday">16 - 18 H</option>
+                <option value="8">8 - 10 H</option>
+                <option value="10">10 - 12 H</option>
+                <option value="12">12 - 14 H</option>
+                <option value="14">14 - 16 H</option>
+                <option value="16">16 - 18 H</option>
               </select>
             </div>
           </div>
@@ -238,6 +238,30 @@
               </select>
             </div>
           </div>
+
+          <div class="form_p1">
+            <div class="form_p2">
+              <label for="logo">Image actualité :</label>
+              <img :src="imageNews" class="preview" alt="" />
+              <input
+                type="file"
+                @change="downloadImageNews"
+                name="image"
+                id="image"
+                accept="/*"
+                enctype="multipart/form-data"
+              />
+            </div>
+            <div class="form_p2">
+              <label for="title">Titre de l'actualité : </label>
+              <input type="text" name="title">
+            </div>
+            <div class="form_p2">
+              <label for="news">Actualité : </label>
+              <input type="text" name="news">
+            </div>
+          </div>
+
           <div>
             <input id="submit_btn" type="submit" value="Valider" />
           </div>
@@ -270,6 +294,7 @@ export default {
       firmSelect: "",
       logoPicture: "",
       avatarPicture: "",
+      imageNews: "",
       showAccount: false,
       showFirmAccount: false,
       firmList: "",
@@ -405,6 +430,16 @@ export default {
       reader.onload = (e) => {
         this.avatarPicture = e.target.result;
         console.log(this.avatarPicture);
+      };
+    },
+
+    downloadImageNews(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.imageNews = e.target.result;
+        console.log(this.imageNews);
       };
     },
   },
