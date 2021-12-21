@@ -40,9 +40,9 @@
 
         <td>{{ element.email }}</td>
 
-        <td>{{ element.visit_day_1 }}, {{ element.time_1 }}</td>
+        <td>{{ element.visit_day_1 }}, {{ element.time_1 }} H</td>
 
-        <td>{{ element.visit_day_2 }}, {{ element.time_2 }}</td>
+        <td>{{ element.visit_day_2 }}, {{ element.time_2 }} H</td>
 
         <td>
           <i @click="getFirmById(element.id)" class="fas fa-pen"></i>
