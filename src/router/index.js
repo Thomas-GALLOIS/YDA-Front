@@ -12,6 +12,8 @@ import UsersList from "../views/UsersListByFirm.vue";
 import EditProfil from "../views/EditProfil.vue";
 import CartUser from "../views/CartUser.vue";
 import EditFirm from "../views/EditFirm.vue";
+import DashMember from "../views/DashMember.vue";
+import EditProfilMember from "../views/EditProfilMember.vue";
 
 const routes = [
   {
@@ -99,6 +101,18 @@ const routes = [
     path: "/EditFirm",
     name: "EditFirm",
     component: EditFirm,
+    props: true,
+  },
+  {
+    path: "/EditprofilMember",
+    name: "EditProfilMember",
+    component: EditProfilMember,
+    props: true,
+  },
+  {
+    path: "/DashMember",
+    name: "DashMember",
+    component: DashMember,
     props: true,
   },
 ];
