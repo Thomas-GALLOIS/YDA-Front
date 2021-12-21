@@ -7,10 +7,12 @@
 </template>
 <script>
 import Agenda from "../components/Agendas/Agenda.vue";
+import { Kalendar } from "kalendar-vue";
 
 export default {
   components: {
     Agenda: Agenda,
+    Kalendar,
   },
   data() {},
 };

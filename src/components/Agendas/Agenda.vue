@@ -46,7 +46,6 @@
           <div v-for="(firm, index) in arrayFirms" :key="index">
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'lundi' && firm.time_1 == 8) ||
                   (firm.visit_day_2 == 'lundi' && firm.time_2 == 8)
@@ -58,7 +57,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'lundi' && firm.time_1 == 10) ||
                   (firm.visit_day_2 == 'lundi' && firm.time_2 == 10)
@@ -70,7 +68,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'lundi' && firm.time_1 == 12) ||
                   (firm.visit_day_2 == 'lundi' && firm.time_2 == 12)
@@ -82,7 +79,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'lundi' && firm.time_1 == 14) ||
                   (firm.visit_day_2 == 'lundi' && firm.time_2 == 14)
@@ -94,7 +90,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'lundi' && firm.time_1 == 16) ||
                   (firm.visit_day_2 == 'lundi' && firm.time_2 == 16)
@@ -110,7 +105,6 @@
           <div v-for="(firm, index) in arrayFirms" :key="index">
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mardi' && firm.time_1 == 8) ||
                   (firm.visit_day_2 == 'mardi' && firm.time_2 == 8)
@@ -122,7 +116,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mardi' && firm.time_1 == 10) ||
                   (firm.visit_day_2 == 'mardi' && firm.time_2 == 10)
@@ -134,7 +127,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mardi' && firm.time_1 == 12) ||
                   (firm.visit_day_2 == 'mardi' && firm.time_2 == 12)
@@ -146,7 +138,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mardi' && firm.time_1 == 14) ||
                   (firm.visit_day_2 == 'mardi' && firm.time_2 == 14)
@@ -158,7 +149,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mardi' && firm.time_1 == 16) ||
                   (firm.visit_day_2 == 'mardi' && firm.time_2 == 16)
@@ -174,7 +164,6 @@
           <div v-for="(firm, index) in arrayFirms" :key="index">
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mercredi' && firm.time_1 == 8) ||
                   (firm.visit_day_2 == 'mercredi' && firm.time_2 == 8)
@@ -186,7 +175,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mercredi' && firm.time_1 == 10) ||
                   (firm.visit_day_2 == 'mercredi' && firm.time_2 == 10)
@@ -198,7 +186,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mercredi' && firm.time_1 == 12) ||
                   (firm.visit_day_2 == 'mercredi' && firm.time_2 == 12)
@@ -210,7 +197,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mercredi' && firm.time_1 == 14) ||
                   (firm.visit_day_2 == 'mercredi' && firm.time_2 == 14)
@@ -222,7 +208,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'mercredi' && firm.time_1 == 16) ||
                   (firm.visit_day_2 == 'mercredi' && firm.time_2 == 16)
@@ -298,7 +283,6 @@
           <div v-for="(firm, index) in arrayFirms" :key="index">
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'vendredi' && firm.time_1 == 8) ||
                   (firm.visit_day_2 == 'vendredi' && firm.time_2 == 8)
@@ -310,7 +294,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'vendredi' && firm.time_1 == 10) ||
                   (firm.visit_day_2 == 'vendredi' && firm.time_2 == 10)
@@ -322,7 +305,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'vendredi' && firm.time_1 == 12) ||
                   (firm.visit_day_2 == 'vendredi' && firm.time_2 == 12)
@@ -334,7 +316,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'vendredi' && firm.time_1 == 14) ||
                   (firm.visit_day_2 == 'vendredi' && firm.time_2 == 14)
@@ -346,7 +327,6 @@
 
             <tr>
               <div
-                class="classtr"
                 v-if="
                   (firm.visit_day_1 == 'vendredi' && firm.time_1 == 16) ||
                   (firm.visit_day_2 == 'vendredi' && firm.time_2 == 16)
@@ -400,18 +380,19 @@ export default {
 <style scoped>
 .agenda {
   width: 500px;
-  height: 500px;
+  height: 300px;
+}
+table td {
+  width: 100%;
+  height: 30px;
+  border: black 1px solid;
 }
 .agenda th {
   width: 100px;
   height: auto;
   border: 1px solid black;
 }
-.classtr {
-  width: 100%;
-  height: 30px;
-  border: black 1px solid;
-}
+
 .lundi {
   background-color: rgb(189, 239, 243);
 }
