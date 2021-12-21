@@ -45,9 +45,9 @@
 
         <td>{{ element.email }}</td>
 
-        <td>{{ element.visit_day_time_1 }}</td>
+        <td>{{ element.visit_day_1 }}, {{ element.time_1 }}</td>
 
-        <td>{{ element.visit_day_time_2 }}</td>
+        <td>{{ element.visit_day_2 }}, {{ element.time_2 }}</td>
 
         <i class="fas fa-pen"></i>
 
