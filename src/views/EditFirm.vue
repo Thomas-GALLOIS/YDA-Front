@@ -24,7 +24,7 @@
 
       <div class="form_p1">
         <div class="form_p2">
-          <label for="address">Adresse :</label>
+          <label for="address">Addresse :</label>
           <input type="text" name="address" id="address" v-model="address" />
         </div>
 
@@ -36,23 +36,45 @@
 
       <div class="form_p1">
         <div class="form_p2">
-          <label for="schedule">Jour et heure 1er passage :</label>
-          <input
-            type="text"
-            name="visit_day_time_1"
-            id="schedule"
-            v-model="visit_day_time_1"
-          />
+          <label for="agenda">Premier passage :</label>
+
+          <select name="visit_day_1" @change="selectDay1($event)">
+            <option value="">Choix Jour</option>
+            <option value="monday">Lundi</option>
+            <option value="tuesday">Mardi</option>
+            <option value="wednesday">Mercredi</option>
+            <option value="thursday">Jeudi</option>
+            <option value="friday">Vendredi</option>
+          </select>
+          <select name="time_1" @change="selectHour1($event)">
+            <option value="">Choix Heure</option>
+            <option value="8">8 - 10 H</option>
+            <option value="10">10 - 12 H</option>
+            <option value="12">12 - 14 H</option>
+            <option value="14">14 - 16 H</option>
+            <option value="16">16 - 18 H</option>
+          </select>
         </div>
 
         <div class="form_p2">
-          <label for="schedule">Jour et heure 2nd passage :</label>
-          <input
-            type="text"
-            name="visit_day_time_2"
-            id="schedule"
-            v-model="visit_day_time_2"
-          />
+          <label for="agenda">Deuxieme passage :</label>
+
+          <select name="visit_day_2" @change="selectDay2($event)">
+            <option value="">Choix Jour</option>
+            <option value="monday">Lundi</option>
+            <option value="tuesday">Mardi</option>
+            <option value="wednesday">Mercredi</option>
+            <option value="thursday">Jeudi</option>
+            <option value="friday">Vendredi</option>
+          </select>
+          <select name="time_2" @change="selectHour2($event)">
+            <option value="">Choix Heure</option>
+            <option value="8">8 - 10 H</option>
+            <option value="10">10 - 12 H</option>
+            <option value="12">12 - 14 H</option>
+            <option value="14">14 - 16 H</option>
+            <option value="16">16 - 18 H</option>
+          </select>
         </div>
       </div>
 
@@ -65,7 +87,6 @@
 
       <div class="form_p1">
         <div class="form_p2">
-          <!--
           <label for="logo">Logo :</label>
           <img :src="logoPicture" class="preview" alt="" />
           <input
@@ -76,7 +97,6 @@
             accept="/*"
             enctype="multipart/form-data"
           />
-          -->
         </div>
         <div class="form_p2">
           <label for="add_color">Couleur de l'entreprise : </label>
@@ -85,6 +105,30 @@
           </select>
         </div>
       </div>
+
+      <div class="form_p1">
+        <div class="form_p2">
+          <label for="logo">Image actualité :</label>
+          <img :src="imageNews" class="preview" alt="" />
+          <input
+            type="file"
+            @change="downloadImageNews"
+            name="image"
+            id="image"
+            accept="/*"
+            enctype="multipart/form-data"
+          />
+        </div>
+        <div class="form_p2">
+          <label for="title">Titre de l'actualité : </label>
+          <input type="text" name="title" v-model="title" />
+        </div>
+        <div class="form_p2">
+          <label for="news">Actualité : </label>
+          <input type="text" name="news" v-model="news" />
+        </div>
+      </div>
+
       <div>
         <input id="submit_btn" type="submit" value="Valider" />
       </div>
@@ -115,9 +159,32 @@ export default {
       email: "",
       success: "",
       error: "",
+      title: "",
+      news: "",
+      day1_select: "",
+      day2_select: "",
+      hour1_select: "",
+      hour2_select: "",
     };
   },
   methods: {
+    selectDay1(event) {
+      this.day1_select = event.target.value;
+      console.log(this.day1_select);
+    },
+    selectDay2(event) {
+      this.day2_select = event.target.value;
+      console.log(this.day2_select);
+    },
+    selectHour1(event) {
+      this.hour1_select = event.target.value;
+      console.log(this.hour1_select);
+    },
+    selectHour2(event) {
+      this.hour2_select = event.target.value;
+      console.log(this.hour2_select);
+    },
+
     async editFirm() {
       const url = `http://127.0.0.1:8000/api/firms/${this.id}`;
 
@@ -135,8 +202,12 @@ export default {
           phone: this.phone,
           siret: this.siret,
           subscription: this.subscription,
-          visit_day_time_1: this.visit_day_time_1,
-          visit_day_time_2: this.visit_day_time_2,
+          visit_day_1: this.day1_select,
+          visit_day_2: this.day2_select,
+          time_1: this.hour1_select,
+          time_2: this.hour2_select,
+          title: this.title,
+          news: this.news,
         }),
       };
 
