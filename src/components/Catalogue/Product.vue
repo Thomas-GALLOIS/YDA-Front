@@ -126,28 +126,30 @@ export default {
       };
     },
     async editProduct() {
-      const url = `http://127.0.0.1:8000/api/products/${this.id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/products/${this.id}`;
 
-      const options = {
-        method: "PUT",
+        const options = {
+          method: "PUT",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("@token"),
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: JSON.stringify({
-          name: this.name,
-          image: this.image,
-          description: this.description,
-          price: this.price,
-          status: this.radio,
-          service_id: this.select,
-        }),
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("@token"),
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify({
+            name: this.name,
+            image: this.image,
+            description: this.description,
+            price: this.price,
+            status: this.radio,
+            service_id: this.select,
+          }),
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      }
     },
     addProductToCart() {
       this.addToCart({
@@ -162,19 +164,21 @@ export default {
       localStorage.setItem("@global", JSON.stringify(this.globalCart));
     },
     async deleteProduct() {
-      const url = `http://127.0.0.1:8000/api/products/${this.id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/products/${this.id}`;
 
-      const options = {
-        method: "DELETE",
+        const options = {
+          method: "DELETE",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("token"),
+          },
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      }
     },
   },
 };

@@ -6,9 +6,24 @@
     <div class="all">
       <!-- bouton pour affichage des formulaires -->
       <div class="button">
-        <button @click="this.showAccount = true, this.showFirmAccount=false, this.msg=false" id="submit_btn">
+        <button
+          @click="
+            (this.showAccount = true),
+              (this.showFirmAccount = false),
+              (this.msg = false)
+          "
+          id="submit_btn"
+        >
           Création Compte</button
-        ><button @click="this.showFirmAccount = true, this.showAccount = false, this.msg=false" id="submit_btn">
+        ><button
+          @click="
+            (this.showFirmAccount = true),
+              (this.showAccount = false),
+              (this.msg = false)
+          "
+          id="submit_btn"
+          v-if="this.role.value == 'admin'"
+        >
           Création d'entreprise
         </button>
       </div>
@@ -27,8 +42,12 @@
             id="add_account"
           >
             <option value="choix">Choix</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
+            <option v-if="this.role.value == 'admin'" value="admin">
+              Admin
+            </option>
+            <option v-if="this.role.value == 'admin'" value="manager">
+              Manager
+            </option>
             <option value="member">Member</option>
           </select>
         </div>
@@ -248,22 +267,20 @@
             </div>
             <div class="form_p2">
               <label for="title">Titre de l'actualité : </label>
-              <input type="text" name="title">
+              <input type="text" name="title" />
             </div>
           </div>
-            <div class="form_p2">
-              <label for="news">Actualité : </label>
-              <textarea type="text" name="news"></textarea>
-            </div>
+          <div class="form_p2">
+            <label for="news">Actualité : </label>
+            <textarea type="text" name="news"></textarea>
+          </div>
 
           <div>
             <input id="submit_btn" type="submit" value="Valider" />
           </div>
         </form>
       </div>
-      <div v-show="this.msg == true" class="msg">
-          Nouveau compte crée !
-      </div>
+      <div v-show="this.msg == true" class="msg">Nouveau compte crée !</div>
     </div>
   </div>
 </template>
@@ -275,6 +292,7 @@
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 
 export default {
+  inject: ["role"],
   name: "AddAccount",
   // component
   components: {
@@ -364,7 +382,6 @@ export default {
       console.log(data);
 
       this.successFirm = data.status_code;
-      
 
       if (data.status_code == 200) {
         this.showFirmAccount = false;
@@ -442,7 +459,7 @@ export default {
   flex-direction: column;
   height: 100vh;
   width: 600px;
-  margin: auto; 
+  margin: auto;
   text-align: initial;
 }
 
