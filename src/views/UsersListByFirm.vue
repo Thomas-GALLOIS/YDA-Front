@@ -7,6 +7,10 @@
       <p>Téléphone : {{this.phone}}</p>
       <P>E-mail : {{this.email}}</P>
       <p>Siret : {{this.siret}}</p>
+      <p>Actualité : {{this.title}}</p>
+      <img :src="`http://localhost:8000/img/news/` + this.image"/>
+      <p>{{this.news}}</p>
+
     <h2>Listes des utilisateurs</h2>
 
 <div class="arrayUsers">
@@ -50,8 +54,10 @@
          
                 <td>{{value.comments}}</td>
 
-               <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
-                <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+                <td>
+                  <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
+                  <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+                </td>
             </tr>
             </tbody>    
 </table>
@@ -81,6 +87,9 @@ export default {
             phone: "",
             email: "",
             siret: "",
+            title: "",
+            news: "",
+            image:"",
             id:this.firmId,
             idUser: "",
         }
@@ -112,6 +121,9 @@ export default {
     this.address = arrayFirms[0].address;
     this.email = arrayFirms[0].email;
     this.siret = arrayFirms[0].siret;
+    this.title = arrayFirms[0].title;
+    this.news = arrayFirms[0].news;
+    this.image = arrayFirms[0].image;
     
     
   },
@@ -160,6 +172,9 @@ export default {
     // la récupération des data stockées dans l'API
     const data = await response.json();
     console.log(data);
+
+    let i = this.usersFirms[0].users.map((item) => item.id).indexOf(id); // find index of your object
+      this.usersFirms[0].users.splice(i, 1); // remove it from array
   }
 },
 };
@@ -206,6 +221,10 @@ tr:hover {
   background-color: #f5f5f5;
   transform: scale(1.02);
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+}
+
+i {
+  width: 50px;
 }
 
 </style>
