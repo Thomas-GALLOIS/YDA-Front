@@ -1,6 +1,6 @@
 <template>
   <NavbarreAdmin />
-  <AllFirms/>
+  <AllFirms />
   <Footer />
 </template>
 
@@ -9,9 +9,7 @@ import NavbarreAdmin from "../components/NavbarreAdmin.vue";
 import AllFirms from "../components/AllFirms.vue";
 import Footer from "../components/Footer.vue";
 
-
 export default {
-
   props: {
     firmId: String,
   },

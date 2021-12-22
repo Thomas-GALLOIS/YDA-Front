@@ -1,12 +1,10 @@
 <template>
   <h1>Panier</h1>
   <div v-for="(element, index) in this.cart" :key="index">
-    <div v-for="(value, index) in element.cart" :key="index">
-      <p>commentaire:{{ value.comment }}</p>
+    <p>commentaire:{{ element.comment }}</p>
 
-      <p>quantité:{{ value.quantity }}</p>
-      <img :src="value.img" />
-    </div>
+    <p>quantité:{{ element.quantity }}</p>
+    <p>Produit:{{ element.name }}</p>
   </div>
 </template>
 
@@ -27,6 +25,7 @@ export default {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     const response = await fetch(url, options);
