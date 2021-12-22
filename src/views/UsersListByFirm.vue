@@ -2,16 +2,35 @@
 <NavbarreAdmin/>
     <h2>Infos de l'entreprise</h2>
 
-      <p>Nom de l'entreprise :{{this.name}}</p>
-      <p>Adresse : {{this.address}}</p>
-      <p>Téléphone : {{this.phone}}</p>
-      <P>E-mail : {{this.email}}</P>
-      <p>Siret : {{this.siret}}</p>
-      <p>Actualité : {{this.title}}</p>
-      <img :src="`http://localhost:8000/img/news/` + this.image"/>
-      <p>{{this.news}}</p>
+    <div class="firm_details">
+      <div class="part_1">
+        <div>
+          <p>Nom de l'entreprise :{{this.name}}</p>
+        </div>
+        <div>
+          <p>Adresse : {{this.address}}</p>
+        </div>
+      </div>
+      <div class="part_2">
+        <div>
+          <p>Téléphone : {{this.phone}}</p>
+        </div>
+        <div>
+          <p>E-mail : {{this.email}}</P>
+        </div>
+        <div>
+          <p>Siret : {{this.siret}}</p>
+        </div>
+      </div>
+    </div>
 
-    <h2>Listes des utilisateurs</h2>
+      <div class="news">
+        <p>Actualité du moment : {{this.title}}</p>
+        <img :src="`http://localhost:8000/img/news/` + this.image"/>
+        <p>{{this.news}}</p>
+      </div>
+
+    <h2>Utilisateurs</h2>
 
 <div class="arrayUsers">
 <table class="array">
@@ -53,8 +72,10 @@
 
           <td>{{ value.comments }}</td>
 
-          <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
-          <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+          <td>
+            <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
+            <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -218,4 +239,36 @@ i {
   width: 50px;
 }
 
+h2 {
+  color: #f39c11;
+}
+
+.firm_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 200px;
+  background-color: #f39c11;
+  opacity: 0.5;
+  border-bottom: 7px ridge #f39c11;
+}
+
+.part_1 {
+  text-align: justify;
+}
+
+.part_2 {
+  text-align: justify;
+}
+
+.news {
+  
+  margin-top: 5%;
+  
+}
+
+img {
+  width: 150px;
+    height: 150px;
+}
 </style>
