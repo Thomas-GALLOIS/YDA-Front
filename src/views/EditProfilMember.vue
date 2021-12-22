@@ -161,9 +161,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.prof {
-}
-
 .modif-form {
   display: flex;
   flex-direction: column;
