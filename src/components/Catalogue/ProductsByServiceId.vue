@@ -1,13 +1,15 @@
 <template>
-  <h1>Products</h1>
-  <button @click="sendCart">Valider commande</button>
-  <div v-for="(element, index) in productsArray" :key="index">
-    <Product
-      v-for="(value, index) in element.products"
-      :key="index"
-      :values="value"
-      :addToCart="addToCart"
-    />
+  <div>
+    <h1>Products</h1>
+    <button @click="sendCart">Valider commande</button>
+    <div v-for="(element, index) in productsArray" :key="index">
+      <Product
+        v-for="(value, index) in element.products"
+        :key="index"
+        :values="value"
+        :addToCart="addToCart"
+      />
+    </div>
   </div>
 </template>
 
