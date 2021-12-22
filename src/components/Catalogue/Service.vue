@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div v-show="showEdit">
+    <div class="editForm" v-show="showEdit">
       <form class="edit_service" @submit.prevent="editService">
         <label for="name">Nom</label>
         <input id="name" type="text" v-model="name" name="name" />
@@ -255,5 +255,9 @@ i {
 }
 ::-webkit-scrollbar {
   display: none;
+}
+.editForm {
+  display: flex;
+  flex-direction: column;
 }
 </style>
