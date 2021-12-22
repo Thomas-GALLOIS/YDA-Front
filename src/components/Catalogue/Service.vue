@@ -1,5 +1,8 @@
 <template>
-  <div class="service_card">
+  <div
+    v-if="radio !== 'inactif' || this.role.value !== 'member'"
+    class="service_card"
+  >
     <div class="image">
       <img :src="'http://localhost:8000/img/services/' + previewImage" />
     </div>
