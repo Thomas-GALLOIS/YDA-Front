@@ -19,8 +19,6 @@
             </select>
           </td>
           <td>Prix total</td>
-          <td>Commentaires</td>
-          <td>Note Admin</td>
           <td>Date création</td>
           <td>Date dernière modification</td>
           <td>Entreprises:<SelectFirms @change="getFirmValue($event)" /></td>
@@ -37,8 +35,6 @@
             <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.total }}€</td>
-            <td>{{ order.comments }}</td>
-            <td>{{ order.note_admin }}</td>
             <td>
               {{ moment(order.created_at).format("DD MMM YYYY, HH:mm ") }}
             </td>
@@ -49,6 +45,7 @@
               {{ element.name }}
             </td>
             <td>{{ user.firstname }} {{ user.lastname }}</td>
+            <br />
           </div>
         </tr>
       </tbody>
