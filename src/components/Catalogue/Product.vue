@@ -1,5 +1,8 @@
 <template>
-  <div class="product_card">
+  <div
+    v-if="radio !== 'inactif' || this.role.value !== 'member'"
+    class="product_card"
+  >
     <div class="image">
       <img :src="'http://localhost:8000/img/services/' + previewImage" />
     </div>
@@ -7,24 +10,23 @@
       <h2>{{ name }}</h2>
       <p>{{ description }}</p>
       {{ price }}€
-      <br />
-      <i
-        v-if="this.role.value == 'admin'"
-        @click="deleteProduct()"
-        class="far fa-trash-alt"
-      ></i>
+      <div v-if="this.role.value == 'admin'" class="buttonedit">
+        <i class="fas fa-pen" @click="showEdit = !showEdit"></i>
+        <i
+          v-if="this.role.value == 'admin'"
+          @click="deleteProduct()"
+          class="far fa-trash-alt"
+        ></i>
+      </div>
     </div>
 
-    <div v-if="this.role.value == 'admin'" class="buttonedit">
-      <button @click="showEdit = !showEdit">Modifier le produit</button>
-    </div>
     <div class="orders">
       <form class="command_form" @submit.prevent="addProductToCart">
         <label for="comment">Ajoutez un commentaire à votre commande</label>
         <input id="comment" type="text" v-model="comment" />
         <label for="qt">Quantité</label>
         <input id="qt" type="number" v-model="quantity" />
-        <input type="submit" value="Commander" @click="global" />
+        <input type="submit" value="Ajouter au panier" @click="global" />
       </form>
     </div>
 
@@ -185,7 +187,9 @@ export default {
 
 <style scoped>
 img {
-  width: 100px;
+  width: 200px;
+  border-radius: 50%;
+  height: 200px;
 }
 .command_form {
   display: flex;
@@ -207,5 +211,13 @@ img {
 .command_form input:focus {
   box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   outline: none;
+}
+
+.buttonedit {
+  display: flex;
+  justify-content: center;
+}
+i {
+  margin: 20px 10px;
 }
 </style>

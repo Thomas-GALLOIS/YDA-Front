@@ -1,5 +1,8 @@
 <template>
-  <div class="service_card">
+  <div
+    v-if="radio !== 'inactif' || this.role.value !== 'member'"
+    class="service_card"
+  >
     <div class="image">
       <img :src="'http://localhost:8000/img/services/' + previewImage" />
     </div>
@@ -18,10 +21,10 @@
     <div v-show="showEdit">
       <form class="form" @submit.prevent="editService">
         <div>
-        <label for="name">Nom</label>
+          <label for="name">Nom</label>
         </div>
         <div>
-        <input id="name" type="text" v-model="name" name="name" />
+          <input id="name" type="text" v-model="name" name="name" />
         </div>
         <div class="child_top">
           <label for="email">Email</label>
