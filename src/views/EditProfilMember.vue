@@ -6,12 +6,7 @@
       <h1 v-show="this.show">Modification de profil</h1>
     </div>
     <div>
-      <div class="date-form">
-        <p class="date">
-          Bonjour,<br />Le
-          {{ this.today }}
-        </p>
-      </div>
+      <div class="date-form"></div>
       <div class="content">
         <div class="prof">
           <br />
@@ -29,7 +24,10 @@
             Téléphone : <span class="id">{{ this.phone }}</span>
           </p>
           <p>
-            Date de naissance : <span class="id">{{ this.birthday }}</span>
+            Date de naissance :
+            <span class="id">
+              {{ moment(this.birthday).format("DD MMM YYYY ") }}</span
+            >
           </p>
 
           <div class="profil-form">
@@ -55,16 +53,7 @@
             />
 
             <br />
-            <div class="img_container">
-              <label for="avatar">Avatar</label>
-              <input
-                type="file"
-                id="avatar"
-                @change="uploadImage"
-                name="avatar"
-                class="file"
-              />
-            </div>
+
             <br />
 
             <button class="boutonSauv" @click="putUser">Sauvegarder</button>
@@ -76,6 +65,7 @@
 </template>
 <script>
 import Navbarre from "../components/Navbarre.vue";
+import moment from "moment";
 
 export default {
   name: "EditProfil",
@@ -96,6 +86,9 @@ export default {
       show: false,
     };
   },
+  created: function () {
+    this.moment = moment;
+  },
 
   async mounted() {
     const url =
@@ -106,7 +99,7 @@ export default {
     const options = {
       method: "GET",
       headers: {
-        Authorization: "bearer " + localStorage.getItem("@token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
       },
     };
@@ -123,14 +116,6 @@ export default {
     this.birthday = data.donnees[0].birthday;
   },
   methods: {
-    uploadImage(e) {
-      const avatar = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(avatar);
-      reader.onload = (e) => {
-        this.previewImage = e.target.result;
-      };
-    },
     async putUser() {
       const url =
         "http://127.0.0.1:8000/api/users/" + localStorage.getItem("@id");
@@ -138,7 +123,7 @@ export default {
       const options = {
         method: "PUT",
         headers: {
-          Authorization: "bearer " + localStorage.getItem("@token"),
+          Authorization: "Bearer " + localStorage.getItem("@token"),
 
           "X-Requested-With": "XMLHttpRequest",
           "content-Type": "application/json",
@@ -149,7 +134,6 @@ export default {
           email: this.email,
           phone: this.phone,
           birthday: this.birthday,
-          avatar: this.avatar,
         }),
       };
       console.log(this.newfirstname);
@@ -168,10 +152,15 @@ export default {
   display: flex;
   flex-direction: row;
   align-content: center;
+  justify-content: center;
+  height: 400px;
+  padding: 20px;
+  margin-left: 300px;
+  margin-right: 300px;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .prof {
-  margin-left: 50px;
 }
 
 .modif-form {
