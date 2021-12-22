@@ -132,6 +132,7 @@ export default {
           method: "POST",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("@token"),
+            Accept: "application/json",
           },
           body: new FormData(e.target),
         };

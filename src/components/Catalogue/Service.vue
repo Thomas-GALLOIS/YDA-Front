@@ -174,7 +174,8 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("@token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Accept: "application/json",
           },
           body: JSON.stringify({
             name: this.name,

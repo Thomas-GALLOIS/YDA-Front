@@ -326,6 +326,7 @@ export default {
         method: "POST",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("@token"),
+          Accept: "application/json",
         },
         body: new FormData(e.target),
       };
@@ -506,7 +507,6 @@ input:focus {
 }
 
 .block_area {
-  
   width: 26rem;
   height: 10rem;
   margin: 15px auto;

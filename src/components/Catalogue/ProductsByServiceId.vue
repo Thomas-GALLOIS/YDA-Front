@@ -37,12 +37,19 @@ export default {
 
       headers: {
         "Content-Type": "application/json",
-        Authorization: "bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     const response = await fetch(url, options);
     const data = await response.json();
     this.productsArray = data.donnees;
+
+    let cart = JSON.parse(localStorage.getItem("@cart"));
+    if (Array.isArray(cart)) {
+      console.log("TEST---------------");
+      this.cart = cart;
+    }
   },
 
   methods: {
@@ -54,17 +61,16 @@ export default {
     async sendCart() {
       const url = "http://127.0.0.1:8000/api/orders";
       const storage = JSON.parse(localStorage.getItem("@cart"));
-      const id = JSON.parse(localStorage.getItem("@id"));
       const options = {
         method: "POST",
 
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("@token"),
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           products: storage,
-          user_id: id,
         }),
       };
       const response = await fetch(url, options);

@@ -106,8 +106,9 @@ export default {
     const options = {
       method: "GET",
       headers: {
-        Authorization: "bearer " + localStorage.getItem("@token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     };
 
@@ -163,7 +164,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .content {
   display: flex;
   flex-direction: row;
