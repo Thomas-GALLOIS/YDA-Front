@@ -15,10 +15,14 @@
       </div>
     </div>
 
-    <div class="editForm" v-show="showEdit">
-      <form class="edit_service" @submit.prevent="editService">
+    <div v-show="showEdit">
+      <form class="form" @submit.prevent="editService">
+        <div>
         <label for="name">Nom</label>
+        </div>
+        <div>
         <input id="name" type="text" v-model="name" name="name" />
+        </div>
         <div class="child_top">
           <label for="email">Email</label>
           <input type="email" id="email" v-model="email" name="email" />
@@ -256,8 +260,96 @@ i {
 ::-webkit-scrollbar {
   display: none;
 }
-.editForm {
+
+.form {
   display: flex;
   flex-direction: column;
+}
+input {
+  width: 200px;
+  height: 30px;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+label {
+  text-align: left;
+  margin-top: 20px;
+}
+#submit_btn {
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  border: 2px solid #0f0f0f;
+  transition: background 1s;
+  height: 40px;
+  margin-left: auto;
+}
+#submit_btn:hover {
+  color: #db9024;
+  background: #0f0f0f;
+  border: 2px solid #db9024;
+  transition: background 1s;
+}
+
+.top_form {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+
+.child_top {
+  display: flex;
+  flex-direction: column;
+}
+
+.img_container {
+  display: flex;
+  flex-direction: column;
+}
+.img_container img {
+  width: 200px;
+  height: auto;
+  margin: 0px;
+}
+
+.check {
+  box-shadow: none;
+  border-radius: 100%;
+  margin: 15px auto;
+  width: 100px;
+  text-align: left;
+}
+
+.check:focus {
+  box-shadow: none;
+}
+.block_area {
+  width: 26rem;
+  height: 10rem;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+.text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.block_area:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 </style>
