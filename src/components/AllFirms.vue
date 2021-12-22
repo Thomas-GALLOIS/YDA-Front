@@ -163,6 +163,7 @@ td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
   min-width: 100px;
+  max-height: 30px;
 }
 
 .array .trHead {
