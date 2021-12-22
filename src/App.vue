@@ -20,27 +20,31 @@ export default {
     };
   },
   async mounted() {
-    const url =
-      "http://127.0.0.1:8000/api/verify-token/29|2Ag0dO6CQOIArG1vCJNAYaCtsST0VPLpZlVz8Utp";
+    const url = "http://127.0.0.1:8000/api/user";
 
     const options = {
       method: "GET",
       headers: {
-        Authorization: "bearer " + localStorage.getItem("@token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     };
 
     const response = await fetch(url, options);
-    console.log("je suis la response" + JSON.stringify(response));
-    const data = await response.json();
-    console.log("je suis la data de APP" + data);
+
+    if (response.status !== 200) {
+      localStorage.removeItem("@token");
+      this.$router.replace("/connexion");
+    } else {
+      const data = await response.json();
+      this.role = data.role;
+    }
   },
 };
 </script>
 
 <style>
-
 body {
   margin: 0%;
   padding: 0%;
