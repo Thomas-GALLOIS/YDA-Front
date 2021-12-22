@@ -70,8 +70,8 @@ export default {
   border-top: 2px solid black;
   width: 100%;
   text-align: left;
-  color: #520404;
-  padding: 2%;
+  color: #080000;
+  padding: 5px;
   margin-top: 2%;
   position: fixed;
   bottom: 0px;
@@ -97,7 +97,7 @@ export default {
 }
 
 .footer-distributed .footer-links {
-  color: #4b0404;
+  color: #000000;
 
   text-decoration: none;
   padding: 0;
