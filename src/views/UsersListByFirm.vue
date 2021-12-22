@@ -1,21 +1,102 @@
 <template>
-<NavbarreAdmin/>
-    <h2>Infos de l'entreprise</h2>
+  <NavbarreAdmin />
+  <h2>Infos de l'entreprise</h2>
 
-      <p>Nom de l'entreprise :{{this.name}}</p>
-      <p>Adresse : {{this.address}}</p>
-      <p>Téléphone : {{this.phone}}</p>
-      <P>E-mail : {{this.email}}</P>
-      <p>Siret : {{this.siret}}</p>
-      <p>Actualité : {{this.title}}</p>
-      <img :src="`http://localhost:8000/img/news/` + this.image"/>
-      <p>{{this.news}}</p>
+  <div class="firm_details">
+    <div class="part_1">
+      <div>
+        <p>Nom de l'entreprise :{{ this.name }}</p>
+      </div>
+      <div>
+        <p>Adresse : {{ this.address }}</p>
+      </div>
+    </div>
+    <div class="part_2">
+      <div>
+        <p>Téléphone : {{ this.phone }}</p>
+      </div>
+      <div>
+        <p>E-mail : {{ this.email }}</p>
+      </div>
+      <div>
+        <p>Siret : {{ this.siret }}</p>
+      </div>
+    </div>
+  </div>
 
-    <h2>Listes des utilisateurs</h2>
+  <div class="news">
+    <p>Actualité du moment : {{ this.title }}</p>
+    <img :src="`http://localhost:8000/img/news/` + this.image" />
+    <p>{{ this.news }}</p>
+  </div>
 
-<div class="arrayUsers">
-<table class="array">
-    <thead class="head">
+  <h2>Listes des commandes</h2>
+
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
+        <tr class="trHead">
+            <th>Commande n°</th>
+            <th>
+              <select
+                name="status"
+                id="status"
+                @change="selectedStatus = $event.target.value"
+              >
+                <option value="">Statuts</option>
+                <option value="en cours">En cours</option>
+                <option value="en attente">En attente</option>
+                <option value="terminée">Terminées</option>
+              </select>
+            </th>
+            <th>Prix total</th>
+            <th>Commentaires</th>
+            <th>Note Admin</th>
+            <th>Date création</th>
+            <th>Date dernière modification</th>
+            <th>Entreprises:<SelectFirms @change="getFirmValue($event)" /></th>
+            <th>Nom salarié</th>
+        </tr>
+      </thead>
+
+      <!-- affichage de tous les utilisateurs -->
+
+      <tbody v-for="(firm, index) in usersFirms" :key="index">
+        <div v-for="(value, index) in firm.users" :key="index">
+          <tr v-for="(order, index) in value.orders" :key="index">
+            <td>{{ order.id }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.total }}</td>
+            <td>{{ order.comments }}</td>
+            <td>{{ order.created_at }}</td>
+            <td>{{ order.updated_at }}</td>
+            <td>{{ firm.name }}</td>
+            <td>{{ value.firstname }} {{ value.lastname }}</td>
+            <td>
+              <button v-show="!showEdit" @click="showEdit = !showEdit">
+                Modifier le statut
+              </button>
+              <form @submit.prevent="editStatus(order.id)" v-show="showEdit">
+                <select v-model="status">
+                  <option value="">Statuts</option>
+                  <option value="en cours">En cours</option>
+                  <option value="en attente">En attente</option>
+                  <option value="terminée">Terminées</option>
+                </select>
+                <button>Modifier Statut</button>
+              </form>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Utilisateurs</h2>
+
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
         <tr class="trHead">
           <th>Nom :</th>
 
@@ -53,8 +134,10 @@
 
           <td>{{ value.comments }}</td>
 
-          <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
-          <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+          <td>
+            <i class="fas fa-pen" @click="getUserProfil(value.id)"></i>
+            <i @click="deleteUser(value.id)" class="far fa-trash-alt"></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -74,21 +157,22 @@ export default {
     NavbarreAdmin: NavbarreAdmin,
   },
 
-    data() {
-        return {
-            usersFirms: [],
-            name:"",
-            address: "",
-            phone: "",
-            email: "",
-            siret: "",
-            title: "",
-            news: "",
-            image:"",
-            id:this.firmId,
-            idUser: "",
-        }
-    },
+  data() {
+    return {
+      usersFirms: [],
+      name: "",
+      address: "",
+      phone: "",
+      email: "",
+      siret: "",
+      title: "",
+      news: "",
+      image: "",
+      id: this.firmId,
+      idUser: "",
+      showEdit: false,
+    };
+  },
 
   async mounted() {
     /*requete pour récuperer au montage tout les entreprises en BDD*/
@@ -98,6 +182,7 @@ export default {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     // va chercher les options de l'API
@@ -119,8 +204,6 @@ export default {
     this.title = arrayFirms[0].title;
     this.news = arrayFirms[0].news;
     this.image = arrayFirms[0].image;
-    
-    
   },
 
   methods: {
@@ -166,6 +249,27 @@ export default {
         const response = await fetch(url, options);
         console.log(response);
         // la récupération des data stockées dans l'API
+        const data = await response.json();
+        console.log(data);
+      }
+    },
+    async editStatus(id) {
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/orders/${id}`;
+
+        const options = {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("@token"),
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify({
+            status: this.status,
+          }),
+        };
+        const response = await fetch(url, options);
         const data = await response.json();
         console.log(data);
       }
@@ -218,4 +322,34 @@ i {
   width: 50px;
 }
 
+h2 {
+  color: #f39c11;
+}
+
+.firm_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 200px;
+  background-color: #f39c11;
+  opacity: 0.5;
+  border-bottom: 7px ridge #f39c11;
+}
+
+.part_1 {
+  text-align: justify;
+}
+
+.part_2 {
+  text-align: justify;
+}
+
+.news {
+  margin-top: 5%;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+}
 </style>

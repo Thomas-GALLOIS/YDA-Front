@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2>AGENDA</h2>
-    <table class="agenda">
-      <thead class="color">
+    <table>
+      <thead>
         <tr>
           <th>-</th>
 
@@ -361,6 +361,7 @@ export default {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     // va chercher les options de l'API
@@ -378,19 +379,21 @@ export default {
 </script>
 
 <style scoped>
-.agenda {
-  width: 500px;
-  height: 300px;
-}
 table td {
   width: 100%;
   height: 30px;
   border: black 1px solid;
 }
-.agenda th {
-  width: 100px;
-  height: auto;
-  border: 1px solid black;
+table th {
+  width: 150px;
+  height: 50px;
+  border: 1px solid rgb(240, 239, 239);
+}
+table thead {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: rgba(50, 88, 214, 0.733);
+  font-size: 16px;
 }
 
 .lundi {

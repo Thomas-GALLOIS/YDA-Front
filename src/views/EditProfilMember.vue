@@ -101,6 +101,7 @@ export default {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     };
 
@@ -147,7 +148,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .content {
   display: flex;
   flex-direction: row;

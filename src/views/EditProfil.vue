@@ -1,92 +1,88 @@
 <template>
   <NavbarreAdmin />
   <div class="profil">
-
-    <h1>Profil de {{this.firstname}}</h1>
-      <div class="profil">
-          <div class="avatar">
-            <img :src="`http://localhost:8000/img/avatar/` + this.avatar"/>
-          </div>
-          <div class="name">
-            <div>
-              <p>
-                {{ this.lastname }}
-              </p>
-            </div>
-            <div>
-              <p>
-                {{ this.firstname }}
-              </p>
-            </div>
-          </div>
-
-          <div class="contact">
-            <div>
-              <p>
-                Mail : {{ this.email }}
-              </p>
-            </div>
-            <div>
-              <p>
-                Téléphone : {{ this.phone }}
-              </p>
-            </div>
-          </div>
-            <p>
-              Date de naissance : {{ this.birthday }}
-            </p>
-
-            <div>
-              <button class="edit_btn" @click="this.show = true">Modifier mon profil</button>
-            </div>
+    <h1>Profil de {{ this.firstname }}</h1>
+    <div class="profil">
+      <div class="avatar">
+        <img :src="`http://localhost:8000/img/avatar/` + this.avatar" />
       </div>
+      <div class="name">
+        <div>
+          <p>
+            {{ this.lastname }}
+          </p>
+        </div>
+        <div>
+          <p>
+            {{ this.firstname }}
+          </p>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div>
+          <p>Mail : {{ this.email }}</p>
+        </div>
+        <div>
+          <p>Téléphone : {{ this.phone }}</p>
+        </div>
+      </div>
+      <p>Date de naissance : {{ this.birthday }}</p>
+
+      <div class="button">
+        <button id="submit_btn" @click="this.show = true">
+          Modifier mon profil
+        </button>
+      </div>
+    </div>
   </div>
 
-<div class="edit">
-        
-<div v-show="this.show">
+  <div class="edit">
+    <div v-show="this.show">
       <p>Entrer vos modifications ici :</p>
-    <form class="form" @submit.prevent="editUser">
-      <div class="form_p1"> 
-        <div class="form_p2">
-          <label for="name">Nom :</label>
-          <input type="text" id="name" v-model="lastname" />
-        </div>       
-        <div class="form_p2">
-          <label for="firstname">Prenom :</label>      
-          <input type="text" id="firstname" v-model="firstname" />
+      <form class="form" @submit.prevent="editUser">
+        <div class="form_p1">
+          <div class="form_p2">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" v-model="lastname" />
+          </div>
+          <div class="form_p2">
+            <label for="firstname">Prenom :</label>
+            <input type="text" id="firstname" v-model="firstname" />
+          </div>
         </div>
-      </div>
 
-      <div class="form_p1"> 
-        <div class="form_p2">
-          <label for="email">E-mail :</label>
-          <input type="email" id="email" v-model="email" />
+        <div class="form_p1">
+          <div class="form_p2">
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" v-model="email" />
+          </div>
+          <div class="form_p2">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" v-model="phone" />
+          </div>
         </div>
-        <div class="form_p2">
-          <label for="phone">Téléphone</label>
-          <input type="tel" id="phone" v-model="phone" />
+
+        <div class="form_p1">
+          <div class="form_p2">
+            <label for="birthday">Date de naissance :</label>
+            <input
+              type="date"
+              id="birthday"
+              placeholder="Date de naissance"
+              v-model="birthday"
+            />
+          </div>
         </div>
-      </div>
 
-      <div class="form_p1"> 
-        <div class="form_p2">
-          <label for="birthday">Date de naissance :</label>
-          <input type="date" id="birthday" placeholder="Date de naissance" v-model="birthday" />
-        </div>
-      </div>
+        <input type="submit" id="submit_btn" />
+      </form>
+    </div>
 
-        <input type="submit" class="submit_btn"/>
-    </form>
-</div>
-
-      <div v-if="this.success == true">
-          <p>Profil modifié avec succès !</p>
-      </div>
-
-
-   
-</div>
+    <div v-if="this.success == true">
+      <p>Profil modifié avec succès !</p>
+    </div>
+  </div>
   <Footer></Footer>
 </template>
 
@@ -127,8 +123,9 @@ export default {
     const options = {
       method: "GET",
       headers: {
-        Authorization: "bearer " + localStorage.getItem("@token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     };
 
@@ -138,7 +135,7 @@ export default {
     console.log(data);
 
     var foo = this.id;
-    console.log(typeof foo)
+    console.log(typeof foo);
 
     const arrayProfil = data.donnees;
     console.log(arrayProfil);
@@ -148,12 +145,10 @@ export default {
     this.phone = arrayProfil[0].phone;
     this.birthday = arrayProfil[0].birthday;
     this.avatar = arrayProfil[0].avatar;
-    
   },
   methods: {
     async editUser() {
-      const url =
-        `http://127.0.0.1:8000/api/users/${this.id}`;
+      const url = `http://127.0.0.1:8000/api/users/${this.id}`;
 
       const options = {
         method: "PUT",
@@ -171,17 +166,14 @@ export default {
         }),
       };
 
-
       const res = await fetch(url, options);
       console.log(res);
       const dataUser = await res.json();
       console.log(dataUser);
 
-
-
-      if ( dataUser.status_code == 200) {
-      this.success = true;
-      this.show = false;
+      if (dataUser.status_code == 200) {
+        this.success = true;
+        this.show = false;
       }
     },
   },
@@ -189,36 +181,31 @@ export default {
 </script>
 
 <style scoped>
-
 .profil {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 img {
   border-radius: 200px;
-    height: 150px;
-    width: 150px;
+  height: 150px;
+  width: 150px;
 }
 
 .name {
-
   display: flex;
   flex-direction: column;
   margin: auto;
 }
 
 .contact {
-
   display: flex;
   margin: auto;
   gap: 50px;
 }
 
 .edit {
-
   border-top: 7px ridge #f39c11;
   margin-top: 10%;
 }
@@ -228,7 +215,7 @@ img {
   flex-direction: column;
   height: 100vh;
   width: 600px;
-  margin: auto; 
+  margin: auto;
   text-align: initial;
 }
 
@@ -248,8 +235,12 @@ input:focus {
   outline: none;
 }
 
+.button {
+  width: 100%;
+}
+
 #submit_btn {
-  width: 25%;
+  width: 100%;
   margin-top: 20px;
   color: #0f0f0f;
   background: #db9024;
@@ -282,5 +273,4 @@ input:focus {
   margin: auto;
   border-radius: 20%;
 }
-
 </style>

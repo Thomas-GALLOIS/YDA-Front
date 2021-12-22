@@ -49,7 +49,8 @@ export default {
 
       headers: {
         "Content-Type": "application/json",
-        Authorization: "bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     const response = await fetch(url, options);
@@ -86,6 +87,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 50px 0;
 }
 
 .anim {

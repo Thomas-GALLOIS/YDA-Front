@@ -5,42 +5,55 @@
     </div>
     <div class="title_description">
       <h2>{{ name }}</h2>
-      <p>{{ description_1 }}</p>
+      <p class="p_container">{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
       <br />
-      <i
-        v-if="this.role.value == 'admin'"
-        @click="deleteService()"
-        class="far fa-trash-alt"
-      ></i>
-    </div>
+      <div v-if="this.role.value == 'admin'" class="buttonedit">
+        <i class="fas fa-pen" @click="showEdit = !showEdit"></i>
 
-    <div v-if="this.role.value == 'admin'" class="buttonedit">
-      <button @click="showEdit = !showEdit">Modifier le service</button>
+        <i @click="deleteService()" class="far fa-trash-alt"></i>
+      </div>
     </div>
 
     <div v-show="showEdit">
-      <form class="edit_service" @submit.prevent="editService">
-        <label for="name">Nom</label>
-        <input id="name" type="text" v-model="name" name="name" />
+      <form class="form" @submit.prevent="editService">
+        <div>
+          <label for="name">Nom</label>
+        </div>
+        <div>
+          <input id="name" type="text" v-model="name" name="name" />
+        </div>
         <div class="child_top">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" name="email" />
+          <div>
+            <label for="email">Email</label>
+          </div>
+          <div>
+            <input type="email" id="email" v-model="email" name="email" />
+          </div>
         </div>
         <div class="mid_form">
           <div class="child_mid">
-            <label for="phone">Téléphone</label>
-
-            <input type="tel" id="phone" name="phone" v-model="phone" />
+            <div>
+              <label for="phone">Téléphone</label>
+            </div>
+            <div>
+              <input type="tel" id="phone" name="phone" v-model="phone" />
+            </div>
           </div>
           <div class="child_mid">
+            <div>
             <label for="categories">Categorie</label>
+            </div>
+          
             <SelectType />
           </div>
         </div>
         <div class="img_parent">
           <div class="img_container">
+            <div>
             <label for="image">Image</label>
+            </div>
+            <div>
             <input
               type="file"
               id="image"
@@ -48,6 +61,7 @@
               name="image"
               class="file"
             />
+            </div>
           </div>
 
           <div class="img_container">
@@ -160,7 +174,8 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("@token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Accept: "application/json",
           },
           body: JSON.stringify({
             name: this.name,
@@ -212,10 +227,13 @@ button {
   border-radius: 5px;
   background-color: #ffffff;
   color: black;
+  cursor: pointer;
 }
 img {
+  margin-top: 10px;
   width: 10rem;
   height: 10rem;
+  border-radius: 50%;
 }
 
 .service_card {
@@ -225,22 +243,128 @@ img {
   justify-content: flex-start;
   align-content: space-around;
   align-items: center;
-  margin: 1%;
-  padding: 1%;
+  margin: 20px;
+
   border: 1px solid black;
-  border-radius: 20px;
-  box-shadow: 2px 1px 9px 0px black;
+  border-radius: 15px;
+  box-shadow: 2px 6px transparent;
+  transition: linear 0.6s;
 }
 
 .service_card:hover {
-  box-shadow: inset 2px 1px 9px 0px black;
-}
-
-.image {
-  margin-left: 1%;
+  box-shadow: 2px 6px #db9024;
+  margin: 1px 20px 20px 20px;
 }
 
 .title_description {
   margin-left: 5%;
+}
+.buttonedit {
+  display: flex;
+  justify-content: center;
+}
+i {
+  width: 40px;
+  margin: 15px;
+  cursor: pointer;
+}
+.p_container {
+  overflow: scroll;
+  height: 75px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  width: 200px;
+  height: 30px;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+label {
+  text-align: left;
+  margin-top: 20px;
+}
+#submit_btn {
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #db9024;
+  cursor: pointer;
+  border: 2px solid #0f0f0f;
+  transition: background 1s;
+  height: 40px;
+  margin-left: auto;
+}
+#submit_btn:hover {
+  color: #db9024;
+  background: #0f0f0f;
+  border: 2px solid #db9024;
+  transition: background 1s;
+}
+
+.top_form {
+  margin: auto;
+  display: flex;
+  gap: 20%;
+}
+
+.child_top {
+  display: flex;
+  flex-direction: column;
+}
+
+.img_container {
+  display: flex;
+  flex-direction: column;
+}
+.img_container img {
+  width: 200px;
+  height: auto;
+  margin: 0px;
+}
+
+.check {
+  box-shadow: none;
+  border-radius: 100%;
+  margin: 15px auto;
+  width: 100px;
+  text-align: left;
+}
+
+.check:focus {
+  box-shadow: none;
+}
+.block_area {
+  width: 20rem;
+  height: 10rem;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+.text_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.block_area:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 </style>
