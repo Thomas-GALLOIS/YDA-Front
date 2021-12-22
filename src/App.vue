@@ -20,7 +20,9 @@ export default {
   },
 };
 </script>
+
 <style>
+
 body {
   margin: 0%;
   padding: 0%;
@@ -45,5 +47,26 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db9024;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f;
 }
 </style>
