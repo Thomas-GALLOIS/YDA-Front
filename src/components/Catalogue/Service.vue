@@ -18,10 +18,10 @@
     <div v-show="showEdit">
       <form class="form" @submit.prevent="editService">
         <div>
-        <label for="name">Nom</label>
+          <label for="name">Nom</label>
         </div>
         <div>
-        <input id="name" type="text" v-model="name" name="name" />
+          <input id="name" type="text" v-model="name" name="name" />
         </div>
         <div class="child_top">
           <label for="email">Email</label>
@@ -160,7 +160,8 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("@token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Accept: "application/json",
           },
           body: JSON.stringify({
             name: this.name,

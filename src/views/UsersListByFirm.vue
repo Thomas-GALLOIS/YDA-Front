@@ -162,6 +162,7 @@ export default {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     // va chercher les options de l'API
