@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       role: "",
+      token: localStorage.getItem("@token"),
     };
   },
 
@@ -17,6 +18,23 @@ export default {
         this.role = value;
       },
     };
+  },
+  async mounted() {
+    const url =
+      "http://127.0.0.1:8000/api/verify-token/29|2Ag0dO6CQOIArG1vCJNAYaCtsST0VPLpZlVz8Utp";
+
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("@token"),
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(url, options);
+    console.log("je suis la response" + JSON.stringify(response));
+    const data = await response.json();
+    console.log("je suis la data de APP" + data);
   },
 };
 </script>

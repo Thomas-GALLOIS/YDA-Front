@@ -1,10 +1,7 @@
 <template>
   <!--page d'afffichage du catalogue des produits avec imports de différent composants-->
   <NavbarreAdmin />
-  <ProductsByServiceId
-    :servicesId="this.servicesId"
-    :addToGlobal="addToGlobal"
-  />
+  <ProductsByServiceId :servicesId="this.servicesId" />
   <Footer></Footer>
 </template>
 
@@ -31,10 +28,6 @@ export default {
   methods: {
     async mounted() {
       console.log(this.servicesId);
-    },
-    addToGlobal(cart) {
-      this.globalCart = [...this.globalCart, cart];
-      localStorage.setItem("@cart", JSON.stringify(this.globalCart));
     },
   },
 };
