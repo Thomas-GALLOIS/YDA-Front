@@ -72,6 +72,7 @@
 import SelectServices from "../UI/SelectServices.vue";
 
 export default {
+  inject: ["role"],
   data() {
     return {
       name: "",
@@ -101,21 +102,23 @@ export default {
     },
     /* method pour ajouter un produit en bdd avec vérification du token */
     async addProduct(e) {
-      const url = "http://127.0.0.1:8000/api/products";
+      if (this.role.value == "admin") {
+        const url = "http://127.0.0.1:8000/api/products";
 
-      const options = {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("@token"),
-        },
-        body: new FormData(e.target),
-      };
-      const response = await fetch(url, options);
-      console.log(response);
-      this.res = response.status;
-      const data = await response.json();
-      console.log(data);
-      this.status = data.status_code;
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+          },
+          body: new FormData(e.target),
+        };
+        const response = await fetch(url, options);
+        console.log(response);
+        this.res = response.status;
+        const data = await response.json();
+        console.log(data);
+        this.status = data.status_code;
+      }
     },
   },
 };

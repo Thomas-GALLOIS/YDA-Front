@@ -138,7 +138,9 @@
 
 <script>
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
+
 export default {
+  inject: ["role"],
   components: {
     NavbarreAdmin: NavbarreAdmin,
   },
@@ -186,37 +188,39 @@ export default {
     },
 
     async editFirm() {
-      const url = `http://127.0.0.1:8000/api/firms/${this.id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/firms/${this.id}`;
 
-      const options = {
-        method: "PUT",
-        headers: {
-          Authorization: "bearer " + localStorage.getItem("@token"),
-          "X-Requested-With": "XMLHttpRequest",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: this.name,
-          address: this.address,
-          email: this.email,
-          phone: this.phone,
-          siret: this.siret,
-          subscription: this.subscription,
-          visit_day_1: this.day1_select,
-          visit_day_2: this.day2_select,
-          time_1: this.hour1_select,
-          time_2: this.hour2_select,
-          title: this.title,
-          news: this.news,
-        }),
-      };
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: "bearer " + localStorage.getItem("@token"),
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: this.name,
+            address: this.address,
+            email: this.email,
+            phone: this.phone,
+            siret: this.siret,
+            subscription: this.subscription,
+            visit_day_1: this.day1_select,
+            visit_day_2: this.day2_select,
+            time_1: this.hour1_select,
+            time_2: this.hour2_select,
+            title: this.title,
+            news: this.news,
+          }),
+        };
 
-      const res = await fetch(url, options);
-      this.error = res.status;
-      console.log(res);
-      const data = await res.json();
-      console.log(data);
-      this.success = data.status_code;
+        const res = await fetch(url, options);
+        this.error = res.status;
+        console.log(res);
+        const data = await res.json();
+        console.log(data);
+        this.success = data.status_code;
+      }
     },
   },
 };

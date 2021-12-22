@@ -45,9 +45,17 @@
         <td>{{ element.visit_day_2 }}, {{ element.time_2 }} H</td>
 
         <td>
-          <i @click="getFirmById(element.id)" class="fas fa-pen"></i>
+          <i
+            v-if="this.role.value == 'admin'"
+            @click="getFirmById(element.id)"
+            class="fas fa-pen"
+          ></i>
 
-          <i @click="deleteFirm(element.id)" class="far fa-trash-alt"></i>
+          <i
+            v-if="this.role.value == 'admin'"
+            @click="deleteFirm(element.id)"
+            class="far fa-trash-alt"
+          ></i>
         </td>
       </tr>
     </tbody>
@@ -55,6 +63,7 @@
 </template>
 <script>
 export default {
+  inject: ["role"],
   data() {
     return {
       firmList: [],
@@ -86,24 +95,26 @@ export default {
   },
   methods: {
     async deleteFirm(id) {
-      const url = `http://127.0.0.1:8000/api/firms/${id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/firms/${id}`;
 
-      const options = {
-        method: "DELETE",
+        const options = {
+          method: "DELETE",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("token"),
+          },
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
 
-      let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
-      this.firmList.splice(i, 1); // remove it from array
+        let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
+        this.firmList.splice(i, 1); // remove it from array
+      }
     },
-    
+
     async getUsersByFirm(id) {
       this.$router.push({
         name: "Users",

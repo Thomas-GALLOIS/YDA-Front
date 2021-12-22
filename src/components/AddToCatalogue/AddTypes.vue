@@ -29,6 +29,7 @@
 
 <script>
 export default {
+  inject: ["role"],
   data() {
     return {
       name: "",
@@ -62,26 +63,27 @@ export default {
   methods: {
     /* method pour ajouter un type de service en bdd avec vérification du token */
     async addType() {
-      const url = "http://127.0.0.1:8000/api/types";
+      if (this.role.value == "admin") {
+        const url = "http://127.0.0.1:8000/api/types";
 
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@token"),
-        },
-        body: JSON.stringify({
-          name: this.name,
-        }),
-      };
-      const response = await fetch(url, options);
-      console.log(response);
-      this.res = response.status;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+          },
+          body: JSON.stringify({
+            name: this.name,
+          }),
+        };
+        const response = await fetch(url, options);
+        console.log(response);
+        this.res = response.status;
 
-      const data = await response.json();
-      console.log(data);
-      this.status = data.status_code;
-
+        const data = await response.json();
+        console.log(data);
+        this.status = data.status_code;
+      }
       //ajout de fake data aprés validation input
       if (!this.name) {
         // input value is empty
@@ -94,21 +96,23 @@ export default {
     },
     /* requete pour supprimer le type de service afficher en BDD et dynamiquement*/
     async deleteType(id) {
-      const url = `http://127.0.0.1:8000/api/types/${id}`;
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/types/${id}`;
 
-      const options = {
-        method: "DELETE",
+        const options = {
+          method: "DELETE",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.getItem("token"),
-        },
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-      console.log(data);
-      let i = this.typesArray.map((item) => item.id).indexOf(id); // find index of your object
-      this.typesArray.splice(i, 1); // remove it from array
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("token"),
+          },
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+        let i = this.typesArray.map((item) => item.id).indexOf(id); // find index of your object
+        this.typesArray.splice(i, 1); // remove it from array
+      }
     },
   },
 };

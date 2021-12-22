@@ -41,7 +41,6 @@ export default {
   },
 
   async mounted() {
-    console.log(this.role.value);
     /*requete pour récuperer au montage tout les services en BDD*/
     const url = "http://127.0.0.1:8000/api/services";
 
