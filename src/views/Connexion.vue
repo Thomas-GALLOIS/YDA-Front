@@ -119,6 +119,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .form_connexion {
   width: 100%;
 }
