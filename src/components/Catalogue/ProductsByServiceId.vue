@@ -44,6 +44,12 @@ export default {
     const response = await fetch(url, options);
     const data = await response.json();
     this.productsArray = data.donnees;
+
+    let cart = JSON.parse(localStorage.getItem("@cart"));
+    if (Array.isArray(cart)) {
+      console.log("TEST---------------");
+      this.cart = cart;
+    }
   },
 
   methods: {

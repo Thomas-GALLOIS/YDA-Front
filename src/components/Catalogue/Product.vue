@@ -19,9 +19,11 @@
       <button @click="showEdit = !showEdit">Modifier le produit</button>
     </div>
     <div class="orders">
-      <form @submit.prevent="addProductToCart">
-        <input type="text" v-model="comment" />
-        <input type="number" v-model="quantity" />
+      <form class="command_form" @submit.prevent="addProductToCart">
+        <label for="comment">Ajoutez un commentaire à votre commande</label>
+        <input id="comment" type="text" v-model="comment" />
+        <label for="qt">Quantité</label>
+        <input id="qt" type="number" v-model="quantity" />
         <input type="submit" value="Commander" @click="global" />
       </form>
     </div>
@@ -156,6 +158,7 @@ export default {
         comment: this.comment,
         quantity: this.quantity,
         id: this.id,
+        name: this.name,
       });
     },
 
@@ -184,5 +187,26 @@ export default {
 <style scoped>
 img {
   width: 100px;
+}
+.command_form {
+  display: flex;
+  flex-direction: column;
+}
+.command_form label {
+  text-align: left;
+  margin: 10px 0;
+}
+.command_form input {
+  height: 30px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+.command_form input:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 </style>
