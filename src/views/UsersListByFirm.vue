@@ -1,21 +1,64 @@
 <template>
-<NavbarreAdmin/>
-    <h2>Infos de l'entreprise</h2>
+  <NavbarreAdmin />
+  <h2>Infos de l'entreprise</h2>
 
-      <p>Nom de l'entreprise :{{this.name}}</p>
-      <p>Adresse : {{this.address}}</p>
-      <p>Téléphone : {{this.phone}}</p>
-      <P>E-mail : {{this.email}}</P>
-      <p>Siret : {{this.siret}}</p>
-      <p>Actualité : {{this.title}}</p>
-      <img :src="`http://localhost:8000/img/news/` + this.image"/>
-      <p>{{this.news}}</p>
+  <p>Nom de l'entreprise :{{ this.name }}</p>
+  <p>Adresse : {{ this.address }}</p>
+  <p>Téléphone : {{ this.phone }}</p>
+  <P>E-mail : {{ this.email }}</P>
+  <p>Siret : {{ this.siret }}</p>
+  <p>Actualité : {{ this.title }}</p>
+  <img :src="`http://localhost:8000/img/news/` + this.image" />
+  <p>{{ this.news }}</p>
 
-    <h2>Listes des utilisateurs</h2>
+  <h2>Listes des commandes</h2>
 
-<div class="arrayUsers">
-<table class="array">
-    <thead class="head">
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
+        <tr class="trHead">
+          <div>
+            <td>Commande n°</td>
+            <td>
+              <select
+                name="status"
+                id="status"
+                @change="selectedStatus = $event.target.value"
+              >
+                <option value="">Statuts</option>
+                <option value="en cours">En cours</option>
+                <option value="en attente">En attente</option>
+                <option value="terminée">Terminées</option>
+              </select>
+            </td>
+            <td>Prix total</td>
+            <td>Commentaires</td>
+            <td>Note Admin</td>
+            <td>Date création</td>
+            <td>Date dernière modification</td>
+            <td>Entreprises:<SelectFirms @change="getFirmValue($event)" /></td>
+            <td>Nom salarié</td>
+          </div>
+        </tr>
+      </thead>
+
+      <!-- affichage de tous les utilisateurs -->
+
+      <tbody v-for="(firm, index) in usersFirms" :key="index">
+        <tr v-for="(value, index) in firm.users" :key="index">
+          <div v-for="(order, index) in value.orders" :key="index">
+            <td>{{ order.status }}</td>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Listes des utilisateurs</h2>
+
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
         <tr class="trHead">
           <th>Nom :</th>
 
@@ -74,21 +117,21 @@ export default {
     NavbarreAdmin: NavbarreAdmin,
   },
 
-    data() {
-        return {
-            usersFirms: [],
-            name:"",
-            address: "",
-            phone: "",
-            email: "",
-            siret: "",
-            title: "",
-            news: "",
-            image:"",
-            id:this.firmId,
-            idUser: "",
-        }
-    },
+  data() {
+    return {
+      usersFirms: [],
+      name: "",
+      address: "",
+      phone: "",
+      email: "",
+      siret: "",
+      title: "",
+      news: "",
+      image: "",
+      id: this.firmId,
+      idUser: "",
+    };
+  },
 
   async mounted() {
     /*requete pour récuperer au montage tout les entreprises en BDD*/
@@ -119,8 +162,6 @@ export default {
     this.title = arrayFirms[0].title;
     this.news = arrayFirms[0].news;
     this.image = arrayFirms[0].image;
-    
-    
   },
 
   methods: {
@@ -217,5 +258,4 @@ tr:hover {
 i {
   width: 50px;
 }
-
 </style>
