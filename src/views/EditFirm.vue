@@ -194,9 +194,10 @@ export default {
         const options = {
           method: "PUT",
           headers: {
-            Authorization: "bearer " + localStorage.getItem("@token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
             "X-Requested-With": "XMLHttpRequest",
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({
             name: this.name,

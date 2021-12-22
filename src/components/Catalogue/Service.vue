@@ -27,23 +27,36 @@
           <input id="name" type="text" v-model="name" name="name" />
         </div>
         <div class="child_top">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" name="email" />
+          <div>
+            <label for="email">Email</label>
+          </div>
+          <div>
+            <input type="email" id="email" v-model="email" name="email" />
+          </div>
         </div>
         <div class="mid_form">
           <div class="child_mid">
-            <label for="phone">Téléphone</label>
-
-            <input type="tel" id="phone" name="phone" v-model="phone" />
+            <div>
+              <label for="phone">Téléphone</label>
+            </div>
+            <div>
+              <input type="tel" id="phone" name="phone" v-model="phone" />
+            </div>
           </div>
           <div class="child_mid">
+            <div>
             <label for="categories">Categorie</label>
+            </div>
+          
             <SelectType />
           </div>
         </div>
         <div class="img_parent">
           <div class="img_container">
+            <div>
             <label for="image">Image</label>
+            </div>
+            <div>
             <input
               type="file"
               id="image"
@@ -51,6 +64,7 @@
               name="image"
               class="file"
             />
+            </div>
           </div>
 
           <div class="img_container">
@@ -163,7 +177,8 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("@token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Accept: "application/json",
           },
           body: JSON.stringify({
             name: this.name,
@@ -336,7 +351,7 @@ label {
   box-shadow: none;
 }
 .block_area {
-  width: 26rem;
+  width: 20rem;
   height: 10rem;
   margin: 15px auto;
   border: none;

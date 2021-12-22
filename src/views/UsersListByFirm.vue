@@ -36,9 +36,8 @@
     <table class="array">
       <thead class="head">
         <tr class="trHead">
-          <div>
-            <td>Commande n°</td>
-            <td>
+            <th>Commande n°</th>
+            <th>
               <select
                 name="status"
                 id="status"
@@ -49,26 +48,46 @@
                 <option value="en attente">En attente</option>
                 <option value="terminée">Terminées</option>
               </select>
-            </td>
-            <td>Prix total</td>
-            <td>Commentaires</td>
-            <td>Note Admin</td>
-            <td>Date création</td>
-            <td>Date dernière modification</td>
-            <td>Entreprises:<SelectFirms @change="getFirmValue($event)" /></td>
-            <td>Nom salarié</td>
-          </div>
+            </th>
+            <th>Prix total</th>
+            <th>Commentaires</th>
+            <th>Note Admin</th>
+            <th>Date création</th>
+            <th>Date dernière modification</th>
+            <th>Entreprises:<SelectFirms @change="getFirmValue($event)" /></th>
+            <th>Nom salarié</th>
         </tr>
       </thead>
 
       <!-- affichage de tous les utilisateurs -->
 
       <tbody v-for="(firm, index) in usersFirms" :key="index">
-        <tr v-for="(value, index) in firm.users" :key="index">
-          <div v-for="(order, index) in value.orders" :key="index">
+        <div v-for="(value, index) in firm.users" :key="index">
+          <tr v-for="(order, index) in value.orders" :key="index">
+            <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
-          </div>
-        </tr>
+            <td>{{ order.total }}</td>
+            <td>{{ order.comments }}</td>
+            <td>{{ order.created_at }}</td>
+            <td>{{ order.updated_at }}</td>
+            <td>{{ firm.name }}</td>
+            <td>{{ value.firstname }} {{ value.lastname }}</td>
+            <td>
+              <button v-show="!showEdit" @click="showEdit = !showEdit">
+                Modifier le statut
+              </button>
+              <form @submit.prevent="editStatus(order.id)" v-show="showEdit">
+                <select v-model="status">
+                  <option value="">Statuts</option>
+                  <option value="en cours">En cours</option>
+                  <option value="en attente">En attente</option>
+                  <option value="terminée">Terminées</option>
+                </select>
+                <button>Modifier Statut</button>
+              </form>
+            </td>
+          </tr>
+        </div>
       </tbody>
     </table>
   </div>
@@ -151,6 +170,7 @@ export default {
       image: "",
       id: this.firmId,
       idUser: "",
+      showEdit: false,
     };
   },
 
@@ -162,6 +182,7 @@ export default {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     // va chercher les options de l'API
@@ -228,6 +249,27 @@ export default {
         const response = await fetch(url, options);
         console.log(response);
         // la récupération des data stockées dans l'API
+        const data = await response.json();
+        console.log(data);
+      }
+    },
+    async editStatus(id) {
+      if (this.role.value == "admin") {
+        const url = `http://127.0.0.1:8000/api/orders/${id}`;
+
+        const options = {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.getItem("@token"),
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify({
+            status: this.status,
+          }),
+        };
+        const response = await fetch(url, options);
         const data = await response.json();
         console.log(data);
       }

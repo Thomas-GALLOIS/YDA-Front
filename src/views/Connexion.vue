@@ -57,6 +57,7 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
 
         body: JSON.stringify({
@@ -95,6 +96,7 @@ export default {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("@token"),
+          Accept: "application/json",
         },
 
         body: JSON.stringify({
@@ -119,7 +121,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .form_connexion {
   width: 100%;
 }

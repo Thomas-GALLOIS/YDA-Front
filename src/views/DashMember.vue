@@ -1,48 +1,59 @@
 <template>
   <Navbarre />
 
-  <div class="titre-profil">
-    <h1 v-show="!this.show">Bonjour {{ this.firstname }}</h1>
-    <h1 v-show="this.show">Modification de profil</h1>
-  </div>
+  <div class="titre-profil"></div>
   <div class="dpt">
-    <div>
+    <div class="part_one">
       <div class="date-form">
         <p class="date">
-          Bonjour, {{ this.firstname }}<br />Le
+          Le
           {{ this.today }}
         </p>
       </div>
+      <div class="card">
+        <!-- Image à la une -->
+        <div class="card-image">
+          <a @click="editFirm">
+            <img src="../assets/img/images.png" alt="Orange" />
+          </a>
+        </div>
+        <!-- Fin de l'image à la une -->
 
-      <div>
-        <p>
-          Nom : <span class="id">{{ this.lastname }}</span>
-        </p>
-        <p>
-          Prenom : <span class="id">{{ this.firstname }}</span>
-        </p>
-        <p>
-          Mail : <span class="id">{{ this.email }}</span>
-        </p>
-        <p>
-          Téléphone : <span class="id">{{ this.phone }}</span>
-        </p>
-        <p>
-          Date de naissance : <span class="id">{{ this.birthday }}</span>
-        </p>
+        <!-- Corp de notre carte -->
+        <div class="card-body">
+          <a href="/editProfilMember">
+            <!-- Date de publication de l'article-->
+            <div class="card-date">
+              <time>Coordonnées</time>
+            </div>
+
+            <!-- Titre de l'article -->
+            <div class="card-title">
+              <h3>{{ this.firstname }} {{ this.lastname }}</h3>
+            </div>
+            <!-- Extrait de l'article -->
+            <div class="card-excerpt">
+              <p>
+                Né(e) le : {{ moment(this.birthday).format("DD MMM YYYY ") }}
+              </p>
+              <p>Mail : {{ this.email }}</p>
+              <p>Tel : {{ this.phone }}</p>
+            </div>
+          </a>
+        </div>
+        <!-- Fin du corp de notre carte -->
       </div>
-      <div v-show="!this.show" class="edit_firm">
+
+      <div v-show="this.show" class="edit_firm">
         <p>
-          Ma société : <span class="id">{{ this.firmName }}</span>
+          <span class="id">{{ this.firmName }}</span>
         </p>
         <p class="id">{{ this.firmAddress }}</p>
         <p class="id">{{ this.firmPhone }}</p>
         <p class="id">{{ this.firmEmail }}</p>
       </div>
     </div>
-    <div>
-      <button class="boutonSauv" @click="editFirm">Infos entreprise</button>
-    </div>
+
     <div class="order_part">
       <div
         class="order_card"
@@ -52,9 +63,16 @@
         <div class="order_card_list">
           <p>
             Commande N°: {{ element.id
-            }}<span> du {{ element.created_at }}</span>
+            }}<span>
+              du
+              {{
+                moment(element.created_at).format("DD MMM YYYY, HH:mm ")
+              }}</span
+            >
           </p>
-          <p>Status : {{ element.status }}</p>
+          <p>
+            Status : <span :class="status_part">{{ element.status }}</span>
+          </p>
 
           <p>Commentaire : {{ element.comments }}</p>
         </div>
@@ -66,8 +84,10 @@
             :key="i"
           >
             <p>
-              Prix :{{ odetail.price_product }} Quantité :
-              {{ odetail.qtty }}
+              Prix : {{ odetail.price_product }} Quantité :
+              {{ odetail.qtty }} Total commande :
+              {{ odetail.total_odetail }} Commentaire :
+              {{ odetail.comments }}
             </p>
           </div>
         </div>
@@ -77,6 +97,7 @@
 </template>
 <script>
 import Navbarre from "../components/Navbarre.vue";
+import moment from "moment";
 
 export default {
   name: "EditProfil",
@@ -104,6 +125,10 @@ export default {
     };
   },
 
+  created: function () {
+    this.moment = moment;
+  },
+
   async mounted() {
     const url =
       "http://127.0.0.1:8000/api/users/" + +localStorage.getItem("@id");
@@ -111,7 +136,7 @@ export default {
     const options = {
       method: "GET",
       headers: {
-        Authorization: "bearer " + localStorage.getItem("@token"),
+        Authorization: "Bearer " + localStorage.getItem("@token"),
         "Content-Type": "application/json",
       },
     };
@@ -130,6 +155,14 @@ export default {
     console.log(this.firm_id);
     this.orderList = data.donnees[0].orders;
     console.log(this.orderList);
+
+    if (this.status == "en attente") {
+      this.status = "status_part";
+    } else if (this.status == "en cours") {
+      this.status = "card";
+    } else {
+      this.status = "cardCold";
+    }
   },
 
   methods: {
@@ -139,7 +172,7 @@ export default {
       const options = {
         method: "GET",
         headers: {
-          Authorization: "bearer " + localStorage.getItem("@token"),
+          Authorization: "Bearer " + localStorage.getItem("@token"),
           "content-Type": "application/json",
         },
       };
@@ -159,6 +192,10 @@ export default {
 .dpt {
   display: flex;
   flex-direction: row;
+  margin: 10px;
+}
+.part_one {
+  margin: 10px;
 }
 
 .edit_firm {
@@ -167,11 +204,13 @@ export default {
 }
 
 .order_part {
+  height: 400px;
   padding: 5px;
-  margin: 5px;
-  border: 1px black solid;
-  border-radius: 5px;
-  background-color: rgba(219, 144, 36, 0.6);
+  margin: 10px;
+  margin-top: 85px;
+
+  background-color: rgba(139, 177, 189, 0.6);
+  box-shadow: 0px 5px 20px #999;
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -182,6 +221,11 @@ export default {
   border-bottom: 1px black solid;
   display: flex;
   flex-direction: column;
+}
+
+.status_part {
+  color: green;
+  background-color: green;
 }
 
 .order_card_list {
@@ -195,6 +239,7 @@ export default {
 .odetail_part {
   overflow: scroll;
   height: 50px;
+  background-color: rgba(139, 177, 189, 0.3);
 }
 
 .odetail_part p {
@@ -203,7 +248,72 @@ export default {
 .odetail_card {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px black solid;
+  border-bottom: 0.5px black solid;
   font-size: 12px;
+}
+
+.card {
+  width: 400px; /*1*/
+  margin: 0px auto; /*2*/
+  background-color: white; /*3*/
+  box-shadow: 0px 5px 20px #999; /*4*/
+}
+.card a {
+  /*5*/
+  color: #333;
+  text-decoration: none;
+}
+.card:hover .card-image img {
+  /*6*/
+  width: 80%;
+  filter: grayscale(0);
+}
+.card-image {
+  height: 250px; /*1*/
+  position: relative; /*2*/
+  overflow: hidden; /*3*/
+}
+.card-image img {
+  width: 90%; /*4*/
+  /*5 - Méthode de centrage en fonction de la taille de l'image */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: grayscale(1); /*6*/
+  /*7 - Transition */
+  transition-property: filter width;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+.card-body {
+  text-align: center; /*1*/
+  padding: 15px 20px; /*2*/
+  box-sizing: border-box; /*3*/
+}
+.card-date {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.card-title,
+.card-excerpt {
+  font-family: "Playfair Display", serif;
+}
+
+.card-date,
+.card-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.card-date,
+.card-excerpt {
+  color: #777;
+}
+
+.edit_firm {
+  width: 100px;
+  height: 50px;
 }
 </style>
