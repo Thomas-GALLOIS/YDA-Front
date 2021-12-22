@@ -31,6 +31,7 @@
           <p>
             Date de naissance : <span class="id">{{ this.birthday }}</span>
           </p>
+
           <div class="profil-form">
             <button class="boutonModif" @click="this.show = true">
               Modifier mon profil
@@ -54,6 +55,16 @@
             />
 
             <br />
+            <div class="img_container">
+              <label for="avatar">Avatar</label>
+              <input
+                type="file"
+                id="avatar"
+                @change="uploadImage"
+                name="avatar"
+                class="file"
+              />
+            </div>
             <br />
 
             <button class="boutonSauv" @click="putUser">Sauvegarder</button>
@@ -62,16 +73,13 @@
       </div>
     </div>
   </div>
-  <Footer></Footer>
 </template>
 <script>
-import Footer from "../components/Footer.vue";
 import Navbarre from "../components/Navbarre.vue";
 
 export default {
   name: "EditProfil",
   components: {
-    Footer: Footer,
     Navbarre,
   },
   data() {
@@ -83,6 +91,7 @@ export default {
       phone: "",
       birthday: "",
       today: new Date().toLocaleString(),
+      avatar: "",
 
       show: false,
     };
@@ -92,7 +101,7 @@ export default {
     const url =
       "http://127.0.0.1:8000/api/users/" +
       +localStorage.getItem("@id") +
-      "edit";
+      "/edit";
 
     const options = {
       method: "GET",
@@ -114,6 +123,14 @@ export default {
     this.birthday = data.donnees[0].birthday;
   },
   methods: {
+    uploadImage(e) {
+      const avatar = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(avatar);
+      reader.onload = (e) => {
+        this.previewImage = e.target.result;
+      };
+    },
     async putUser() {
       const url =
         "http://127.0.0.1:8000/api/users/" + localStorage.getItem("@id");
@@ -132,6 +149,7 @@ export default {
           email: this.email,
           phone: this.phone,
           birthday: this.birthday,
+          avatar: this.avatar,
         }),
       };
       console.log(this.newfirstname);
@@ -140,6 +158,7 @@ export default {
       const datauser = await res.json();
       console.log("voici le log de la res put user");
       console.log(datauser);
+      alert("Votre profil a été mis à jour");
     },
   },
 };
@@ -161,14 +180,20 @@ export default {
 }
 
 input {
-  width: 50%;
-  height: 30px;
-  margin: 15px auto;
+  width: 100%;
+  height: 20px;
+  padding: 5px;
+  margin: 5px auto;
   border: none;
   border-radius: 5px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   outline: none;
   transition: box-shadow 1.2s;
+  text-align: center;
+  justify-content: center;
+}
+input :placeholder {
+  font-size: 13px;
 }
 input:focus {
   box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);

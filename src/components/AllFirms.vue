@@ -1,77 +1,97 @@
 <template>
-  <h1>Listes des entreprises enregistrées</h1>
+  <div>
+    <h1>Listes des entreprises enregistrées</h1>
 
-  <!--v-for pour afficher tout les entreprises en BDD -->
+    <!-- SEARCH ENTREPRISE -->
+    <div>
+      <div class="search-wrapper">
+        <input
+          type="text"
+          v-model="search"
+          placeholder=" Nom de l'entreprise ..."
+        />
+      </div>
+    </div>
+    <!-- END SEARCH ENTREPRISE -->
 
-  <table class="array">
-    <thead class="head">
-      <tr class="trHead">
-        <th>Logo:</th>
+    <!--v-for pour afficher tout les entreprises en BDD -->
 
-        <th>Nom:</th>
+    <table class="array">
+      <thead class="head">
+        <tr class="trHead">
+          <th>Logo:</th>
 
-        <th>Adress:</th>
+          <th>Nom:</th>
 
-        <th>Téléphone:</th>
+          <th>Adress:</th>
 
-        <th>E-mail:</th>
+          <th>Téléphone:</th>
 
-        <th>Visite 1:</th>
+          <th>E-mail:</th>
 
-        <th>Visite 2:</th>
+          <th>Visite 1:</th>
 
-        <th>Modifier/Supprimer</th>
-      </tr>
-    </thead>
+          <th>Visite 2:</th>
 
-    <!-- affichage de tous les utilisateurs -->
+          <th>Modifier/Supprimer</th>
+        </tr>
+      </thead>
 
-    <tbody v-for="(element, index) in firmList" :key="index" class="body">
-      <tr>
-        <td @click="getUsersByFirm(element.id)">
-          <img :src="`http://localhost:8000/img/logos/` + element.logo" />
-        </td>
+      <!-- affichage de tous les utilisateurs -->
 
-        <td>{{ element.name }}</td>
+      <tbody
+        v-for="(entreprise, index) in filteredList"
+        :key="index"
+        class="body"
+      >
+        <tr>
+          <td @click="getUsersByFirm(entreprise.id)">
+            <img :src="`http://localhost:8000/img/logos/` + entreprise.logo" />
+          </td>
 
-        <td>{{ element.address }}</td>
+          <td>{{ entreprise.name }}</td>
 
-        <td>{{ element.phone }}</td>
+          <td>{{ entreprise.address }}</td>
 
-        <td>{{ element.email }}</td>
+          <td>{{ entreprise.phone }}</td>
 
-        <td>{{ element.visit_day_1 }}, {{ element.time_1 }} H</td>
+          <td>{{ entreprise.email }}</td>
 
-        <td>{{ element.visit_day_2 }}, {{ element.time_2 }} H</td>
+          <td>{{ entreprise.visit_day_1 }}, {{ entreprise.time_1 }} H</td>
 
-        <td>
-          <i
-            v-if="this.role.value == 'admin'"
-            @click="getFirmById(element.id)"
-            class="fas fa-pen"
-          ></i>
+          <td>{{ entreprise.visit_day_2 }}, {{ entreprise.time_2 }} H</td>
 
-          <i
-            v-if="this.role.value == 'admin'"
-            @click="deleteFirm(element.id)"
-            class="far fa-trash-alt"
-          ></i>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td v-if="this.role.value == 'admin'">
+            <i @click="getFirmById(entreprise.id)" class="fas fa-pen"></i>
+
+            <i @click="deleteFirm(entreprise.id)" class="far fa-trash-alt"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
+
 <script>
 export default {
   inject: ["role"],
+
   data() {
     return {
       firmList: [],
       idFirm: "",
+      search: "",
     };
   },
-
-  components: {},
+  computed: {
+    filteredList() {
+      return this.firmList.filter((entreprise) => {
+        return entreprise.name
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
+    },
+  },
 
   async mounted() {
     /*requete pour récuperer au montage tout les entreprises en BDD*/
@@ -189,5 +209,10 @@ img {
 
 i {
   width: 50px;
+}
+
+/************** CSS SEARCH ****************/
+input[type="text"] {
+  font-size: 24px;
 }
 </style>
