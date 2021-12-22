@@ -70,6 +70,8 @@ export default {
   color: #ffffff;
   padding: 2%;
   margin-top: 2%;
+  position: absolute;
+  bottom: 0%;
 }
 
 .footer-distributed .footer-left,
