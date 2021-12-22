@@ -10,15 +10,20 @@
     </div>
 
     <div class="footer-center">
-      <p class="text">400 AV ROUMANILLE 06410 BIOT</p>
-      <br />
-      <br />
-      <a class="footer-links" href="tel:+33643884382"> +33 6 43 88 43 82 </a>
-      <br />
-      <br />
-      <a class="footer-links" href="mailto:assistantes@your-daily-assistant.fr">
-        assistantes@your-daily-assistant.fr
-      </a>
+      <div>
+        <p class="text">400, Avenue Roumanille. 06410 Biot</p>
+      </div>
+      <div class="contacts">
+        <a class="footer-links" href="tel:+33643884382"> +33 6 43 88 43 82 </a>
+      </div>
+      <div class="contacts">
+        <a
+          class="footer-links"
+          href="mailto:assistantes@your-daily-assistant.fr"
+        >
+          assistantes@your-daily-assistant.fr
+        </a>
+      </div>
     </div>
 
     <div class="footer-right">
@@ -61,15 +66,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .footer-distributed {
-  background-color: #0f0f0f;
-  box-shadow: 0 1px 1px 0 #0000001f;
-  box-sizing: border-box;
+  background-color: #ffffff;
+  border-top: 2px solid black;
   width: 100%;
   text-align: left;
-  font: bold 100% sans-serif;
-  color: #ffffff;
+  color: #520404;
   padding: 2%;
   margin-top: 2%;
+  position: fixed;
+  bottom: 0px;
 }
 
 .footer-distributed .footer-left,
@@ -80,30 +85,30 @@ export default {
 }
 
 .footer-distributed .footer-left {
-  width: 40%;
+  width: 30%;
 }
 .footer-distributed .footer-right {
-  margin-left: 10%;
+  margin-left: 20%;
 }
 
 .logo_footer {
   width: 15%;
+  border-radius: 5px;
 }
 
 .footer-distributed .footer-links {
-  color: #ffffff;
-  margin: 20px 0 12px;
+  color: #4b0404;
+
   text-decoration: none;
   padding: 0;
 }
 
 .footer-distributed .footer-center {
   width: 35%;
+  text-align: center;
 }
 
 .footer-distributed .footer-center p {
-  display: inline-block;
-  color: #ffffff;
   vertical-align: middle;
   margin: 0;
 }
@@ -113,20 +118,26 @@ export default {
   width: 35px;
   height: 35px;
   cursor: pointer;
-  background-color: #0f0f0f;
+
   border-radius: 2px;
-  margin-top: 25px;
+  margin-top: 20px;
   font-size: 20px;
-  color: #ffffff;
+  color: #020000;
   text-align: center;
   line-height: 35px;
-  margin-right: 3px;
+  margin-right: 5px;
   margin-bottom: 5px;
 }
-
 @media (max-width: 880px) {
   .footer-distributed {
-    font: bold 14px sans-serif;
+    display: none;
+  }
+}
+</style>
+<!--- 
+@media (max-width: 880px) {
+  .footer-distributed {
+    font: bold 10px sans-serif;
   }
 
   .footer-distributed .footer-left,
@@ -134,7 +145,7 @@ export default {
   .footer-distributed .footer-right {
     display: block;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     text-align: center;
   }
 
@@ -145,5 +156,4 @@ export default {
     line-height: normal;
     font-size: auto;
   }
-}
-</style>
+}-->
