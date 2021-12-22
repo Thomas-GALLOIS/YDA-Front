@@ -47,9 +47,8 @@ export default {
 
   methods: {
     addToCart(product) {
-      this.addToGlobal({
-        cart: [...this.cart, product],
-      });
+      this.cart = [...this.cart, product];
+      localStorage.setItem("@cart", JSON.stringify(this.cart));
     },
 
     async sendCart() {

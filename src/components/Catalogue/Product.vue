@@ -158,11 +158,7 @@ export default {
         id: this.id,
       });
     },
-    global() {
-      let toto = localStorage.getItem("@cart");
-      this.globalCart = [...this.globalCart, toto];
-      localStorage.setItem("@global", JSON.stringify(this.globalCart));
-    },
+
     async deleteProduct() {
       if (this.role.value == "admin") {
         const url = `http://127.0.0.1:8000/api/products/${this.id}`;

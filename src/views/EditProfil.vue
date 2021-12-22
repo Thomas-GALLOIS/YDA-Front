@@ -36,8 +36,8 @@
               Date de naissance : {{ this.birthday }}
             </p>
 
-            <div>
-              <button class="edit_btn" @click="this.show = true">Modifier mon profil</button>
+            <div class="button">
+              <button id="submit_btn" @click="this.show = true">Modifier mon profil</button>
             </div>
       </div>
   </div>
@@ -76,7 +76,7 @@
         </div>
       </div>
 
-        <input type="submit" class="submit_btn"/>
+        <input type="submit" id="submit_btn"/>
     </form>
 </div>
 
@@ -248,8 +248,12 @@ input:focus {
   outline: none;
 }
 
+.button {
+  width: 100%
+}
+
 #submit_btn {
-  width: 25%;
+  width: 100%;
   margin-top: 20px;
   color: #0f0f0f;
   background: #db9024;

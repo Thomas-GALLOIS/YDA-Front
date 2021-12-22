@@ -5,18 +5,14 @@
     </div>
     <div class="title_description">
       <h2>{{ name }}</h2>
-      <p>{{ description_1 }}</p>
+      <p class="p_container">{{ description_1 }}</p>
       <button @click="showServiceProducts(this.id)">Voir produits</button>
       <br />
-      <i
-        v-if="this.role.value == 'admin'"
-        @click="deleteService()"
-        class="far fa-trash-alt"
-      ></i>
-    </div>
+      <div v-if="this.role.value == 'admin'" class="buttonedit">
+        <i class="fas fa-pen" @click="showEdit = !showEdit"></i>
 
-    <div v-if="this.role.value == 'admin'" class="buttonedit">
-      <button @click="showEdit = !showEdit">Modifier le service</button>
+        <i @click="deleteService()" class="far fa-trash-alt"></i>
+      </div>
     </div>
 
     <div v-show="showEdit">
@@ -212,10 +208,13 @@ button {
   border-radius: 5px;
   background-color: #ffffff;
   color: black;
+  cursor: pointer;
 }
 img {
+  margin-top: 10px;
   width: 10rem;
   height: 10rem;
+  border-radius: 50%;
 }
 
 .service_card {
@@ -225,22 +224,36 @@ img {
   justify-content: flex-start;
   align-content: space-around;
   align-items: center;
-  margin: 1%;
-  padding: 1%;
+  margin: 20px;
+
   border: 1px solid black;
-  border-radius: 20px;
-  box-shadow: 2px 1px 9px 0px black;
+  border-radius: 15px;
+  box-shadow: 2px 6px transparent;
+  transition: linear 0.6s;
 }
 
 .service_card:hover {
-  box-shadow: inset 2px 1px 9px 0px black;
-}
-
-.image {
-  margin-left: 1%;
+  box-shadow: 2px 6px #db9024;
+  margin: 1px 20px 20px 20px;
 }
 
 .title_description {
   margin-left: 5%;
+}
+.buttonedit {
+  display: flex;
+  justify-content: center;
+}
+i {
+  width: 40px;
+  margin: 15px;
+  cursor: pointer;
+}
+.p_container {
+  overflow: scroll;
+  height: 75px;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 </style>

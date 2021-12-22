@@ -140,6 +140,7 @@
                   type="text"
                   name="add_comment"
                   id="add_comment"
+                  class="block_area"
                 ></textarea>
               </div>
             </div>
@@ -272,7 +273,7 @@
           </div>
           <div class="form_p2">
             <label for="news">Actualité : </label>
-            <textarea type="text" name="news"></textarea>
+            <textarea type="text" name="news" class="block_area"></textarea>
           </div>
 
           <div>
@@ -453,7 +454,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .form {
   display: flex;
   flex-direction: column;
@@ -502,6 +503,43 @@ input:focus {
 
 .select {
   margin: auto;
+}
+
+.block_area {
+  
+  width: 26rem;
+  height: 10rem;
+  margin: 15px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+.block_area:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db9024;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f;
 }
 
 .form_p1 {
