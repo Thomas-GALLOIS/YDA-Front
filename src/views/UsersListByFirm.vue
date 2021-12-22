@@ -1,40 +1,83 @@
 <template>
-<NavbarreAdmin/>
-    <h2>Infos de l'entreprise</h2>
+  <NavbarreAdmin />
+  <h2>Infos de l'entreprise</h2>
 
-    <div class="firm_details">
-      <div class="part_1">
-        <div>
-          <p>Nom de l'entreprise :{{this.name}}</p>
-        </div>
-        <div>
-          <p>Adresse : {{this.address}}</p>
-        </div>
+  <div class="firm_details">
+    <div class="part_1">
+      <div>
+        <p>Nom de l'entreprise :{{ this.name }}</p>
       </div>
-      <div class="part_2">
-        <div>
-          <p>Téléphone : {{this.phone}}</p>
-        </div>
-        <div>
-          <p>E-mail : {{this.email}}</P>
-        </div>
-        <div>
-          <p>Siret : {{this.siret}}</p>
-        </div>
+      <div>
+        <p>Adresse : {{ this.address }}</p>
       </div>
     </div>
-
-      <div class="news">
-        <p>Actualité du moment : {{this.title}}</p>
-        <img :src="`http://localhost:8000/img/news/` + this.image"/>
-        <p>{{this.news}}</p>
+    <div class="part_2">
+      <div>
+        <p>Téléphone : {{ this.phone }}</p>
       </div>
+      <div>
+        <p>E-mail : {{ this.email }}</p>
+      </div>
+      <div>
+        <p>Siret : {{ this.siret }}</p>
+      </div>
+    </div>
+  </div>
 
-    <h2>Utilisateurs</h2>
+  <div class="news">
+    <p>Actualité du moment : {{ this.title }}</p>
+    <img :src="`http://localhost:8000/img/news/` + this.image" />
+    <p>{{ this.news }}</p>
+  </div>
 
-<div class="arrayUsers">
-<table class="array">
-    <thead class="head">
+  <h2>Listes des commandes</h2>
+
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
+        <tr class="trHead">
+          <div>
+            <td>Commande n°</td>
+            <td>
+              <select
+                name="status"
+                id="status"
+                @change="selectedStatus = $event.target.value"
+              >
+                <option value="">Statuts</option>
+                <option value="en cours">En cours</option>
+                <option value="en attente">En attente</option>
+                <option value="terminée">Terminées</option>
+              </select>
+            </td>
+            <td>Prix total</td>
+            <td>Commentaires</td>
+            <td>Note Admin</td>
+            <td>Date création</td>
+            <td>Date dernière modification</td>
+            <td>Entreprises:<SelectFirms @change="getFirmValue($event)" /></td>
+            <td>Nom salarié</td>
+          </div>
+        </tr>
+      </thead>
+
+      <!-- affichage de tous les utilisateurs -->
+
+      <tbody v-for="(firm, index) in usersFirms" :key="index">
+        <tr v-for="(value, index) in firm.users" :key="index">
+          <div v-for="(order, index) in value.orders" :key="index">
+            <td>{{ order.status }}</td>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Utilisateurs</h2>
+
+  <div class="arrayUsers">
+    <table class="array">
+      <thead class="head">
         <tr class="trHead">
           <th>Nom :</th>
 
@@ -95,21 +138,21 @@ export default {
     NavbarreAdmin: NavbarreAdmin,
   },
 
-    data() {
-        return {
-            usersFirms: [],
-            name:"",
-            address: "",
-            phone: "",
-            email: "",
-            siret: "",
-            title: "",
-            news: "",
-            image:"",
-            id:this.firmId,
-            idUser: "",
-        }
-    },
+  data() {
+    return {
+      usersFirms: [],
+      name: "",
+      address: "",
+      phone: "",
+      email: "",
+      siret: "",
+      title: "",
+      news: "",
+      image: "",
+      id: this.firmId,
+      idUser: "",
+    };
+  },
 
   async mounted() {
     /*requete pour récuperer au montage tout les entreprises en BDD*/
@@ -140,8 +183,6 @@ export default {
     this.title = arrayFirms[0].title;
     this.news = arrayFirms[0].news;
     this.image = arrayFirms[0].image;
-    
-    
   },
 
   methods: {
@@ -262,13 +303,11 @@ h2 {
 }
 
 .news {
-  
   margin-top: 5%;
-  
 }
 
 img {
   width: 150px;
-    height: 150px;
+  height: 150px;
 }
 </style>
