@@ -36,9 +36,8 @@
     <table class="array">
       <thead class="head">
         <tr class="trHead">
-          <div>
-            <td>Commande n°</td>
-            <td>
+            <th>Commande n°</th>
+            <th>
               <select
                 name="status"
                 id="status"
@@ -49,15 +48,14 @@
                 <option value="en attente">En attente</option>
                 <option value="terminée">Terminées</option>
               </select>
-            </td>
-            <td>Prix total</td>
-            <td>Commentaires</td>
-            <td>Note Admin</td>
-            <td>Date création</td>
-            <td>Date dernière modification</td>
-            <td>Entreprises:<SelectFirms @change="getFirmValue($event)" /></td>
-            <td>Nom salarié</td>
-          </div>
+            </th>
+            <th>Prix total</th>
+            <th>Commentaires</th>
+            <th>Note Admin</th>
+            <th>Date création</th>
+            <th>Date dernière modification</th>
+            <th>Entreprises:<SelectFirms @change="getFirmValue($event)" /></th>
+            <th>Nom salarié</th>
         </tr>
       </thead>
 
