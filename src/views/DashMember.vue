@@ -13,12 +13,7 @@
           {{ this.today }}
         </p>
       </div>
-      <div>
-        <p>
-          Ma société : <span class="id">{{ this.name }}</span>
-        </p>
-      </div>
-      <br />
+
       <div>
         <p>
           Nom : <span class="id">{{ this.lastname }}</span>
@@ -36,9 +31,17 @@
           Date de naissance : <span class="id">{{ this.birthday }}</span>
         </p>
       </div>
+      <div v-show="!this.show" class="edit_firm">
+        <p>
+          Ma société : <span class="id">{{ this.firmName }}</span>
+        </p>
+        <p class="id">{{ this.firmAddress }}</p>
+        <p class="id">{{ this.firmPhone }}</p>
+        <p class="id">{{ this.firmEmail }}</p>
+      </div>
     </div>
     <div>
-      <button class="boutonSauv" @click="editFirm">MES COMMANDES</button>
+      <button class="boutonSauv" @click="editFirm">Infos entreprise</button>
     </div>
     <div class="order_part">
       <div
@@ -51,19 +54,19 @@
             Commande N°: {{ element.id
             }}<span> du {{ element.created_at }}</span>
           </p>
+          <p>Status : {{ element.status }}</p>
 
           <p>Commentaire : {{ element.comments }}</p>
-
-          <p>Status : {{ element.status }}</p>
         </div>
         <div class="odetail_part">
+          <p>Détail Commande :</p>
           <div
             class="odetail_card"
             v-for="(odetail, i) in element.odetails"
             :key="i"
           >
             <p>
-              Détails commmande : Prix :{{ odetail.price_product }} Quantité :
+              Prix :{{ odetail.price_product }} Quantité :
               {{ odetail.qtty }}
             </p>
           </div>
@@ -71,16 +74,13 @@
       </div>
     </div>
   </div>
-  <Footer></Footer>
 </template>
 <script>
-import Footer from "../components/Footer.vue";
 import Navbarre from "../components/Navbarre.vue";
 
 export default {
   name: "EditProfil",
   components: {
-    Footer: Footer,
     Navbarre,
   },
   data() {
@@ -92,7 +92,10 @@ export default {
       phone: "",
       birthday: "",
       firm_id: "",
-      name: "",
+      firmName: "",
+      firmAddress: "",
+      firmPhone: "",
+      firmEmail: "",
       orderList: [],
 
       today: new Date().toLocaleString(),
@@ -103,9 +106,7 @@ export default {
 
   async mounted() {
     const url =
-      "http://127.0.0.1:8000/api/users/" +
-      +localStorage.getItem("@id") +
-      "edit";
+      "http://127.0.0.1:8000/api/users/" + +localStorage.getItem("@id");
 
     const options = {
       method: "GET",
@@ -146,7 +147,10 @@ export default {
       console.log(response);
       const data = await response.json();
       console.log(data);
-      this.name = data.tab_firms[0].name;
+      this.firmName = data.tab_firms[0].name;
+      this.firmAddress = data.tab_firms[0].address;
+      this.firmPhone = data.tab_firms[0].phone;
+      this.firmEmail = data.tab_firms[0].email;
     },
   },
 };
@@ -157,6 +161,11 @@ export default {
   flex-direction: row;
 }
 
+.edit_firm {
+  display: flex;
+  flex-direction: column;
+}
+
 .order_part {
   padding: 5px;
   margin: 5px;
@@ -164,13 +173,15 @@ export default {
   border-radius: 5px;
   background-color: rgba(219, 144, 36, 0.6);
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 .order_card {
   margin: 5px;
   border-bottom: 1px black solid;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .order_card_list {
@@ -181,9 +192,18 @@ export default {
   margin: 5px;
 }
 
-.odetail_card {
+.odetail_part {
   overflow: scroll;
+  height: 50px;
+}
+
+.odetail_part p {
+  font-size: 12px;
+}
+.odetail_card {
   display: flex;
   flex-direction: row;
+  border-bottom: 1px black solid;
+  font-size: 12px;
 }
 </style>

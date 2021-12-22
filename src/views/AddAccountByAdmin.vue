@@ -129,7 +129,7 @@
                 <input
                   type="file"
                   @change="downloadAvatar"
-                  id="avatar"
+                  name="avatar"
                   accept="/*"
                   enctype="multipart/form-data"
                 />
