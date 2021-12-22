@@ -59,12 +59,12 @@ export default {
         method: "POST",
 
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("@token"),
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           products: storage,
-          user_id: id,
         }),
       };
       const response = await fetch(url, options);
