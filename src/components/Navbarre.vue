@@ -20,24 +20,25 @@
             >
           </li>
 
-        <li>
-          <router-link class="anim" to="/catalogue/services"
-            >Catalogue</router-link
-          >
-        </li>
+          <li>
+            <router-link class="anim" to="/catalogue/services"
+              >Catalogue</router-link
+            >
+          </li>
 
-        <li>
-          <router-link class="anim" to="/EditProfilMember"
-            >Mon profil</router-link
-          >
-        </li>
-        <li>
-          <router-link class="anim" to="/panier"
-            ><i class="fas fa-shopping-cart"></i
-          ></router-link>
-        </li>
-      </ul>
-    </nav>
+          <li>
+            <router-link class="anim" to="/EditProfilMember"
+              >Mon profil</router-link
+            >
+          </li>
+          <li>
+            <router-link class="anim" to="/panier"
+              ><i class="fas fa-shopping-cart"></i
+            ></router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 <script>
