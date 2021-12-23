@@ -91,13 +91,6 @@
               ></span
             >
           </p>
-
-          <p>
-            Commentaire :
-            <i
-              ><strong>{{ element.comments }}</strong></i
-            >
-          </p>
         </div>
         <div class="odetail_part">
           <p>Détail Commande :</p>
@@ -107,7 +100,7 @@
             :key="i"
           >
             <p>
-              {{ odetail.name }}
+              <strong>{{ odetail.name }}</strong>
 
               Prix : {{ odetail.price_product }}€ Quantité :
               {{ odetail.qtty }} Total commande : {{ odetail.total_odetail }}€
@@ -119,7 +112,7 @@
     </div>
   </div>
   <div>
-    <h3>VISITES LES LUNDI ET JEUDI à 11H00</h3>
+    <h3>VISITES ET LIVRAISONS LES LUNDI ET JEUDI à 11H00</h3>
   </div>
 </template>
 <script>
@@ -274,7 +267,7 @@ export default {
 }
 
 .odetail_part p {
-  font-size: 12px;
+  font-size: 14px;
 }
 .odetail_card {
   padding-left: 12px;
