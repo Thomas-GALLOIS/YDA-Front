@@ -45,25 +45,25 @@
           </div>
           <div class="child_mid">
             <div>
-            <label for="categories">Categorie</label>
+              <label for="categories">Categorie</label>
             </div>
-          
+
             <SelectType />
           </div>
         </div>
         <div class="img_parent">
           <div class="img_container">
             <div>
-            <label for="image">Image</label>
+              <label for="image">Image</label>
             </div>
             <div>
-            <input
-              type="file"
-              id="image"
-              @change="uploadImage"
-              name="image"
-              class="file"
-            />
+              <input
+                type="file"
+                id="image"
+                @change="uploadImage"
+                name="image"
+                class="file"
+              />
             </div>
           </div>
 
@@ -104,11 +104,7 @@
           ></textarea>
         </div>
 
-        <input
-          id="submit_btn"
-          type="submit"
-          value="Enregistrer modification"
-        />
+        <input id="submit_btn" type="submit" value="Enregistrer modification" />
       </form>
     </div>
   </div>
@@ -210,7 +206,7 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
           },
         };
         const response = await fetch(url, options);

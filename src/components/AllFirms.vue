@@ -124,7 +124,7 @@ export default {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + localStorage.getItem("@token"),
           },
         };
         const response = await fetch(url, options);
@@ -133,6 +133,7 @@ export default {
 
         let i = this.firmList.map((item) => item.id).indexOf(id); // find index of your object
         this.firmList.splice(i, 1); // remove it from array
+        this.$router.push({ name: "AllFirms" });
       }
     },
 
