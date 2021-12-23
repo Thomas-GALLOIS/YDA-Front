@@ -81,18 +81,18 @@
           <p class="orders_td">{{ firm.name }}</p>
           <p class="orders_td">{{ value.firstname }} {{ value.lastname }}</p>
           <i
-            class="fas fa-pen"
+            class="fas fa-pen form_td"
             v-show="!showEdit"
             @click="showEdit = !showEdit"
           ></i>
-          <form @submit.prevent="editStatus(order.id)" v-show="showEdit">
+          <form @submit.prevent="editStatus(order.id)" v-show="showEdit" class="form_td">
             <select v-model="status">
               <option value="">Statuts</option>
               <option value="en cours">En cours</option>
               <option value="en attente">En attente</option>
               <option value="terminée">Terminées</option>
             </select>
-            <button>Modifier Statut</button>
+            <button><i class="fas fa-check"></i></button>
           </form>
         </div>
       </div>
@@ -252,7 +252,7 @@ export default {
         const options = {
           method: "DELETE",
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Authorization: " Bearer " + localStorage.getItem("@token"),
             Accept: "application/json",
           },
         };
@@ -272,7 +272,7 @@ export default {
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@token"),
+          Authorization: " Bearer " + localStorage.getItem("@token"),
           Accept: "application/json",
         },
         body: JSON.stringify({
@@ -332,6 +332,7 @@ tr:hover {
 
 i {
   width: 50px;
+  cursor: pointer;
 }
 
 h2 {
@@ -387,4 +388,10 @@ img {
 .orders_td {
   min-width: 15%;
 }
+
+.form_td {
+  margin: auto;
+  cursor: pointer;
+}
+
 </style>

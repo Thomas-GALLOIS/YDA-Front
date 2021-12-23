@@ -32,14 +32,15 @@ export default {
     };
 
     const response = await fetch(url, options);
+    console.log(response);
 
-    if (response.status !== 200) {
-      localStorage.removeItem("@token");
-      this.$router.replace("/connexion");
-    } else {
-      const data = await response.json();
-      this.role = data.role;
-    }
+    // if (response.status !== 200) {
+    //   localStorage.removeItem("@token");
+    //   this.$router.replace("/connexion");
+    // } else {
+    //   const data = await response.json();
+    //   this.role = data.role;
+    // }
   },
 };
 </script>

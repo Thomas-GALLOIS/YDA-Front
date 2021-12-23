@@ -75,7 +75,7 @@ export default {
     const options = {
       method: "GET",
       headers: {
-        Authorization: " bearer " + localStorage.getItem(`@token`),
+        Authorization: " Bearer " + localStorage.getItem(`@token`),
         "content-Type": "application/json",
         Accept: "application/json",
       },
