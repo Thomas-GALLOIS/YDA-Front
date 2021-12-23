@@ -63,6 +63,7 @@ export default {
 .cart_container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .italic {
   font-style: italic;
