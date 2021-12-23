@@ -189,6 +189,7 @@ export default {
         const response = await fetch(url, options);
         const data = await response.json();
         console.log(data);
+        this.$router.go();
       }
     },
     async showServiceProducts(id) {
