@@ -18,10 +18,16 @@
             >Catalogue</router-link
           >
         </li>
+
         <li>
           <router-link class="anim" to="/EditProfilMember"
             >Mon profil</router-link
           >
+        </li>
+        <li>
+          <router-link class="anim" to="/panier"
+            ><i class="fas fa-shopping-cart"></i
+          ></router-link>
         </li>
       </ul>
     </nav>

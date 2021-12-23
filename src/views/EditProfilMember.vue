@@ -8,7 +8,7 @@
     <div>
       <div class="date-form"></div>
       <div class="content">
-        <div class="prof">
+        <div class="prof" v-show="!this.show">
           <br />
 
           <p>
@@ -31,7 +31,7 @@
           </p>
 
           <div class="profil-form">
-            <button class="boutonModif" @click="this.show = true">
+            <button class="btn-grad" @click="this.show = true">
               Modifier mon profil
             </button>
           </div>
@@ -56,7 +56,7 @@
 
             <br />
 
-            <button class="boutonSauv" @click="putUser">Sauvegarder</button>
+            <button class="btn-grad" @click="putUser">Sauvegarder</button>
           </div>
         </div>
       </div>
@@ -185,5 +185,39 @@ input :placeholder {
 input:focus {
   box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   outline: none;
+}
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #314755 0%,
+    #26a0da 51%,
+    #314755 100%
+  );
+}
+.btn-grad {
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+.profil-form {
+  padding-top: 80px;
+}
+
+.prof p {
+  margin-top: 20px;
 }
 </style>
