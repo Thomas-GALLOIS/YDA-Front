@@ -119,7 +119,7 @@
     </div>
   </div>
   <div>
-    <h3>VISITES ET LIVRAISONS DANS NOS LOCAUX LES LUNDI ET JEUDI à 11H00</h3>
+    <h3>VISITES ET LIVRAISONS LES LUNDI ET JEUDI à 11H00</h3>
   </div>
 </template>
 <script>
