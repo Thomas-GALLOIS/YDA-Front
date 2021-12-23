@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+//import Home from "../views/Home.vue";
 import Connexion from "../views/Connexion.vue";
 import AddService from "../views/AddService.vue";
 import DashBoard from "../views/DashBoardAdmin.vue";
@@ -18,8 +18,8 @@ import EditProfilMember from "../views/EditProfilMember.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Connexion",
+    component: Connexion,
   },
   {
     path: "/about",
