@@ -1,17 +1,24 @@
 <template>
   <!--Component NavBarre réutilisable de partout-->
-
-  <div class="nav_primaire">
-    <div class="logo">
-      <img src="../assets/img/images.png" style="width: 300px" />
+  <div>
+    <div class="nav_primaire">
+      <div class="logo">
+        <img src="../assets/img/images.png" style="width: 200px" />
+      </div>
+      <router-link to="/connexion" @click="clearLocalStorage">
+        <div class="fav_icon">
+          <i class="fas fa-power-off"></i>
+        </div>
+      </router-link>
     </div>
-  </div>
-  <div class="nav_secondaire">
-    <nav>
-      <ul>
-        <li>
-          <router-link class="anim" to="/DashMember">Mes commandes</router-link>
-        </li>
+    <div class="nav_secondaire">
+      <nav>
+        <ul>
+          <li>
+            <router-link class="anim" to="/DashMember"
+              >Mes commandes</router-link
+            >
+          </li>
 
         <li>
           <router-link class="anim" to="/catalogue/services"
@@ -33,20 +40,28 @@
     </nav>
   </div>
 </template>
-
+<script>
+export default {
+  methods: {
+    clearLocalStorage() {
+      localStorage.clear("@token");
+    },
+  },
+};
+</script>
 <style scoped>
 body {
   margin: 0px;
 }
 .nav_primaire {
   background-color: #cccfd4;
-  height: 80px;
+  height: 65px;
   text-align: left;
 }
 
 .nav_secondaire {
   background-color: #2483db;
-  height: 80px;
+  height: 65px;
   text-align: right;
 }
 
@@ -96,5 +111,13 @@ li {
   content: "";
   animation: btn1 0.5s;
   animation-fill-mode: forwards;
+}
+.fav_icon {
+  color: white;
+  text-align: right;
+  position: absolute;
+  right: 5%;
+  top: 3%;
+  font-size: 20px;
 }
 </style>

@@ -565,4 +565,8 @@ input:focus {
 .msg {
   margin-top: 10%;
 }
+
+textarea {
+  resize: none;
+}
 </style>
