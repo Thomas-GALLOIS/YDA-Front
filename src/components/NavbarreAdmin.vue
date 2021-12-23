@@ -41,6 +41,12 @@
               >Gestion du catalogue</router-link
             >
           </li>
+          <li>
+            <router-link class="anim" to="/panier">
+              <i class="fas fa-shopping-cart"></i>
+              <div v-if="notif != null" class="notif">1</div>
+            </router-link>
+          </li>
         </ul>
       </nav>
     </div>
@@ -50,7 +56,9 @@
 export default {
   inject: ["role"],
   data() {
-    return {};
+    return {
+      notif: localStorage.getItem("@cart"),
+    };
   },
   methods: {
     clearLocalStorage() {
@@ -149,5 +157,14 @@ li {
     background-color: #ffffff;
     opacity: 1;
   }
+}
+.notif {
+  border: 1px;
+  background: red;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin-left: 10px;
 }
 </style>
