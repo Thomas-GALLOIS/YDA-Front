@@ -246,7 +246,7 @@ export default {
   font-size: 12px;
 }
 .odetail_card {
-  padding-left: 10px;
+  padding-left: 12px;
   display: flex;
   flex-direction: row;
   border-bottom: 0.5px black solid;
