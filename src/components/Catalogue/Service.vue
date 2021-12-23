@@ -107,7 +107,7 @@
         <input
           id="submit_btn"
           type="submit"
-          value="Ajouter un nouveau service"
+          value="Enregistrer modification"
         />
       </form>
     </div>
@@ -359,6 +359,7 @@ label {
   box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
   outline: none;
   transition: box-shadow 1.2s;
+  max-width: max-content;
 }
 
 .text_container {

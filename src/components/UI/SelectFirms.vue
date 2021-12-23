@@ -38,3 +38,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+select {
+  max-width: inherit;
+}
+</style>
