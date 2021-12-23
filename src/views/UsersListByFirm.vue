@@ -1,33 +1,33 @@
 <template>
   <NavbarreAdmin />
-  <h2>Infos de l'entreprise</h2>
+  <h2>Compte {{ this.name }}</h2>
 
   <div class="firm_details">
     <div class="part_1">
-      <div>
-        <p>Nom de l'entreprise :{{ this.name }}</p>
-      </div>
-      <div>
-        <p>Adresse : {{ this.address }}</p>
-      </div>
-    </div>
-    <div class="part_2">
-      <div>
-        <p>Téléphone : {{ this.phone }}</p>
-      </div>
-      <div>
-        <p>E-mail : {{ this.email }}</p>
-      </div>
-      <div>
-        <p>Siret : {{ this.siret }}</p>
-      </div>
+      <p>
+        <b>Raison Sociale</b> :{{ this.name }} <b>Adresse</b> :
+        {{ this.address }}
+      </p>
+
+      <p>
+        <i class="fas fa-phone-alt"></i> {{ this.phone }}
+        <i class="fas fa-at"></i> {{ this.email }}
+      </p>
+
+      <p>Siret : {{ this.siret }}</p>
     </div>
   </div>
-
-  <div class="news">
-    <p>Actualité du moment : {{ this.title }}</p>
-    <img :src="`http://localhost:8000/img/news/` + this.image" />
-    <p>{{ this.news }}</p>
+  <h2>Actualité</h2>
+  <div>
+    <div class="news">
+      <div>
+        <img :src="`http://localhost:8000/img/news/` + this.image" />
+      </div>
+      <div>
+        <p>Title : {{ this.title }}</p>
+        <p>{{ this.news }}</p>
+      </div>
+    </div>
   </div>
 
   <h2>Listes des commandes</h2>
@@ -335,24 +335,37 @@ h2 {
 
 .firm_details {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  /*
   justify-content: space-around;
   height: 200px;
   background-color: #f39c11;
   opacity: 0.5;
   border-bottom: 7px ridge #f39c11;
-}
-
-.part_1 {
+  .part_1 {
   text-align: justify;
 }
 
 .part_2 {
   text-align: justify;
 }
+  */
+}
 
 .news {
-  margin-top: 5%;
+  display: flex;
+  max-width: 80%;
+  margin-left: 9%;
+}
+.news p {
+  text-align: left;
+  margin-left: 1%;
+}
+.news img {
+  width: 150px;
+  height: 120px;
+  border-radius: 2px;
 }
 
 img {
