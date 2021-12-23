@@ -1,5 +1,4 @@
 <template>
-  <Navbarre />
   <div>
     <h2>Bonjour {{ this.firstname }}, maintenant vous avez le temps !</h2>
     <div class="form_initialisation">
@@ -46,7 +45,6 @@
 
 <script>
 import Footer from "../components/Footer.vue";
-import Navbarre from "../components/Navbarre.vue";
 
 export default {
   props: {
@@ -66,7 +64,6 @@ export default {
 
   components: {
     Footer: Footer,
-    Navbarre,
   },
 
   async mounted() {

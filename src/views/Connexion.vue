@@ -24,12 +24,12 @@
     </form>
   </div>
   <div v-if="this.success == 200">
-    <p>Nous vous avons envoyé un email, vérifiez votre boite mail !</p>
+    <p>Vous venez de recevoir un mail pour valider votre compte !</p>
   </div>
   <div v-if="this.success == 500" class="p_red">
-    <p>Veuillez renseigner le login avec votre E-mail svp !</p>
+    <p>Veuillez renseigner votre e-mail de connexion !</p>
   </div>
-  <Footer></Footer>
+  <Footer />
 </template>
 <script>
 import Footer from "../components/Footer.vue";

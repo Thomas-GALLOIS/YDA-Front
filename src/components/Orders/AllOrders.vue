@@ -157,7 +157,6 @@ export default {
 </script>
 
 <style scoped>
-
 .selectfirm:hover {
   cursor: pointer;
   border: #ffa500 solid 1px;
@@ -177,11 +176,11 @@ export default {
 td {
   padding: 5px;
   border: #000 solid 2px;
-  min-width: 6rem;
-  max-width: 6rem;
+  min-width: 10rem;
+  max-width: 10rem;
 }
 table {
-  font-size: 0.8rem;
+  font-size: 1rem;
 
   display: flex;
   flex-direction: column;

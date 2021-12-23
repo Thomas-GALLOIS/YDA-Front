@@ -4,17 +4,17 @@
 
   <div class="firm_details">
     <div class="part_1">
-        <div>
-          <p>Raison Sociale :{{ this.name }}</p>
-        </div>
-        <div>
-          <p>Adresse :
+      <div>
+        <p>Raison Sociale :{{ this.name }}</p>
+      </div>
+      <div>
+        <p>
+          Adresse :
           {{ this.address }}
-          </p>
-        </div>
+        </p>
+      </div>
     </div>
-     
-    
+
     <div class="part_1">
       <div>
         <p><i class="fas fa-phone-alt"></i> {{ this.phone }}</p>
@@ -23,13 +23,12 @@
         <p><i class="fas fa-at"></i> {{ this.email }}</p>
       </div>
     </div>
-      
+
     <div>
       <p>Siret : {{ this.siret }}</p>
     </div>
-
   </div>
-  
+
   <h2>Actualité</h2>
   <div>
     <div class="news">
@@ -258,7 +257,6 @@ export default {
         };
         // va chercher les options de l'API
         const response = await fetch(url, options);
-        console.log(response);
         // la récupération des data stockées dans l'API
         const data = await response.json();
         console.log(data);
@@ -282,6 +280,7 @@ export default {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log(data);
+      this.$router.push({ name: "Dashboard" });
     },
   },
 };
@@ -344,12 +343,11 @@ h2 {
   flex-direction: column;
   justify-content: space-around;
   max-width: 100%;
-  
 }
 
 .part_1 {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .news {
