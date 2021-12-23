@@ -26,7 +26,7 @@
         <input id="comment" type="text" v-model="comment" />
         <label for="qt">Quantité</label>
         <input id="qt" type="number" v-model="quantity" />
-        <input type="submit" value="Ajouter au panier" @click="global" />
+        <input class="addToCart" type="submit" value="Ajouter au panier" @click="global" />
       </form>
     </div>
 
@@ -219,6 +219,23 @@ img {
 .command_form input:focus {
   box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   outline: none;
+}
+
+.addToCart {
+  margin-top: 20px;
+  color: #0f0f0f;
+  background: #ffffff;
+  cursor: pointer;
+  border: 3px solid #0f0f0f;
+  height: 20px;
+  margin-left: auto;
+  font-size: 1.3rem;
+}
+
+.addToCart:hover {
+  color: #0f0f0f;
+  background: #49be25;
+  transition: background 1s;
 }
 
 .buttonedit {

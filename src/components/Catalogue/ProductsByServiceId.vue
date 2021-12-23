@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>Products</h1>
-    <button @click="sendCart">Valider commande</button>
+    <h1>Produits</h1>
     <div v-for="(element, index) in productsArray" :key="index">
       <Product
         v-for="(value, index) in element.products"

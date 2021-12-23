@@ -157,6 +157,7 @@ export default {
 </script>
 
 <style scoped>
+
 .selectfirm:hover {
   cursor: pointer;
   border: #ffa500 solid 1px;
