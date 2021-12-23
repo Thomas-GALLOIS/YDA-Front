@@ -65,11 +65,10 @@
             Commande N°: {{ element.id
             }}<span>
               du
-              {{
-                moment(element.created_at).format("DD MMM YYYY, HH:mm ")
-              }}</span
+              {{ moment(element.created_at).format("DD MMM YYYY") }}</span
             >
           </p>
+          <p>Prix total : {{ element.total }}€</p>
           <p>
             Status : <span :class="status_part">{{ element.status }}</span>
           </p>
@@ -84,11 +83,12 @@
             :key="i"
           >
             <p>
-              Prix : {{ odetail.price_product }} Quantité :
-              {{ odetail.qtty }} Total commande :
-              {{ odetail.total_odetail }} Commentaire :
-              {{ odetail.comments }}
+              {{ odetail.name }}
             </p>
+            <p>Prix : {{ odetail.price_product }}€</p>
+            <p>Quantité : {{ odetail.qtty }}</p>
+            <p>Total commande : {{ odetail.total_odetail }}€</p>
+            <p>Commentaire : {{ odetail.comments }}</p>
           </div>
         </div>
       </div>
@@ -246,6 +246,7 @@ export default {
   font-size: 12px;
 }
 .odetail_card {
+  padding-left: 10px;
   display: flex;
   flex-direction: row;
   border-bottom: 0.5px black solid;

@@ -36,26 +36,26 @@
     <table class="array">
       <thead class="head">
         <tr class="trHead">
-            <th>Commande n°</th>
-            <th>
-              <select
-                name="status"
-                id="status"
-                @change="selectedStatus = $event.target.value"
-              >
-                <option value="">Statuts</option>
-                <option value="en cours">En cours</option>
-                <option value="en attente">En attente</option>
-                <option value="terminée">Terminées</option>
-              </select>
-            </th>
-            <th>Prix total</th>
-            <th>Commentaires</th>
-            <th>Note Admin</th>
-            <th>Date création</th>
-            <th>Date dernière modification</th>
-            <th>Entreprises:<SelectFirms @change="getFirmValue($event)" /></th>
-            <th>Nom salarié</th>
+          <th>Commande n°</th>
+          <th>
+            <select
+              name="status"
+              id="status"
+              @change="selectedStatus = $event.target.value"
+            >
+              <option value="">Statuts</option>
+              <option value="en cours">En cours</option>
+              <option value="en attente">En attente</option>
+              <option value="terminée">Terminées</option>
+            </select>
+          </th>
+          <th>Prix total</th>
+          <th>Commentaires</th>
+          <th>Note Admin</th>
+          <th>Date création</th>
+          <th>Date dernière modification</th>
+          <th>Entreprises:<SelectFirms @change="getFirmValue($event)" /></th>
+          <th>Nom salarié</th>
         </tr>
       </thead>
 
@@ -68,8 +68,12 @@
             <td>{{ order.status }}</td>
             <td>{{ order.total }}</td>
             <td>{{ order.comments }}</td>
-            <td>{{ order.created_at }}</td>
-            <td>{{ order.updated_at }}</td>
+            <td>
+              {{ moment(order.created_at).format("DD MMM YYYY, HH:mm ") }}
+            </td>
+            <td>
+              {{ moment(order.updated_at).format("DD MMM YYYY, HH:mm ") }}
+            </td>
             <td>{{ firm.name }}</td>
             <td>{{ value.firstname }} {{ value.lastname }}</td>
             <td>
@@ -146,13 +150,16 @@
 
 <script>
 import NavbarreAdmin from "../components/NavbarreAdmin.vue";
-
+import moment from "moment";
 export default {
   inject: ["role"],
   props: {
     firmId: String,
   },
 
+  created: function () {
+    this.moment = moment;
+  },
   components: {
     NavbarreAdmin: NavbarreAdmin,
   },

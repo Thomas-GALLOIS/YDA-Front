@@ -1,30 +1,33 @@
 <template>
   <!--Component NavBarre réutilisable de partout-->
-
-  <div class="nav_primaire">
-    <div class="logo">
-      <img src="../assets/img/images.png" style="width: 300px" />
+  <div>
+    <div class="nav_primaire">
+      <div class="logo">
+        <img src="../assets/img/images.png" style="width: 200px" />
+      </div>
     </div>
-  </div>
-  <div class="nav_secondaire">
-    <nav>
-      <ul>
-        <li>
-          <router-link class="anim" to="/DashMember">Mes commandes</router-link>
-        </li>
+    <div class="nav_secondaire">
+      <nav>
+        <ul>
+          <li>
+            <router-link class="anim" to="/DashMember"
+              >Mes commandes</router-link
+            >
+          </li>
 
-        <li>
-          <router-link class="anim" to="/catalogue/services"
-            >Catalogue</router-link
-          >
-        </li>
-        <li>
-          <router-link class="anim" to="/EditProfilMember"
-            >Mon profil</router-link
-          >
-        </li>
-      </ul>
-    </nav>
+          <li>
+            <router-link class="anim" to="/catalogue/services"
+              >Catalogue</router-link
+            >
+          </li>
+          <li>
+            <router-link class="anim" to="/EditProfilMember"
+              >Mon profil</router-link
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -34,13 +37,13 @@ body {
 }
 .nav_primaire {
   background-color: #cccfd4;
-  height: 80px;
+  height: 65px;
   text-align: left;
 }
 
 .nav_secondaire {
   background-color: #2483db;
-  height: 80px;
+  height: 65px;
   text-align: right;
 }
 

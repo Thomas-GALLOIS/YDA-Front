@@ -4,11 +4,11 @@
   <div class="nav_admin">
     <div class="nav_primaire">
       <div class="logo">
-        <img src="../assets/img/logo_without_title.png" style="width: 158px" />
+        <img src="../assets/img/logo_without_title.png" style="width: 119px" />
       </div>
       <router-link to="/connexion" @click="clearLocalStorage">
         <div class="fav_icon">
-          <p>Logout<i class="fas fa-power-off"></i></p>
+          <p><i class="fas fa-power-off"></i></p>
         </div>
       </router-link>
     </div>
@@ -63,7 +63,7 @@ body {
 }
 .nav_primaire {
   background-color: #000000;
-  height: 80px;
+  height: 60px;
   display: flex;
 }
 .fav_icon {
@@ -71,7 +71,7 @@ body {
   text-align: right;
   position: absolute;
   right: 5%;
-  top: 2%;
+  top: 1%;
   font-size: 20px;
 }
 .fav_icon p i {
@@ -86,7 +86,7 @@ body {
 
 .nav_secondaire {
   background-color: #f39c11;
-  height: 80px;
+  height: 60px;
   text-align: right;
 }
 
