@@ -1,6 +1,6 @@
 <template>
   <Navbarre v-if="this.role.value !== 'admin'" />
-  <NavbarreAdmin v-if="this.role == 'admin'" />
+  <NavbarreAdmin v-if="this.role.value == 'admin'" />
 
   <h1>Panier</h1>
   <h4 v-if="this.status == 200">Commande Validée</h4>

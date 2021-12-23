@@ -2,7 +2,7 @@
   <!--page d'afffichage du catalogue des services avec imports de différent composants-->
 
   <Navbarre v-if="this.role.value !== 'admin'" />
-  <NavbarreAdmin v-if="this.role == 'admin'" />
+  <NavbarreAdmin v-if="this.role.value == 'admin'" />
   <AllServices />
   <Footer></Footer>
 </template>
