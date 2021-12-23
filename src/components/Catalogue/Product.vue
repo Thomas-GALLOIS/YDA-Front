@@ -30,11 +30,11 @@
       </form>
     </div>
 
-    <div v-show="showEdit">
+    <div class="edit_container" v-show="showEdit">
       <form class="edit_product" @submit.prevent="editProduct">
         <label>Nom</label>
         <input type="text" v-model="name" name="name" id="name" />
-        <br />
+
         <div class="img_parent">
           <div class="img_container">
             <label for="image">Image</label>
@@ -46,12 +46,12 @@
               class="file"
             />
           </div>
-          <br />
+
           <div class="img_container">
             <img :src="previewImage" class="uploading-image" />
           </div>
         </div>
-        <br />
+
         <label for="description">Description produit</label>
         <input
           type="text"
@@ -59,31 +59,33 @@
           id="description"
           v-model="description"
         />
-        <br />
+
         <label for="price">Prix produit</label>
         <input type="number" name="price" id="price" v-model.number="price" />
-        <br />
-        <input
-          type="radio"
-          id="checkbox"
-          name="status"
-          v-model="radio"
-          value="actif"
-        />
-        <label for="checkbox">Produit actif</label>
-        <br />
-        <input
-          type="radio"
-          id="checkbox"
-          name="status"
-          v-model="radio"
-          value="inactif"
-        />
+        <div class="div_actif">
+          <input
+            type="radio"
+            id="checkbox"
+            name="status"
+            v-model="radio"
+            value="actif"
+          />
+          <label for="checkbox">Produit actif</label>
+        </div>
+        <div class="div_actif">
+          <input
+            type="radio"
+            id="checkbox"
+            name="status"
+            v-model="radio"
+            value="inactif"
+          />
 
-        <label for="checkbox">Produit inactif</label>
-        <br />
+          <label for="checkbox">Produit inactif</label>
+        </div>
+
         <SelectServices />
-        <input type="submit" value="valider" />
+        <input type="submit" value="valider" id="valider" />
       </form>
     </div>
   </div>
@@ -187,6 +189,10 @@ export default {
 </script>
 
 <style scoped>
+.edit_product {
+  display: flex;
+  flex-direction: column;
+}
 img {
   width: 200px;
   border-radius: 50%;
@@ -220,5 +226,55 @@ img {
 }
 i {
   margin: 20px 10px;
+}
+.edit_product input {
+  height: 30px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+
+.edit_product label {
+  text-align: left;
+  margin: 10px 0;
+}
+
+.img_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.img_container img {
+  width: 60px;
+  height: 60px;
+}
+.div_actif {
+  display: flex;
+  gap: 40px;
+  padding-left: 20px;
+}
+.div_actif input {
+  box-shadow: none;
+  width: 20px;
+}
+select {
+  height: 30px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+}
+select:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+#valider:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 </style>

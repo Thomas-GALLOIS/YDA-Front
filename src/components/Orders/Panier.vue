@@ -1,10 +1,13 @@
 <template>
-  <h1>Panier</h1>
   <div v-for="(element, index) in this.cart" :key="index">
-    <p>commentaire:{{ element.comment }}</p>
+    <div class="cart">
+      <p>commentaire:</p>
+      <p>{{ element.comment }}</p>
 
-    <p>quantité:{{ element.quantity }}</p>
-    <p>Produit:{{ element.name }}</p>
+      <p>quantité:{{ element.quantity }}</p>
+      <p>Produit:{{ element.name }}</p>
+      <button>Supprimer du panier</button>
+    </div>
   </div>
 </template>
 
@@ -38,3 +41,30 @@ export default {
   methods: {},
 };
 </script>
+
+<style scoped>
+.cart {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 25px;
+  border: 1px solid #0f0f0f;
+  border-radius: 4px;
+  padding: 8px;
+  width: 300px;
+  height: 300px;
+}
+button:focus {
+  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+button {
+  height: 30px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  outline: none;
+  transition: box-shadow 1.2s;
+  width: 150px;
+}
+</style>
