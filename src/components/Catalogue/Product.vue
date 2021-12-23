@@ -26,8 +26,16 @@
         <input id="comment" type="text" v-model="comment" />
         <label for="qt">Quantité</label>
         <input id="qt" type="number" v-model="quantity" />
-        <input class="addToCart" type="submit" value="Ajouter au panier" @click="global" />
+        <label for="toto"></label>
+        <input
+          id="toto"
+          class="addToCart"
+          type="submit"
+          value="Ajouter au panier"
+          @click="status = !status"
+        />
       </form>
+      <p v-show="status">Produit ajouté au panier</p>
     </div>
 
     <div class="edit_container" v-show="showEdit">
@@ -118,6 +126,7 @@ export default {
       quantity: "",
       comment: "",
       globalCart: [],
+      status: false,
     };
   },
 
