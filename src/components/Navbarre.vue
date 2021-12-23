@@ -62,25 +62,28 @@ body {
   margin: 0px;
 }
 .nav_primaire {
-  background-color: #cccfd4;
-  height: 65px;
-  text-align: left;
+  background-color: #ffffff;
+  height: 99px;
+  text-align: center;
+  justify-content: center;
 }
 
 .nav_secondaire {
-  background-color: #2483db;
-  height: 70px;
-  text-align: right;
+  background-color: #ffffff;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
 }
 
 .logo img {
   position: absolute;
-  left: 3%;
-  top: 2%;
 }
 ul {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin: 0;
 }
 li {
@@ -90,7 +93,7 @@ li {
 .anim {
   content: "";
   text-decoration: none;
-  color: #ffffff;
+  color: #000000;
   margin: 3px 8px;
 }
 
@@ -121,7 +124,7 @@ li {
   animation-fill-mode: forwards;
 }
 .fav_icon {
-  color: white;
+  color: rgb(7, 0, 0);
   text-align: right;
   position: absolute;
   right: 5%;
@@ -130,10 +133,11 @@ li {
 }
 .notif {
   border: 1px;
-  background: red;
+  background: rgb(3, 101, 194);
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  color: rgb(255, 255, 255);
   text-align: center;
   margin-left: 10px;
 }

@@ -4,12 +4,10 @@
   <Navbarre v-if="this.role.value !== 'admin'" />
   <NavbarreAdmin v-if="this.role.value == 'admin'" />
   <AllServices />
-  <Footer></Footer>
 </template>
 
 <script>
 import NavbarreAdmin from "../../components/NavbarreAdmin.vue";
-import Footer from "../../components/Footer.vue";
 import AllServices from "../../components/Catalogue/AllServices.vue";
 import Navbarre from "../../components/Navbarre.vue";
 
@@ -21,7 +19,6 @@ export default {
     };
   },
   components: {
-    Footer,
     NavbarreAdmin,
     AllServices,
     Navbarre,

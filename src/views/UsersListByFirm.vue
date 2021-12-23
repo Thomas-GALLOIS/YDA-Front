@@ -4,17 +4,17 @@
 
   <div class="firm_details">
     <div class="part_1">
-        <div>
-          <p>Raison Sociale :{{ this.name }}</p>
-        </div>
-        <div>
-          <p>Adresse :
+      <div>
+        <p>Raison Sociale :{{ this.name }}</p>
+      </div>
+      <div>
+        <p>
+          Adresse :
           {{ this.address }}
-          </p>
-        </div>
+        </p>
+      </div>
     </div>
-     
-    
+
     <div class="part_1">
       <div>
         <p><i class="fas fa-phone-alt"></i> {{ this.phone }}</p>
@@ -23,13 +23,12 @@
         <p><i class="fas fa-at"></i> {{ this.email }}</p>
       </div>
     </div>
-      
+
     <div>
       <p>Siret : {{ this.siret }}</p>
     </div>
-
   </div>
-  
+
   <h2>Actualité</h2>
   <div>
     <div class="news">
@@ -81,18 +80,18 @@
           <p class="orders_td">{{ firm.name }}</p>
           <p class="orders_td">{{ value.firstname }} {{ value.lastname }}</p>
           <i
-            class="fas fa-pen"
+            class="fas fa-pen form_td"
             v-show="!showEdit"
             @click="showEdit = !showEdit"
           ></i>
-          <form @submit.prevent="editStatus(order.id)" v-show="showEdit">
+          <form @submit.prevent="editStatus(order.id)" v-show="showEdit" class="form_td">
             <select v-model="status">
               <option value="">Statuts</option>
               <option value="en cours">En cours</option>
               <option value="en attente">En attente</option>
               <option value="terminée">Terminées</option>
             </select>
-            <button>Modifier Statut</button>
+            <button><i class="fas fa-check"></i></button>
           </form>
         </div>
       </div>
@@ -252,13 +251,12 @@ export default {
         const options = {
           method: "DELETE",
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("@token"),
+            Authorization: " Bearer " + localStorage.getItem("@token"),
             Accept: "application/json",
           },
         };
         // va chercher les options de l'API
         const response = await fetch(url, options);
-        console.log(response);
         // la récupération des data stockées dans l'API
         const data = await response.json();
         console.log(data);
@@ -272,7 +270,7 @@ export default {
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("@token"),
+          Authorization: " Bearer " + localStorage.getItem("@token"),
           Accept: "application/json",
         },
         body: JSON.stringify({
@@ -282,6 +280,7 @@ export default {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log(data);
+      this.$router.push({ name: "Dashboard" });
     },
   },
 };
@@ -332,6 +331,7 @@ tr:hover {
 
 i {
   width: 50px;
+  cursor: pointer;
 }
 
 h2 {
@@ -343,12 +343,11 @@ h2 {
   flex-direction: column;
   justify-content: space-around;
   max-width: 100%;
-  
 }
 
 .part_1 {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .news {
@@ -387,4 +386,10 @@ img {
 .orders_td {
   min-width: 15%;
 }
+
+.form_td {
+  margin: auto;
+  cursor: pointer;
+}
+
 </style>

@@ -8,7 +8,7 @@
     <p v-if="this.error == 422">Oups une erreur s'est produite</p>
   </span>
 
-  <div class="form">
+  <div class="form" v-show="this.show">
     <form @submit.prevent="editFirm">
       <div class="form_p1">
         <div class="form_p2">
@@ -130,7 +130,12 @@
       </div>
 
       <div>
-        <input id="submit_btn" type="submit" value="Valider" />
+        <input
+          id="submit_btn"
+          type="submit"
+          @click="this.show = false"
+          value="Valider"
+        />
       </div>
     </form>
   </div>
@@ -167,6 +172,7 @@ export default {
       day2_select: "",
       hour1_select: "",
       hour2_select: "",
+      show: true,
     };
   },
   methods: {
