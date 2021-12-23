@@ -1,7 +1,4 @@
 <template>
-  <router-link class="anim" to="/AddService"
-    >Ajouter Un nouveau service</router-link
-  >
   <h1>Services</h1>
   <!--component de selection du type-->
   <SelectType @change="getOptionValue" />

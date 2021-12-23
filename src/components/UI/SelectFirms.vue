@@ -27,6 +27,8 @@ export default {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("@token"),
+        Accept: "application/json",
       },
     };
     const response = await fetch(url, options);
@@ -38,3 +40,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+select {
+  max-width: inherit;
+}
+</style>
