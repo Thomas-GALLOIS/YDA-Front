@@ -84,11 +84,11 @@
           >
             <p>
               {{ odetail.name }}
+
+              Prix : {{ odetail.price_product }}€ Quantité :
+              {{ odetail.qtty }} Total commande : {{ odetail.total_odetail }}€
+              Commentaire : {{ odetail.comments }}
             </p>
-            <p>Prix : {{ odetail.price_product }}€</p>
-            <p>Quantité : {{ odetail.qtty }}</p>
-            <p>Total commande : {{ odetail.total_odetail }}€</p>
-            <p>Commentaire : {{ odetail.comments }}</p>
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@ export default {
   font-size: 12px;
 }
 .odetail_card {
-  padding-left: 10px;
+  padding-left: 12px;
   display: flex;
   flex-direction: row;
   border-bottom: 0.5px black solid;
@@ -316,5 +316,26 @@ export default {
 .edit_firm {
   width: 100px;
   height: 50px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 0px;
+  box-shadow: inset 0px 0px 0px 0px rgb(0 0 0 / 20%);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #db9024;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f;
 }
 </style>

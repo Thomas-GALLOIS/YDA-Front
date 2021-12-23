@@ -83,7 +83,7 @@ export default {
         if (this.role == "admin") {
           this.$router.push({ name: "Dashboard" });
         } else {
-          this.$router.push({ name: "CatalogueServices" });
+          this.$router.push({ name: "DashMember" });
         }
       }
     },

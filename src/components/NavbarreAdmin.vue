@@ -37,7 +37,9 @@
             <router-link class="anim" to="">Agenda</router-link>
           </li>
           <li>
-            <router-link class="anim" to="/AddService">{{ role }}</router-link>
+            <router-link class="anim" to="/AddService"
+              >Gestion du catalogue</router-link
+            >
           </li>
         </ul>
       </nav>

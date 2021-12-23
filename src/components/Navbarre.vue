@@ -5,6 +5,11 @@
       <div class="logo">
         <img src="../assets/img/images.png" style="width: 200px" />
       </div>
+      <router-link to="/connexion" @click="clearLocalStorage">
+        <div class="fav_icon">
+          <i class="fas fa-power-off"></i>
+        </div>
+      </router-link>
     </div>
     <div class="nav_secondaire">
       <nav>
@@ -20,17 +25,31 @@
               >Catalogue</router-link
             >
           </li>
+
           <li>
             <router-link class="anim" to="/EditProfilMember"
               >Mon profil</router-link
             >
+          </li>
+          <li>
+            <router-link class="anim" to="/panier"
+              ><i class="fas fa-shopping-cart"></i
+            ></router-link>
           </li>
         </ul>
       </nav>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  methods: {
+    clearLocalStorage() {
+      localStorage.clear("@token");
+    },
+  },
+};
+</script>
 <style scoped>
 body {
   margin: 0px;
@@ -93,5 +112,13 @@ li {
   content: "";
   animation: btn1 0.5s;
   animation-fill-mode: forwards;
+}
+.fav_icon {
+  color: white;
+  text-align: right;
+  position: absolute;
+  right: 5%;
+  top: 3%;
+  font-size: 20px;
 }
 </style>
