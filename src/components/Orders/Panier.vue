@@ -1,11 +1,11 @@
 <template>
   <div v-for="(element, index) in this.cart" :key="index">
     <div class="cart">
-      <p>commentaire:</p>
+      <p>Commentaire:</p>
       <p>{{ element.comment }}</p>
-
-      <p>quantité:{{ element.quantity }}</p>
-      <p>Produit:{{ element.name }}</p>
+      <p>Prix: {{ element.price }}€</p>
+      <p>quantité: {{ element.quantity }}</p>
+      <p>Produit: {{ element.name }}</p>
       <button>Supprimer du panier</button>
     </div>
   </div>

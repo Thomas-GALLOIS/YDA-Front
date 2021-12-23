@@ -1,9 +1,15 @@
 <template>
   <Navbarre v-if="this.role.value !== 'admin'" />
-  <NavbarreAdmin />
+  <NavbarreAdmin v-if="this.role == 'admin'" />
 
   <h1>Panier</h1>
-  <button @click="sendCart">Valider votre commande</button>
+  <h4 v-if="this.status == 200">Commande Validée</h4>
+  <h4 v-if="this.status == 200">Maintenant vous avez le temps !</h4>
+  <h4 class="italic" v-if="this.status == 200">...By Your Daily Assistant</h4>
+
+  <button v-show="!show" @click="[sendCart(), (show = !show)]">
+    Valider votre commande
+  </button>
   <div class="cart_container">
     <Panier />
   </div>
@@ -19,6 +25,12 @@ export default {
     NavbarreAdmin: NavbarreAdmin,
     Navbarre: Navbarre,
     Panier: Panier,
+  },
+  data() {
+    return {
+      status: "",
+      show: false,
+    };
   },
   methods: {
     async sendCart() {
@@ -39,8 +51,10 @@ export default {
       const response = await fetch(url, options);
 
       const data = await response.json();
+      this.status = data.status_code;
 
       console.log(data);
+      localStorage.removeItem("@cart");
     },
   },
 };
@@ -48,6 +62,11 @@ export default {
 <style scoped>
 .cart_container {
   display: flex;
-  flex: wrap;
+  flex-wrap: wrap;
+}
+.italic {
+  font-style: italic;
+
+  margin-left: 350px;
 }
 </style>

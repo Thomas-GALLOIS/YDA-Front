@@ -163,6 +163,7 @@ export default {
         quantity: this.quantity,
         id: this.id,
         name: this.name,
+        price: this.price,
       });
     },
 
