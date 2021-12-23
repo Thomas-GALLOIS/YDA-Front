@@ -14,7 +14,10 @@
         <!-- Image à la une -->
         <div class="card-image">
           <a @click="editFirm">
-            <img src="../assets/img/images.png" alt="Orange" />
+            <img
+              :src="`http://localhost:8000/img/avatar/` + this.avatar"
+              alt="Orange"
+            />
           </a>
         </div>
         <!-- Fin de l'image à la une -->
@@ -62,18 +65,39 @@
       >
         <div class="order_card_list">
           <p>
-            Commande N°: {{ element.id
-            }}<span>
-              du
-              {{ moment(element.created_at).format("DD MMM YYYY") }}</span
+            Commande N°:
+            <i
+              ><strong>{{ element.id }}</strong></i
+            ><span
+              ><i
+                ><strong>
+                  du
+                  {{ moment(element.created_at).format("DD MMM YYYY") }}</strong
+                ></i
+              ></span
             >
           </p>
-          <p>Prix total : {{ element.total }}€</p>
           <p>
-            Status : <span :class="status_part">{{ element.status }}</span>
+            Prix total :
+            <i
+              ><strong>{{ element.total }}€</strong></i
+            >
+          </p>
+          <p>
+            Status :
+            <span :class="status_part"
+              ><i
+                ><strong>{{ element.status }}</strong></i
+              ></span
+            >
           </p>
 
-          <p>Commentaire : {{ element.comments }}</p>
+          <p>
+            Commentaire :
+            <i
+              ><strong>{{ element.comments }}</strong></i
+            >
+          </p>
         </div>
         <div class="odetail_part">
           <p>Détail Commande :</p>
@@ -94,6 +118,9 @@
       </div>
     </div>
   </div>
+  <div>
+    <h3>VISITES ET LIVRAISONS LES LUNDI ET JEUDI à 11H00</h3>
+  </div>
 </template>
 <script>
 import Navbarre from "../components/Navbarre.vue";
@@ -112,6 +139,7 @@ export default {
       id: "",
       phone: "",
       birthday: "",
+      avatar: "",
       firm_id: "",
       firmName: "",
       firmAddress: "",
@@ -151,6 +179,7 @@ export default {
     this.id = data.donnees[0].id;
     this.phone = data.donnees[0].phone;
     this.birthday = data.donnees[0].birthday;
+    this.avatar = data.donnees[0].avatar;
     this.firm_id = data.donnees[0].firm_id;
     console.log(this.firm_id);
     this.orderList = data.donnees[0].orders;
@@ -193,6 +222,7 @@ export default {
   display: flex;
   flex-direction: row;
   margin: 10px;
+  margin-left: 7%;
 }
 .part_one {
   margin: 10px;
@@ -204,10 +234,11 @@ export default {
 }
 
 .order_part {
-  height: 400px;
+  height: 450px;
   padding: 5px;
   margin: 10px;
-  margin-top: 85px;
+  margin-top: 60px;
+  border-radius: 5px;
 
   background-color: rgba(139, 177, 189, 0.6);
   box-shadow: 0px 5px 20px #999;
@@ -238,7 +269,7 @@ export default {
 
 .odetail_part {
   overflow: scroll;
-  height: 50px;
+  height: 100%;
   background-color: rgba(139, 177, 189, 0.3);
 }
 
@@ -258,6 +289,7 @@ export default {
   margin: 0px auto; /*2*/
   background-color: white; /*3*/
   box-shadow: 0px 5px 20px #999; /*4*/
+  border-radius: 5px;
 }
 .card a {
   /*5*/
@@ -266,7 +298,7 @@ export default {
 }
 .card:hover .card-image img {
   /*6*/
-  width: 80%;
+  width: 70%;
   filter: grayscale(0);
 }
 .card-image {
@@ -275,7 +307,7 @@ export default {
   overflow: hidden; /*3*/
 }
 .card-image img {
-  width: 90%; /*4*/
+  width: 50%; /*4*/
   /*5 - Méthode de centrage en fonction de la taille de l'image */
   position: absolute;
   top: 50%;

@@ -4,19 +4,32 @@
 
   <div class="firm_details">
     <div class="part_1">
-      <p>
-        <b>Raison Sociale</b> :{{ this.name }} <b>Adresse</b> :
-        {{ this.address }}
-      </p>
-
-      <p>
-        <i class="fas fa-phone-alt"></i> {{ this.phone }}
-        <i class="fas fa-at"></i> {{ this.email }}
-      </p>
-
+        <div>
+          <p>Raison Sociale :{{ this.name }}</p>
+        </div>
+        <div>
+          <p>Adresse :
+          {{ this.address }}
+          </p>
+        </div>
+    </div>
+     
+    
+    <div class="part_1">
+      <div>
+        <p><i class="fas fa-phone-alt"></i> {{ this.phone }}</p>
+      </div>
+      <div>
+        <p><i class="fas fa-at"></i> {{ this.email }}</p>
+      </div>
+    </div>
+      
+    <div>
       <p>Siret : {{ this.siret }}</p>
     </div>
+
   </div>
+  
   <h2>Actualité</h2>
   <div>
     <div class="news">
@@ -24,7 +37,7 @@
         <img :src="`http://localhost:8000/img/news/` + this.image" />
       </div>
       <div>
-        <p>Title : {{ this.title }}</p>
+        <p>Actualité du moment : {{ this.title }}</p>
         <p>{{ this.news }}</p>
       </div>
     </div>
@@ -327,22 +340,15 @@ h2 {
 
 .firm_details {
   display: flex;
-  justify-content: center;
-  max-width: 100%;
-  /*
+  flex-direction: column;
   justify-content: space-around;
-  height: 200px;
-  background-color: #f39c11;
-  opacity: 0.5;
-  border-bottom: 7px ridge #f39c11;
-  .part_1 {
-  text-align: justify;
+  max-width: 100%;
+  
 }
 
-.part_2 {
-  text-align: justify;
-}
-  */
+.part_1 {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .news {

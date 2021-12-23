@@ -32,9 +32,10 @@
             >
           </li>
           <li>
-            <router-link class="anim" to="/panier"
-              ><i class="fas fa-shopping-cart"></i
-            ></router-link>
+            <router-link class="anim" to="/panier">
+              <i class="fas fa-shopping-cart"></i>
+              <div v-if="notif != null" class="notif">1</div>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -43,9 +44,15 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      notif: localStorage.getItem("@cart"),
+    };
+  },
   methods: {
     clearLocalStorage() {
-      localStorage.clear("@token");
+      localStorage.removeItem("@token");
+      localStorage.removeItem("@id");
     },
   },
 };
@@ -62,7 +69,7 @@ body {
 
 .nav_secondaire {
   background-color: #2483db;
-  height: 65px;
+  height: 70px;
   text-align: right;
 }
 
@@ -120,5 +127,14 @@ li {
   right: 5%;
   top: 3%;
   font-size: 20px;
+}
+.notif {
+  border: 1px;
+  background: red;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin-left: 10px;
 }
 </style>
