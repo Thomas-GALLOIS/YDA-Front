@@ -51,7 +51,8 @@ export default {
   },
   methods: {
     clearLocalStorage() {
-      localStorage.clear("@token");
+      localStorage.removeItem("@token");
+      localStorage.removeItem("@id");
     },
   },
 };
