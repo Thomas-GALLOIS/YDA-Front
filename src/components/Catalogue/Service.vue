@@ -212,8 +212,7 @@ export default {
         const response = await fetch(url, options);
         const data = await response.json();
         console.log(data);
-        let i = this.servicesArray.map((item) => item.this.id).indexOf(this.id); // find index of your object
-        this.servicesArray.splice(i, 1); // remove it from array
+        this.$router.go();
       }
     },
   },
