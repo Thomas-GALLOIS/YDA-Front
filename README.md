@@ -1,6 +1,6 @@
 # yda_front
 
-Développement d'une application web pour une société de conciergerie d'entreprise
+Développement d'une application web pour une société de conciergerie d'entreprise </br>
 Partie FRONT réalisée en équipe avec Vue.JS 
 
 ## Project setup
