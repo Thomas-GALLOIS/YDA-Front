@@ -1,7 +1,9 @@
 # yda_front
 
 Développement d'une application web pour une société de conciergerie d'entreprise </br>
-Partie FRONT réalisée en équipe avec Vue.JS 
+
+Partie FRONT réalisée en équipe avec Vue.JS </br>
+
 
 ## Project setup
 ```
